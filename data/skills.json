@@ -71,4 +71,51 @@
     "effect" : { "speed_reduce" : 1.5 }
   },
 
+"Mordida" : {
+  "description" : "",
+    "type" : "ATTACK",
+    "uses" : 5,
+    "precision" : 0.9,
+    "duration" : 3,
+    "effect" : { "damage_multiplier" : 1.7 }
+},
+
+"Golpe Baixo" : {
+  "description" : "",
+    "type" : "ATTACK",
+    "uses" : 5,
+    "precision" : 0.9,
+    "duration" : 3,
+    "effect" : { "damage_multiplier" : 1.7 }
+},
+
+"Arremessar Pedra" : {
+  "description" : "",
+    "type" : "ATTACK",
+    "uses" : 5,
+    "precision" : 0.9,
+    "duration" : 3,
+    "effect" : { "damage_multiplier" : 1.7 }
+},
+
+"Mordida Feroz" : {
+  "description" : "",
+    "type" : "ATTACK",
+    "uses" : 5,
+    "precision" : 0.9,
+    "duration" : 3,
+    "effect" : { "damage_multiplier" : 1.7 }
+},
+
+"Golpe de Adaga" : {
+  "description" : "",
+    "type" : "ATTACK",
+    "uses" : 5,
+    "precision" : 0.9,
+    "duration" : 3,
+    "effect" : { "damage_multiplier" : 1.7 }
+},
+
+
+
 
