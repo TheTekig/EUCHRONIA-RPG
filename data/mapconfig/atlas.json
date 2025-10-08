@@ -1,1 +1,68 @@
+{  
+    
+    "WO": { "nome": "Terras Congeladas do Oeste", "regiao": "Terras Gélidas", "contexto_ia": "Uma planície de neve sem fim, varrida por ventos cortantes. Pouca vida sobrevive aqui, exceto por matilhas de lobos de gelo e espíritos perdidos." },
+    "CN": { "nome": "Coroa do Norte", "regiao": "Terras Gélidas", "contexto_ia": "Uma cadeia de montanhas com picos tão altos que parecem tocar o céu. O ar é rarefeito e o silêncio, absoluto." },
+    "FG": { "nome": "Fortaleza de Gelo", "regiao": "Terras Gélidas", "contexto_ia": "Uma fortaleza antiga, esculpida diretamente numa geleira. Diz-se que é guardada por gigantes de gelo." },
+    "F": { "nome": "Picos Congelados", "regiao": "Terras Gélidas", "contexto_ia": "O ponto mais alto do reino, um ambiente hostil de gelo e rocha, lar de Yetis e Magos do Gelo." },
+    "PA": { "nome": "Pico da Aurora", "regiao": "Terras Gélidas", "contexto_ia": "Um pico famoso por ser o primeiro lugar onde a luz do sol toca o reino. Local de antigos rituais." },
+    "EG": { "nome": "Ermos de Gelo", "regiao": "Terras Gélidas", "contexto_ia": "Uma vasta área de gelo rachado e perigoso, com fissuras que levam a cavernas subterrâneas." },
+    "VE": { "nome": "Vale dos Ecos", "regiao": "Terras Gélidas", "contexto_ia": "Um vale profundo onde o vento cria ecos estranhos. Viajantes relatam ouvir vozes e lamentos." },
+    "TA": { "nome": "Tundra Antiga", "regiao": "Terras Gélidas", "contexto_ia": "Uma planície congelada onde ossos de criaturas gigantescas emergem do gelo." },
+    "CC": { "nome": "Caverna de Cristal", "regiao": "Terras Gélidas", "contexto_ia": "Uma caverna subterrânea onde as paredes são cobertas por cristais que emitem uma luz fraca." },
+    "RG": { "nome": "Ruínas Glaciais", "regiao": "Terras Gélidas", "contexto_ia": "Os restos de uma cidade antiga, agora congelada no tempo e assombrada por espectros." },
+    "BC": { "nome": "Bosque Congelado", "regiao": "Terras Gélidas", "contexto_ia": "Uma floresta de pinheiros cobertos de neve, silenciosa e mortal." },
+    "CN2": { "nome": "Caverna do Norte", "regiao": "Terras Gélidas", "contexto_ia": "Uma rede de cavernas que serve como atalho sob as Ruínas Glaciais." },
+  
+    "V": { "nome": "Vila Alta", "regiao": "Coração do Reino", "contexto_ia": "Uma pequena e isolada vila de mineradores e caçadores, acostumada com o frio." },
+    "X": { "nome": "Torre do Mago", "regiao": "Coração do Reino", "contexto_ia": "Uma torre solitária e torta, residência de um mago recluso e poderoso." },
+    "S": { "nome": "Pântano Esquecido", "regiao": "Coração do Reino", "contexto_ia": "Uma área fétida de águas paradas e árvores mortas, cheia de plantas venenosas." },
+    "H": { "nome": "Colinas Altas", "regiao": "Coração do Reino", "contexto_ia": "Colinas verdejantes com ruínas de anões e ninhos de grifos." },
+    "C": { "nome": "Oakhaven", "regiao": "Coração do Reino", "contexto_ia": "A capital murada, com uma praça central, uma forja barulhenta e uma taverna acolhedora. O coração do reino." },
+    "G": { "nome": "Planícies Verdes", "regiao": "Coração do Reino", "contexto_ia": "Vastas planícies de grama alta, cortadas por estradas de caravanas. Ideal para emboscadas de goblins." },
+    "B": { "nome": "Acampamento dos Bandidos", "regiao": "Coração do Reino", "contexto_ia": "Um esconderijo bem defendido por bandidos que aterrorizam as Planícies Verdes." },
+    "CE": { "nome": "Cemitério Antigo", "regiao": "Coração do Reino", "contexto_ia": "Um cemitério abandonado ao lado de Oakhaven, onde os mortos raramente descansam em paz." },
+  
+    "FS": { "nome": "Farol das Sombras", "regiao": "Ilhas", "contexto_ia": "Um farol antigo numa ilha rochosa, cuja luz se apagou há muito tempo." },
+    "PSO": { "nome": "Porto Sombrio", "regiao": "Ilhas", "contexto_ia": "Um porto secreto em uma ilha isolada, usado por contrabandistas e piratas." },
+    "RO": { "nome": "Ruínas Oceânicas", "regiao": "Ilhas", "contexto_ia": "Os pináculos de torres de uma cidade submersa que só aparecem na maré baixa." },
+    "AS": { "nome": "Arquipélago Sombrio", "regiao": "Ilhas", "contexto_ia": "Um conjunto de ilhas vulcânicas envoltas em uma névoa perpétua." },
+  
+    "R": { "nome": "Ruínas da Costa", "regiao": "Terras Áridas", "contexto_ia": "Ruínas de uma antiga cidade portuária, agora assombrada por fantasmas de marinheiros." },
+    "Y": { "nome": "Cânions Vermelhos", "regiao": "Terras Áridas", "contexto_ia": "Uma série de desfiladeiros de rocha vermelha, perigosos e de difícil navegação." },
+    "Y": { "nome": "Cânions Vermelhos", "regiao": "Terras Áridas", "contexto_ia": "Uma série de desfiladeiros de rocha vermelha, perigosos e de difícil navegação." },
+    "D": { "nome": "Deserto de Vidro", "regiao": "Terras Áridas", "contexto_ia": "Um deserto místico onde uma catástrofe arcana transformou a areia em vidro negro." },
+    "P": { "nome": "Porto Areia", "regiao": "Terras Áridas", "contexto_ia": "Uma cidade portuária movimentada na borda do deserto, cheia de mercenários e mercadorias exóticas." },
+    "CD": { "nome": "Costa Dourada", "regiao": "Terras Áridas", "contexto_ia": "Uma longa praia de areia dourada, famosa por seus navios naufragados e tesouros escondidos." },
+    "SF": { "nome": "Cidade de Safira", "regiao": "Terras Áridas", "contexto_ia": "Uma cidade rica e exótica, famosa por suas minas de safira e seu comércio de luxo." },
+    "OE": { "nome": "Oásis Escondido", "regiao": "Terras Áridas", "contexto_ia": "Um oásis secreto e verdejante no meio do Deserto de Vidro, protegido por magia." },
+
+    "PS": { "nome": "Portão do Sul", "regiao": "Terras Áridas", "contexto_ia": "Uma antiga fortaleza que marca a fronteira entre as terras civilizadas e o deserto." },
+    "DE": { "nome": "Deserto Esquecido", "regiao": "Terras Áridas", "contexto_ia": "Uma parte ainda mais antiga e inexplorada do deserto, cheia de ruínas de impérios perdidos." },
+    "RT": { "nome": "Ruínas do Tempo", "regiao": "Terras Áridas", "contexto_ia": "Ruínas mágicas onde o tempo parece não passar de forma linear." },
+    "OC": { "nome": "Oásis Carmesim", "regiao": "Terras Áridas", "contexto_ia": "Um oásis raro cujas águas têm uma cor vermelha e propriedades curativas misteriosas." },
+    "TS": { "nome": "Templo Solar", "regiao": "Terras Áridas", "contexto_ia": "Um templo antigo no meio do deserto, dedicado ao deus do sol." },
+    "CA": { "nome": "Caminho da Areia", "regiao": "Terras Áridas", "contexto_ia": "Uma rota de caravanas perigosa que corta o Deserto Esquecido." },
+    "PL": { "nome": "Porto do Luar", "regiao": "Terras Áridas", "contexto_ia": "Uma cidade portuária isolada, conhecida por seu mercado noturno e comércio de itens mágicos." }
+  
+    "W": { "nome": "Bosque Antigo", "regiao": "A Grande Floresta", "contexto_ia": "Uma floresta temperada com ruínas élficas e criaturas mágicas." },
+    "L": { "nome": "Templo Perdido", "regiao": "A Grande Floresta", "contexto_ia": "Um templo antigo coberto por videiras no coração do bosque." },
+    "T": { "nome": "Floresta Densa", "regiao": "A Grande Floresta", "contexto_ia": "O coração escuro e perigoso do Bosque Antigo, com árvores gigantescas e monstros poderosos." },
+    "TE": { "nome": "Templo Esquecido", "regiao": "A Grande Floresta", "contexto_ia": "Um templo dedicado a um deus esquecido, engolido pela floresta densa." },
+    "VO": { "nome": "Vale Oculto", "regiao": "A Grande Floresta", "contexto_ia": "Um vale isolado e místico, onde se diz que o tempo passa de forma diferente." },
+  
+    "Z": { "nome": "Caverna Sombria", "regiao": "Subterrâneo", "contexto_ia": "A entrada para um vasto sistema de cavernas subterrâneas." },
+    "Q": { "nome": "Subterrâneo Antigo", "regiao": "Subterrâneo", "contexto_ia": "Uma rede de túneis e cidades anãs abandonadas nas profundezas da terra." },
+    "M": { "nome": "Templo Submerso", "regiao": "Subterrâneo", "contexto_ia": "Um templo inundado em um lago subterrâneo gigante, guardado por criaturas aquáticas." },
+  
+    "N": { "nome": "Montanhas Negras", "regiao": "Terras Sombrias", "contexto_ia": "Uma cadeia de montanhas de rocha vulcânica negra, onde o ar é pesado e sulfuroso." },
+    "K": { "nome": "Fortaleza Abandonada", "regiao": "Terras Sombrias", "contexto_ia": "Uma fortaleza em ruínas nas Montanhas Negras, agora um covil de orcs e trolls." },
+    "E": { "nome": "Campos Cinzentos", "regiao": "Terras Sombrias", "contexto_ia": "Uma planície desolada coberta de cinzas, resultado de uma antiga batalha mágica." },
+    "A": { "nome": "Vila dos Anões", "regiao": "Terras Sombrias", "contexto_ia": "Uma cidade anã subterrânea, esculpida na base das Montanhas Negras." },
+    "O": { "nome": "Minas de Fogo", "regiao": "Terras Sombrias", "contexto_ia": "As minas ativas dos anões, cheias de lava, metais preciosos e elementais de fogo." },
+    "Rg": { "nome": "Vulcão Sagrado", "regiao": "Terras Sombrias", "contexto_ia": "Um vulcão ativo que é sagrado para os anões ferreiros." },
+    "CD2": { "nome": "Cratera dos Deuses", "regiao": "Terras Sombrias", "contexto_ia": "Uma cratera de impacto gigantesca, onde se diz que os deuses lutaram." },
+    "TC": { "nome": "Templo da Cinza", "regiao": "Terras Sombrias", "contexto_ia": "Um templo em ruínas nos Campos Cinzentos, dedicado a um deus da destruição." },
+    "CV": { "nome": "Costa Vulcânica", "regiao": "Terras Sombrias", "contexto_ia": "Uma praia de areia negra onde o oceano encontra as Montanhas Negras." },
+  
+}
 
