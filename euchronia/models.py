@@ -8,6 +8,8 @@ class AliveModel():
         self.speed = speed
         self.effect = []
     
+    #region Combat 
+    
     def is_alive(self):
         return self.hp > 0
     
@@ -20,7 +22,36 @@ class AliveModel():
         self.hp += amount
         if self.hp > self.max_hp:
             self.hp = self.max_hp
+            
+    #endregion
+
+    #region Effects/Control
     
+    def apply_effect(self, nome, dados):
+        """Adiciona ou atualiza um efeito ativo."""
+        self.efeitos_ativos[nome] = dados
+
+    def has_effect(self, nome):
+        return nome in self.efeitos_ativos
+
+    def remove_effect(self, nome):
+        if nome in self.efeitos_ativos:
+            del self.efeitos_ativos[nome]
+
+    def get_effect_multiplier(self, atributo):
+        """
+        Retorna o multiplicador final de um atributo considerando todos os efeitos ativos.
+        Exemplo: defense_multiplier = 1.5 em um efeito e 0.8 em outro => resultado 1.2
+        """
+        multiplicador_total = 1.0
+        for dados in self.efeitos_ativos.values():
+            efeitos = dados.get("efeitos", {})
+            if f"{atributo}_multiplier" in efeitos:
+                multiplicador_total *= efeitos[f"{atributo}_multiplier"]
+        return multiplicador_total
+        
+    #endregion
+
 class PlayerModel(AliveModel):
     def __init__(self, name, classes_data, skill_data, position = None):
         super().__init__(
@@ -29,7 +60,6 @@ class PlayerModel(AliveModel):
             strength = classes_data['strength'], 
             defense = classes_data['defense'], 
             speed = classes_data['speed'],
-            effect = []
             )
 
         self.level = 1
