@@ -1,4 +1,4 @@
-
+{
   "Adaga Enferrujada": {
     "tipo": "Arma",
     "valor_base": 5,
@@ -57,3 +57,4 @@
     "raridade": "Comum",
     "descricao": "Um fragmento de osso de alguma criatura desconhecida."
   }
+}

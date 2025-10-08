@@ -1,4 +1,4 @@
-
+  {
   "Grito de Batalha" : {
     "description" : "",
     "type" : "BUFF",
@@ -114,7 +114,8 @@
     "precision" : 0.9,
     "duration" : 3,
     "effect" : { "damage_multiplier" : 1.7 }
-},
+}
+}
 
 
 

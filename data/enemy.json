@@ -1,3 +1,4 @@
+{
 "Rato Gigante": {
     "tipo": "Fera",
     "biomas": ["Oakhaven", "Planícies Verdes", "Caverna Sombria"],
@@ -52,3 +53,4 @@
       "Adaga Enferrujada": 0.25
     }
   }
+}

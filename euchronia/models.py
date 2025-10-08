@@ -1,3 +1,11 @@
+from enum import Enum, auto 
+
+class HitResult(Enum):
+    MISS = auto()
+    SCRATCH = auto()
+    HIT = auto()
+
+
 class AliveModel():
     def __init__(self, name, hp, strength, defense, speed):
         self.name = name
@@ -6,6 +14,7 @@ class AliveModel():
         self.strength = strength
         self.defense = defense
         self.speed = speed
+        self.action_time = 0
         self.effect = []
     
     #region Combat 
@@ -53,13 +62,14 @@ class AliveModel():
     #endregion
 
 class PlayerModel(AliveModel):
-    def __init__(self, name, classes_data, skill_data, position = None):
+    def __init__(self, name, classes_data, position = None):
         super().__init__(
             name = name, 
             hp = classes_data['maxlife'], 
             strength = classes_data['strength'], 
             defense = classes_data['defense'], 
             speed = classes_data['speed'],
+            action_time = 0
             )
 
         self.level = 1
@@ -128,7 +138,8 @@ class EnemyModel(AliveModel):
             hp = enemy_data.get('maxlife', 10), 
             strength = enemy_data.get('strength', 5), 
             defense = enemy_data.get('defense', 0), 
-            speed =  enemy_data.get('speed', 10)
+            speed =  enemy_data.get('speed', 10),
+            action_time = 0
             )
         self.type = enemy_data.get('type', "Unknow Creature")
         self.experience = enemy_data.get('experience', 10)
