@@ -1,4 +1,4 @@
-{
+
   "Grito de Batalha" : {
     "description" : "",
     "type" : "BUFF",
@@ -70,4 +70,5 @@
     "duration" : 3,
     "effect" : { "speed_reduce" : 1.5 }
   },
-}
+
+
