@@ -145,3 +145,4 @@ class EnemyModel(AliveModel):
         self.experience = enemy_data.get('experience', 10)
         self.loot = enemy_data.get('loot', 'Nothing Userfull')
         self.region = enemy_data['region']
+        self.skills = enemy_data['skills']
