@@ -31,7 +31,7 @@ def _calculate_precision(precision):
 def _calculate_damage(defender, damage, skill_effect):
     """ """
     
-    defense_reduction_percent = defender.defense * skill_effect.get("defense_ignore", 0)
+    defense_reduction_percent = defender.defense * (1 - skill_effect.get("defense_ignore", 0)
     defense_reduction_percent = defense_reduction_percent / (defense_reduction_percent + 100)
     damage = damage * (1 - defense_reduction_percent)
 
@@ -43,7 +43,7 @@ def _calculate_damage(defender, damage, skill_effect):
 
 def _attack_skill(attacker, defender, skill_data):
     """ """
-    skill_effect = skill_data.get(skill_effect, {})
+    skill_effect = skill_data.get("effect", {})
     damage = attacker.strength * skill_effect.get('damage_multiplier', 1.0)
 
     if random() < skill_effect.get('critical_chance', 0):
@@ -68,7 +68,7 @@ def _attack_skill(attacker, defender, skill_data):
         
 def _buff_skill(attacker, skill_data):
     """ """
-    skill_effect = skill_data.get(skill_effect, {})
+    skill_effect = skill_data.get("effect", {})
     
     duration = skill_data.get('duration', 0)
     applied_effect = {}
@@ -134,7 +134,7 @@ def _skill_manager(attacker, defensor, skill_data):
     """ """   
 
     skill_name = skill_data.get("name", "Unknow Attack")
-    skill_type = skill_data.get("effect", {})
+    skill_type = skill_data.get("type", "ATTACK")
 
     if skill_type != "ATTACK":
         accuracy = _calculate_precision(skill_data.get("precision", 1))
@@ -180,18 +180,17 @@ def combat_loop(Hero, Enemy, Skills):
                 match option.upper():
                     case "S":
                         print("Skills:")
-                        skill_option = []
-                        for i, skill in Hero.skills:
-                            print(f"{i}.{skill} / ", end="")
+                        skill_option = {}
+                        for i, skill_name in enumerate(Hero.skills):
+                            print(f"[{i+1}].{skill_name} / ", end="")
+                            skill_option.[str(i+1)] = skill_name
 
-                            skill_option.append(i)
-
-                        skill_option = input(">> ")
-                        while skill_option.upper() not in skill_option:
-                            skill_option = input(">> ")
-                            skill_option = Hero.skills[int(skill_option)]
-
-                        action = _skill_manager(Hero, Enemy, Skills[skill_option])
+                        skill_choice = input(">> ")
+                        while skill_choice not in skill_option:
+                            skill_choice = input(">> ")
+                            
+                        selected_skill_option = skill_option[skill_choice]
+                        action = _skill_manager(Hero, Enemy, Skills[selected_skill_option])
                         
                         print(action)
 
