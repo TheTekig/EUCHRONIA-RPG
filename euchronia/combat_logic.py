@@ -158,18 +158,78 @@ def _skill_manager(attacker, defensor, skill_data):
         
 #endregion 
 
-def combat_loop(Hero, Enemy):
+def combat_loop(Hero, Enemy, Skills):
     
     while Hero.is_alive() and Enemy.is_alive():
-        round = _action_time(Hero, Enemy)
 
+        round = _action_time(Hero, Enemy)
+        if "Freeze" in round.effect:
+            if round == Hero:
+                round = Enemy
+            else:
+                round = Hero
+            
         match round:
             case Hero:
-                pass
+                print("[S]kill [I]nventory [ST]atus [R]un")
+                
+                option = input(">> ")
+                while option.upper() not in ["S", "I", "ST", "R"]:
+                    option = input(">> ")
+
+                match option.upper():
+                    case "S":
+                        print("Skills:")
+                        skill_option = []
+                        for i, skill in Hero.skills:
+                            print(f"{i}.{skill} / ", end="")
+
+                            skill_option.append(i)
+
+                        skill_option = input(">> ")
+                        while skill_option.upper() not in skill_option:
+                            skill_option = input(">> ")
+                            skill_option = Hero.skills[int(skill_option)]
+
+                        action = _skill_manager(Hero, Enemy, Skills[skill_option])
+                        
+                        print(action)
+
+                    case "I":
+                        print("Inventory:")
+                        for item in Hero.inventory:
+                            print(item)
+
+                    case "ST":
+                        print("Status:")
+                        Hero.status()
+
+                    case "R":
+                        print("Run")
+                        return "You Runaway"
+                    case _:
+                        pass
+
             case Enemy:
-                pass
+                print("Enemy Turn")
+                size = len(Enemy.skills)
+                if size > 0:
+                    skill_option = randint(0, size - 1)
+                    skill_option = Enemy.skills[skill_option]
+                    action = _skill_manager(Enemy, Hero, Skills[skill_option])
+                    print(action)
+                else:
+                    skill_option = 0
+                    action = _skill_manager(Enemy, Hero, Skills["skill_option"])
+                    print(action)
+                    
+                    
+                    
             case _:
                 pass
-        
+
+ 
+
+    
 
     
