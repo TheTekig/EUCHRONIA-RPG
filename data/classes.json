@@ -6,7 +6,7 @@
         "strength": 8,
         "speed": 2,
         "upgrade" : {"maxhp": 4, "defense": 2, "strength": 1, "speed": 0},
-        "initial_Skills": ["Grito de Guerra", "Golpe Feroz"]
+        "initial_Skills": ["Golpe Comum", "Grito de Guerra", "Golpe Pesado"]
     },
 
     "Mage": {
@@ -16,7 +16,7 @@
         "strength": 4,
         "speed": 3,
         "upgrade" : {"maxhp": 2, "defense": 1, "strength": 1, "speed": 0},
-        "initial_Skills": ["Bola de Fuego", "Escudo Mágico"]
+        "initial_Skills": ["Cajadada", "Seta de Fogo", "Prisão de Gelo"]
     },
 
     "Rogue": {
@@ -26,7 +26,7 @@
         "strength": 6,
         "speed": 4,
         "upgrade" : {"maxhp": 3, "defense": 1, "strength": 1, "speed": 1},
-        "initial_Skills": ["Ataque Sorpresa", "Evasión"]
+        "initial_Skills": ["Corte Leve", "Ataque Furtivo", "Adagas Envenenadas"]
     },
 
     "Hunter": {
@@ -36,6 +36,6 @@
         "strength": 7,
         "speed": 3,
         "upgrade" : {"maxhp": 3, "defense": 1, "strength": 1, "speed": 0},
-        "initial_Skills": ["Disparo Preciso", "Trampa"]
+        "initial_Skills": ["Flechada", "Tiro Certeiro", "Armadilha de Espinhos"]
     }
 }
