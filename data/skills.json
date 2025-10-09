@@ -1,4 +1,41 @@
   {
+    
+  "Flechada" : {
+    "description" : "",
+    "type" : "ATTACK",
+    "uses" : 99,
+    "precision" : 0.7,
+    "duration" : 0,
+    "effect" : { "damage_multiplier" : 1.0 }
+  },
+    
+  "Corte Leve" : {
+    "description" : "",
+    "type" : "ATTACK",
+    "uses" : 99,
+    "precision" : 0.7,
+    "duration" : 0,
+    "effect" : { "damage_multiplier" : 1.0 }
+  },
+    
+  "Cajadada" : {
+    "description" : "",
+    "type" : "ATTACK",
+    "uses" : 99,
+    "precision" : 0.7,
+    "duration" : 0,
+    "effect" : { "damage_multiplier" : 1.0 }
+  },
+    
+  "Golpe Comum" : {
+    "description" : "",
+    "type" : "ATTACK",
+    "uses" : 99,
+    "precision" : 0.7,
+    "duration" : 0,
+    "effect" : { "damage_multiplier" : 1.0 }
+  },
+    
   "Grito de Batalha" : {
     "description" : "",
     "type" : "BUFF",
@@ -116,6 +153,7 @@
     "effect" : { "damage_multiplier" : 1.7 }
 }
 }
+
 
 
 
