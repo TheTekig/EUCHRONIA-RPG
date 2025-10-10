@@ -60,7 +60,7 @@ O resultado é uma engine narrativa de RPG que **reage às ações do jogador** 
 
 ---
 
-<p align="center"> ##⚔️ Mecânica de Combate </p>
+<p align="center"> ⚔️ Mecânica de Combate </p>
 Action Time: a velocidade define a ordem de ataque, com variação aleatória a cada rodada.
 
 Precisão probabilística:
@@ -78,7 +78,7 @@ Fórmula balanceada de dano:
 
 ---
 
-## 🧩 Skills são categorizadas em:
+<p align="center"> 🧩 Skills são categorizadas em: </p>
 
   Tipo	Exemplo	Efeito
   ATTACK	Golpe Pesado	Dano físico direto
@@ -90,7 +90,7 @@ Todas configuradas em skills.json — expansíveis sem alterar o código.
  
  ---
  
-## 🎮 Prévia de Combate (Terminal)
+<p align="center"> 🎮 Prévia de Combate (Terminal) </p>
 
 ──────────────────────────────────────────────────────────────
 👤 Herói (Lv 3)        ❤️ HP: 78/100   ⚔️ STR: 12   🛡 DEF: 9
@@ -107,7 +107,7 @@ Interface otimizada para cores com rich e termcolor, incluindo HUD dinâmica com
 
 ---
 
-## 🧠 Arquitetura POO
+ <p align="center">🧠 Arquitetura POO </p>
 
 Classe	          Função	            Destaque
 AliveModel	    Entidades       vivas	HP, força, defesa, efeitos
@@ -119,7 +119,7 @@ Cada entidade pode aplicar, atualizar e remover efeitos temporários de combate 
 
 ---
 
-## 🌍 Mundo e Exploração
+<p align="center"> 🌍 Mundo e Exploração </p>
 Baseado em grafo de conexões (gps_map.json), cada nó é uma região explorável.
 
 O atlas contém lore, bioma e inimigos locais.
@@ -128,7 +128,7 @@ O jogador pode viajar, explorar e enfrentar batalhas aleatórias em cada zona.
 
 ---
 
-## 💾 Saves e Persistência
+<p align="center"> 💾 Saves e Persistência </p>
 O progresso do jogador é salvo em saves/, incluindo:
 
 Status e nível atual
@@ -144,7 +144,7 @@ player.load("saves/slot_1.json")
 
 ---
 
-🚀 Instalação e Execução
+<p align="center"> 🚀 Instalação e Execução </p>
 
 1️⃣ Clonar o repositório
 
@@ -167,7 +167,7 @@ player.load("saves/slot_1.json")
 
 ---
 
-## 🧩 Roadmap (v0.2 → v1.0)
+<p align="center"> 🧩 Roadmap (v0.2 → v1.0) </p>
 
      Versão	                Foco	                        Status
       0.2	   Sistema de buffs/debuffs empilháveis	  🧩 Em andamento
@@ -178,7 +178,8 @@ player.load("saves/slot_1.json")
 
 ---
 
-## 🧙 Autor
+<p align="center"> 🧙 Autor </p>
+
 Diogo Teodoro Dias Lamas
 
 🎮 Desenvolvedor & Criador do universo Euchronia
