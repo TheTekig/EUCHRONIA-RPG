@@ -1,5 +1,6 @@
 from euchronia.models import HitResult
 from random import choices,random,randint
+import euchronia.game_logic as gl
 
 #region   Calculate Base Functions
 
@@ -158,7 +159,7 @@ def _skill_manager(attacker, defensor, skill_data):
         
 #endregion 
 
-def combat_loop(Hero, Enemy, Skills):
+def combat_loop(Hero, Enemy, Skills, items_data):
     
     while Hero.is_alive() and Enemy.is_alive():
 
@@ -195,9 +196,8 @@ def combat_loop(Hero, Enemy, Skills):
                         print(action)
 
                     case "I":
-                        print("Inventory:")
-                        for item in Hero.inventory:
-                            print(item)
+                        gl.list_player_inventory(Hero)
+                        gl.manage_inventory(Hero, items_data)
 
                     case "ST":
                         print("Status:")
@@ -219,7 +219,7 @@ def combat_loop(Hero, Enemy, Skills):
                     print(action)
                 else:
                     skill_option = 0
-                    action = _skill_manager(Enemy, Hero, Skills["skill_option"])
+                    action = _skill_manager(Enemy, Hero, Skills[skill_option])
                     print(action)
                     
                     
