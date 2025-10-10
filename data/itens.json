@@ -1,60 +1,61 @@
 {
   "Adaga Enferrujada": {
-    "tipo": "Arma",
-    "valor_base": 5,
-    "raridade": "Comum",
-    "descricao": "Uma adaga simples e um pouco gasta, mas ainda afiada o suficiente.",
+    "type": "Weapon",
+    "gold": 5,
+    "rarity": "Comum",
+    "description": "Uma adaga simples e um pouco gasta, mas ainda afiada o suficiente.",
     "bonus": {
-      "ataque": 2,
-      "velocidade": 1
+      "strength": 2,
+      "speed": 1
     }
   },
   "Clava de Madeira": {
-    "tipo": "Arma",
-    "valor_base": 8,
-    "raridade": "Comum",
-    "descricao": "Um pedaço de madeira pesado e resistente. Esmaga mais do que corta.",
+    "type": "Weapon",
+    "gold": 8,
+    "rarity": "Comum",
+    "description": "Um pedaço de madeira pesado e resistente. Esmaga mais do que corta.",
     "bonus": {
-      "ataque": 4
+      "strength": 4
     }
   },
   "Túnica de Viajante": {
-    "tipo": "Armadura",
-    "valor_base": 10,
-    "raridade": "Comum",
-    "descricao": "Roupas de couro batido, oferecem mais conforto do que proteção.",
+    "type": "Armor",
+    "gold": 10,
+    "rarity": "Comum",
+    "description": "Roupas de couro batido, oferecem mais conforto do que proteção.",
     "bonus": {
-      "defesa": 3
+      "defense": 3
     }
   },
   "Amuleto da Sorte do Rato": {
-    "tipo": "Amuleto",
-    "valor_base": 15,
-    "raridade": "Comum",
-    "descricao": "Um pequeno amuleto de osso que, dizem, traz um pouco de sorte.",
+    "type": "accessory",
+    "gold": 15,
+    "rarity": "Comum",
+    "description": "Um pequeno amuleto de osso que, dizem, traz um pouco de sorte.",
     "bonus": {
-      "velocidade": 1
+      "speed": 1
     }
   },
   "Poção de Cura Fraca": {
-    "tipo": "Pocao",
-    "valor_base": 20,
-    "raridade": "Comum",
-    "descricao": "Um frasco com um líquido vermelho-claro. Restaura uma pequena quantidade de vida.",
-    "efeitos": {
-      "cura": 30
+    "type": "Potion",
+    "gold": 20,
+    "rarity": "Comum",
+    "description": "Um frasco com um líquido vermelho-claro. Restaura uma pequena quantidade de vida.",
+    "effect": {
+      "heal": 30
     }
   },
   "Pele de Rato": {
-    "tipo": "Material",
-    "valor_base": 1,
-    "raridade": "Comum",
-    "descricao": "A pele de um rato. Não vale quase nada, mas alguns colecionadores compram."
+    "type": "Material",
+    "gold": 1,
+    "rarity": "Comum",
+    "description": "A pele de um rato. Não vale quase nada, mas alguns colecionadores compram."
   },
   "Fragmento de Osso": {
-    "tipo": "Material",
-    "valor_base": 2,
-    "raridade": "Comum",
-    "descricao": "Um fragmento de osso de alguma criatura desconhecida."
+    "type": "Material",
+    "gold": 2,
+    "rarity": "Comum",
+    "description": "Um fragmento de osso de alguma criatura desconhecida."
   }
+
 }
