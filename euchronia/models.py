@@ -88,6 +88,7 @@ class PlayerModel(AliveModel):
         self.equipment = {'weapon': [], 'armor' : [], 'accessory': []}
         self.max_equipment = {'weapon': 1, 'armor' : 1, 'accessory': 2}    
 
+ 
     #region Equipment Attribute
 
     def _get_total_attribute(self, attribute_name: str, base_value: int):
