@@ -1,3 +1,10 @@
+#region Explore Logic
+
+
+
+
+
+#endregion
 
 #region Inventary Logic
 
@@ -97,5 +104,5 @@ def equip_item(hero, item_name, item_data):
     
     print(f"{item_name} foi equipado.")
 
-
 #endregion
+
