@@ -24,9 +24,9 @@
 > 🜏 *Um RPG de terminal que une Programação Orientada a Objetos, narrativa procedural e Inteligência Artificial para criar um mundo vivo e imprevisível.*
 
 ---
-<div align="center">
-## 📜 Sobre o Projeto
-</div>
+
+<h2 align="center"> 📜 Sobre o Projeto </h2>
+
 
 **Euchronia** é um RPG de terminal em Python que combina:
 - ⚙️ **POO estruturada** para um núcleo limpo e expansível.  
@@ -37,36 +37,35 @@
 O resultado é uma engine narrativa de RPG que **reage às ações do jogador** — cada escolha molda o mundo.
 
 ---
-<div align="center">
-## 🧱 Estrutura do Projeto
-</div>
 
-    EUCHRONIA/
-    │
-    ├── euchronia/
-    │   ├── models.py          # Classes: Player, Enemy, AliveModel
-    │   ├── combat_logic.py    # Sistema de combate e skills
-    │   ├── game_logic.py      # HUD, menus e exploração
-    │   └── ai_services.py     # (futuro) integração com IA
-    │
-    ├── data/
-    │   ├── classes.json       # Classes jogáveis
-    │   ├── skills.json        # Habilidades e efeitos
-    │   ├── itens.json         # Armas, poções e equipamentos
-    │   ├── enemy.json         # Inimigos e loot tables
-    │   ├── gps_map.json       # Conexões entre regiões
-    │   └── atlas.json         # Locais do mundo
-    │
-    ├── saves/                 # Dados persistentes do jogador
-    ├── docs/                  # GDD e documentação
-    │   └── RPG - EUCHRONIA.pdf
-    ├── main.py
-    ├── requirements.txt
-    └── README.md
+<h2 align="center"> 🧱 Estrutura do Projeto </h2>
+
+                                                                                            EUCHRONIA/
+                                                                                            │
+                                                                                            ├── euchronia/
+                                                                                            │   ├── models.py          # Classes: Player, Enemy, AliveModel
+                                                                                            │   ├── combat_logic.py    # Sistema de combate e skills
+                                                                                            │   ├── game_logic.py      # HUD, menus e exploração
+                                                                                            │   └── ai_services.py     # (futuro) integração com IA
+                                                                                            │
+                                                                                            ├── data/
+                                                                                            │   ├── classes.json       # Classes jogáveis
+                                                                                            │   ├── skills.json        # Habilidades e efeitos
+                                                                                            │   ├── itens.json         # Armas, poções e equipamentos
+                                                                                            │   ├── enemy.json         # Inimigos e loot tables
+                                                                                            │   ├── gps_map.json       # Conexões entre regiões
+                                                                                            │   └── atlas.json         # Locais do mundo
+                                                                                            │
+                                                                                            ├── saves/                 # Dados persistentes do jogador
+                                                                                            ├── docs/                  # GDD e documentação
+                                                                                            │   └── RPG - EUCHRONIA.pdf
+                                                                                            ├── main.py
+                                                                                            ├── requirements.txt
+                                                                                            └── README.md
 
 ---
 
-<p align="center"> ⚔️ Mecânica de Combate </p>
+<h2 align="center"> ⚔️ Mecânica de Combate </h2>
 Action Time: a velocidade define a ordem de ataque, com variação aleatória a cada rodada.
 
 Precisão probabilística:
@@ -84,7 +83,7 @@ Fórmula balanceada de dano:
 
 ---
 
-<p align="center"> 🧩 Skills são categorizadas em: </p>
+<h2 align="center"> 🧩 Skills são categorizadas em: </h2>
 
   Tipo	Exemplo	Efeito
   ATTACK	Golpe Pesado	Dano físico direto
@@ -96,35 +95,35 @@ Todas configuradas em skills.json — expansíveis sem alterar o código.
  
  ---
  
-<p align="center"> 🎮 Prévia de Combate (Terminal) </p>
+<h2 align="center"> 🎮 Prévia de Combate (Terminal) </h2>
 
 ```
-──────────────────────────────────────────────────────────────
-👤 Herói (Lv 3)        ❤️ HP: 78/100   ⚔️ STR: 12   🛡 DEF: 9
-vs
-🐀 Rato Gigante        ❤️ HP: 0/25      ☠️ DERROTADO
-──────────────────────────────────────────────────────────────
-💥 Golpe Pesado causa 23 de dano crítico!
-🧪 Efeito “Sangramento” aplicado por 3 turnos!
-🩸 O inimigo sofre 4 de dano residual.
-──────────────────────────────────────────────────────────────
-🏆 Vitória! +15 XP | Loot: Pele de Rato (x1)
-──────────────────────────────────────────────────────────────
+                                                                          ──────────────────────────────────────────────────────────────
+                                                                          👤 Herói (Lv 3)        ❤️ HP: 78/100   ⚔️ STR: 12   🛡 DEF: 9
+                                                                          vs
+                                                                          🐀 Rato Gigante        ❤️ HP: 0/25      ☠️ DERROTADO
+                                                                          ──────────────────────────────────────────────────────────────
+                                                                          💥 Golpe Pesado causa 23 de dano crítico!
+                                                                          🧪 Efeito “Sangramento” aplicado por 3 turnos!
+                                                                          🩸 O inimigo sofre 4 de dano residual.
+                                                                          ──────────────────────────────────────────────────────────────
+                                                                          🏆 Vitória! +15 XP | Loot: Pele de Rato (x1)
+                                                                          ──────────────────────────────────────────────────────────────
 ```
 
 Interface otimizada para cores com rich e termcolor, incluindo HUD dinâmica com Live() e logs coloridos.
 
 ---
 
- <p align="center">🧠 Arquitetura POO </p>
+<h2 align="center"> align="center">🧠 Arquitetura POO </h2>
 
 ```
 
-Classe	          Função	            Destaque
-AliveModel	    Entidades       vivas	HP, força, defesa, efeitos
-PlayerModel	    Jogador	        Inventário, XP, level, equips
-EnemyModel	    Inimigos	      Dados carregados de enemy.json
-CombatManager	  (planejado)	    Controla rodada e ordem de turnos
+                                                                          Classe	             Função	                   Destaque
+                                                                          AliveModel	        Entidades       vivas	HP, força, defesa, efeitos
+                                                                          PlayerModel	        Jogador	        Inventário, XP, level, equips
+                                                                          EnemyModel	        Inimigos	      Dados carregados de enemy.json
+                                                                          CombatManager	      (planejado)	    Controla rodada e ordem de turnos
 
 ```
 
@@ -132,7 +131,7 @@ Cada entidade pode aplicar, atualizar e remover efeitos temporários de combate 
 
 ---
 
-<p align="center"> 🌍 Mundo e Exploração </p>
+<h2 align="center"> 🌍 Mundo e Exploração </h2>
 Baseado em grafo de conexões (gps_map.json), cada nó é uma região explorável.
 
 O atlas contém lore, bioma e inimigos locais.
@@ -141,7 +140,8 @@ O jogador pode viajar, explorar e enfrentar batalhas aleatórias em cada zona.
 
 ---
 
-<p align="center"> 💾 Saves e Persistência </p>
+<h2 align="center"> 💾 Saves e Persistência </h2>
+
 O progresso do jogador é salvo em saves/, incluindo:
 
 Status e nível atual
@@ -157,7 +157,7 @@ player.load("saves/slot_1.json")
 
 ---
 
-<p align="center"> 🚀 Instalação e Execução </p>
+<h2 align="center"> 🚀 Instalação e Execução </h2>
 
 1️⃣ Clonar o repositório
 
@@ -180,26 +180,28 @@ player.load("saves/slot_1.json")
 
 ---
 
-<p align="center"> 🧩 Roadmap (v0.2 → v1.0) </p>
+<h2 align="center"> 🧩 Roadmap (v0.2 → v1.0) </h2>
 
-     Versão	                Foco	                        Status
-      0.2	   Sistema de buffs/debuffs empilháveis	  🧩 Em andamento
-      0.3	   Sistema de saves e load dinâmico	      🔄 Planejado
-      0.4	   HUD visual com rich.Live()	            🔜
-      0.5	   IA narrativa com OpenAI API	          ⚙️ Em design
-      0.6+	 Interface visual e expansão de mundo	  🌌 Futuro
+                                                                                 Versão	                Foco	                        Status
+                                                                                  0.2	   Sistema de buffs/debuffs empilháveis	  🧩 Em andamento
+                                                                                  0.3	   Sistema de saves e load dinâmico	      🔄 Planejado
+                                                                                  0.4	   HUD visual com rich.Live()	            🔜
+                                                                                  0.5	   IA narrativa com OpenAI API	          ⚙️ Em design
+                                                                                  0.6+	 Interface visual e expansão de mundo	  🌌 Futuro
 
 ---
 
-<p align="center"> 🧙 Autor </p>
+<h2 align="center"> 🧙 Autor </h2>
 
-Diogo Teodoro Dias Lamas
+<h2 align="center"> ***Diogo Teodoro Dias Lamas*** </h2>
 
-🎮 Desenvolvedor & Criador do universo Euchronia
-📦 GitHub: @TheTekig
+    🎮 Desenvolvedor & Criador do universo Euchronia
+    📦 GitHub: @TheTekig
+    
 💬 “A fronteira entre o código e o imaginário é o que dá vida a Euchronia.”
 
-📜 Licença
+<p align="center"> 📜 Licença </p>
 Distribuído sob MIT License — sinta-se livre para modificar, estudar e expandir o projeto.
+</p>
 
 <p align="center"> 🌒 <i>“Cada bug conta uma história. Cada linha, uma nova era de Euchronia.”</i> 🌘 </p> 
