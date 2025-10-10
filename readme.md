@@ -132,11 +132,12 @@ Cada entidade pode aplicar, atualizar e remover efeitos temporários de combate 
 ---
 
 <h2 align="center"> 🌍 Mundo e Exploração </h2>
-Baseado em grafo de conexões (gps_map.json), cada nó é uma região explorável.
 
-O atlas contém lore, bioma e inimigos locais.
+* Baseado em grafo de conexões (gps_map.json), cada nó é uma região explorável.
 
-O jogador pode viajar, explorar e enfrentar batalhas aleatórias em cada zona.
+* O atlas contém lore, bioma e inimigos locais.
+
+* O jogador pode viajar, explorar e enfrentar batalhas aleatórias em cada zona.
 
 ---
 
@@ -144,16 +145,15 @@ O jogador pode viajar, explorar e enfrentar batalhas aleatórias em cada zona.
 
 O progresso do jogador é salvo em saves/, incluindo:
 
-Status e nível atual
-
-Inventário e equipamentos
-
-Efeitos ativos e buffs
-
-Localização no mapa
-
-player.save("saves/slot_1.json")
-player.load("saves/slot_1.json")
+    * Status e nível atual
+    
+    * Inventário e equipamentos
+    
+    * Efeitos ativos e buffs
+    
+    * Localização no mapa
+    
+    * player.save("saves/slot_1.json") / player.load("saves/slot_1.json")
 
 ---
 
@@ -200,8 +200,7 @@ player.load("saves/slot_1.json")
     
 💬 “A fronteira entre o código e o imaginário é o que dá vida a Euchronia.”
 
-<p align="center"> 📜 Licença 
-Distribuído sob MIT License — sinta-se livre para modificar, estudar e expandir o projeto.
-</p>
+<p align="center"> 📜 Licença </p>
+<p align="center"> Distribuído sob MIT License — sinta-se livre para modificar, estudar e expandir o projeto.</p>
 
 <p align="center"> 🌒 <i>“Cada bug conta uma história. Cada linha, uma nova era de Euchronia.”</i> 🌘 </p> 
