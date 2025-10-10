@@ -1,8 +1,73 @@
 #region Explore Logic
 
+def initial_hud_menu(hero, atlas, gps, all_items_data):
+    """O menu principal do jogo durante a exploração."""
+    
+    current_location_info = atlas.get(hero.position, {"nome": "Lugar Desconhecido"})
+    location_name = current_location_info['nome']
+    
+    print(f"\n====================== VOCÊ ESTÁ EM: {location_name.upper()} =======================")
+    print("[E]xplorar / [I]nventário / [S]tatus / [M]apa / [Q]uit")
+    
+    choice = input(">> ").upper()
+    while choice not in ["E", "I", "S", "M", "Q"]:
+        choice = input(">> ").upper()
+    
+    match choice:
+        case "E":
+            print("\nPara onde você quer ir?")
+            possible_destinations = gps.get(hero.position, [])
+            
+            # SOLUÇÃO: Cria um mapa de escolha para o jogador (ex: "1" -> "C")
+            destination_map = {}
+            for i, place_id in enumerate(possible_destinations):
+                place_name = atlas[place_id]['nome']
+                destination_map[str(i + 1)] = place_id
+                print(f"  [{i + 1}] {place_name}")
 
+            if not destination_map:
+                print("Não há para onde ir a partir daqui.")
+                return
 
+            travel_choice = input(">> ")
+            # Valida a escolha usando o mapa criado
+            while travel_choice not in destination_map:
+                print("Opção inválida.")
+                travel_choice = input(">> ")
+            
+            # Traduz a escolha numérica para o ID e atualiza a posição
+            chosen_id = destination_map[travel_choice]
+            hero.position = chosen_id
+            new_location_name = atlas[chosen_id]['nome']
+            print(f"\nVocê viaja para {new_location_name}...")
 
+        case "I":
+            manage_inventory(hero, all_items_data)
+        
+        case "S":
+            hero._status(all_items_data)
+
+        case "M":
+            show_map_from_file()
+                     
+        case "Q":
+            print("Obrigado por jogar EUCHRONIA!")
+            return "QUIT" 
+
+def show_map_from_file(filepath="map.txt"):
+    """
+    Abre e exibe um mapa a partir de um ficheiro de texto (ASCII art).
+    """
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            map_content = f.read()
+            print("\n" + "="*20 + " MAPA DO MUNDO " + "="*20)
+            print(map_content)
+            print("="*56)
+            input("Pressione Enter para fechar o mapa...")
+    except FileNotFoundError:
+        print(f"\nErro: O ficheiro do mapa '{filepath}' não foi encontrado.")
+        input("Pressione Enter para continuar...")
 
 #endregion
 
@@ -92,12 +157,20 @@ def equip_item(hero, item_name, item_data):
     Equipa uma arma, armadura ou acessório, respeitando os limites de slots.
     """
     item_type = item_data.get("type").lower() 
-    
 
     if len(hero.equipment[item_type]) >= hero.max_equipment[item_type]:
-        print(f"Não há espaço para equipar mais itens do tipo '{item_type}'.")
-        print("Funcionalidade de substituir item ainda não implementada.")
-        return
+        equipped_item_name = hero.equipment[item_type][0]
+        print(f"O slot de '{item_type}' já está ocupado por: {equipped_item_name}.")
+        
+        choice = input(f"Deseja substituir {equipped_item_name} por {item_name_to_equip}? [S/N]: ").upper()
+        
+        if choice == 'S':
+            hero.inventory.append(equipped_item_name)
+            hero.equipment[item_type].remove(equipped_item_name)
+            print(f"{equipped_item_name} foi movido para o inventário.")
+        else:
+            print("Operação cancelada.")
+            return
 
     hero.inventory.remove(item_name)
     hero.equipment[item_type].append(item_name)
@@ -105,4 +178,5 @@ def equip_item(hero, item_name, item_data):
     print(f"{item_name} foi equipado.")
 
 #endregion
+
 
