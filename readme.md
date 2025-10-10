@@ -60,7 +60,7 @@ O resultado é uma engine narrativa de RPG que **reage às ações do jogador** 
 
 ---
 
-<p align="center"> ## ⚔️ Mecânica de Combate </p>
+<p align="center"> ##⚔️ Mecânica de Combate </p>
 Action Time: a velocidade define a ordem de ataque, com variação aleatória a cada rodada.
 
 Precisão probabilística:
