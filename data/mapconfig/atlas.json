@@ -42,7 +42,7 @@
     "OC": { "nome": "Oásis Carmesim", "regiao": "Terras Áridas", "contexto_ia": "Um oásis raro cujas águas têm uma cor vermelha e propriedades curativas misteriosas." },
     "TS": { "nome": "Templo Solar", "regiao": "Terras Áridas", "contexto_ia": "Um templo antigo no meio do deserto, dedicado ao deus do sol." },
     "CA": { "nome": "Caminho da Areia", "regiao": "Terras Áridas", "contexto_ia": "Uma rota de caravanas perigosa que corta o Deserto Esquecido." },
-    "PL": { "nome": "Porto do Luar", "regiao": "Terras Áridas", "contexto_ia": "Uma cidade portuária isolada, conhecida por seu mercado noturno e comércio de itens mágicos." }
+    "PL": { "nome": "Porto do Luar", "regiao": "Terras Áridas", "contexto_ia": "Uma cidade portuária isolada, conhecida por seu mercado noturno e comércio de itens mágicos." },
   
     "W": { "nome": "Bosque Antigo", "regiao": "A Grande Floresta", "contexto_ia": "Uma floresta temperada com ruínas élficas e criaturas mágicas." },
     "L": { "nome": "Templo Perdido", "regiao": "A Grande Floresta", "contexto_ia": "Um templo antigo coberto por videiras no coração do bosque." },
@@ -62,7 +62,7 @@
     "Rg": { "nome": "Vulcão Sagrado", "regiao": "Terras Sombrias", "contexto_ia": "Um vulcão ativo que é sagrado para os anões ferreiros." },
     "CD2": { "nome": "Cratera dos Deuses", "regiao": "Terras Sombrias", "contexto_ia": "Uma cratera de impacto gigantesca, onde se diz que os deuses lutaram." },
     "TC": { "nome": "Templo da Cinza", "regiao": "Terras Sombrias", "contexto_ia": "Um templo em ruínas nos Campos Cinzentos, dedicado a um deus da destruição." },
-    "CV": { "nome": "Costa Vulcânica", "regiao": "Terras Sombrias", "contexto_ia": "Uma praia de areia negra onde o oceano encontra as Montanhas Negras." },
+    "CV": { "nome": "Costa Vulcânica", "regiao": "Terras Sombrias", "contexto_ia": "Uma praia de areia negra onde o oceano encontra as Montanhas Negras." }
   
 }
 

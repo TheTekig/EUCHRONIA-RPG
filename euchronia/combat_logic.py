@@ -32,7 +32,7 @@ def _calculate_precision(precision):
 def _calculate_damage(defender, damage, skill_effect):
     """ """
     
-    defense_reduction_percent = defender.defense * (1 - skill_effect.get("defense_ignore", 0)
+    defense_reduction_percent = defender.defense * (1 - skill_effect.get("defense_ignore", 0))
     defense_reduction_percent = defense_reduction_percent / (defense_reduction_percent + 100)
     damage = damage * (1 - defense_reduction_percent)
 
@@ -170,8 +170,8 @@ def combat_loop(Hero, Enemy, Skills, items_data):
             else:
                 round = Hero
             
-        match round:
-            case Hero:
+        
+        if round == Hero:
                 print("[S]kill [I]nventory [ST]atus [R]un")
                 
                 option = input(">> ")
@@ -184,7 +184,7 @@ def combat_loop(Hero, Enemy, Skills, items_data):
                         skill_option = {}
                         for i, skill_name in enumerate(Hero.skills):
                             print(f"[{i+1}].{skill_name} / ", end="")
-                            skill_option.[str(i+1)] = skill_name
+                            skill_option[str(i+1)] = skill_name
 
                         skill_choice = input(">> ")
                         while skill_choice not in skill_option:
@@ -209,7 +209,7 @@ def combat_loop(Hero, Enemy, Skills, items_data):
                     case _:
                         pass
 
-            case Enemy:
+        else:
                 print("Enemy Turn")
                 size = len(Enemy.skills)
                 if size > 0:
@@ -222,13 +222,4 @@ def combat_loop(Hero, Enemy, Skills, items_data):
                     action = _skill_manager(Enemy, Hero, Skills[skill_option])
                     print(action)
                     
-                    
-                    
-            case _:
-                pass
-
- 
-
-    
-
-    
+                

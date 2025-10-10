@@ -16,6 +16,7 @@ class AliveModel():
         self.speed = speed
         self.action_time = 0
         self.effect = []
+        self.efeitos_ativos = {}
         self.action_time = 0
     
     #region Combat 
@@ -81,6 +82,7 @@ class PlayerModel(AliveModel):
         self.gold = 0
 
         self.class_name = classes_data['name']
+        self.class_data = classes_data
         self.skills = []
 
         self.inventory = []
@@ -92,44 +94,46 @@ class PlayerModel(AliveModel):
 
     def _status(self, all_itens_data):
         """Exibe o status completo do jogador."""
-    print("\n--- STATUS DO HERÓI ---")
-    print(f"Nome: {self.name} | Classe: {self.class_name}")
-    print(f"Nível: {self.level} | XP: {self.experience}")
-    print(f"Vida: {self.hp}/{self.maxhp}")
-    print("-" * 20)
-    # As propriedades 'total_strength', etc., agora precisam dos dados dos itens
-    print(f"Força Total: {self.total_strength(all_items_data)}")
-    print(f"Defesa Total: {self.total_defense(all_items_data)}")
-    print(f"Velocidade Total: {self.total_speed(all_items_data)}")
-    print("-" * 20)
-    print("Equipamento:")
-    for slot, items in self.equipment.items():
-        item_names = ", ".join(items) if items else "Vazio"
-        print(f"  - {slot.capitalize()}: {item_names}")
-    print("-----------------------\n")
-    input("Pressione Enter para continuar...")
+        print("\n--- STATUS DO HERÓI ---")
+        print(f"Nome: {self.name} | Classe: {self.class_name}")
+        print(f"Nível: {self.level} | XP: {self.experience}")
+        print(f"Vida: {self.hp}/{self.maxhp}")
+        print("-" * 20)
+        # As propriedades 'total_strength', etc., agora precisam dos dados dos itens
+        print(f"Força Total: {self.total_strength(all_itens_data)}")
+        print(f"Defesa Total: {self.total_defense(all_itens_data)}")
+        print(f"Velocidade Total: {self.total_speed(all_itens_data)}")
+        print("-" * 20)
+        print("Equipamento:")
+        for slot, items in self.equipment.items():
+            item_names = ", ".join(items) if items else "Vazio"
+            print(f"  - {slot.capitalize()}: {item_names}")
+        print("-----------------------\n")
+        input("Pressione Enter para continuar...")
 
     
     #region Equipment Attribute
 
-    def _get_total_attribute(self, attribute_name: str, base_value: int):
+    def _get_total_attribute(self, attribute_name: str, base_value: int, all_items_data: dict):
         total_bonus = 0
         for equipment in self.equipment.values():
             for item in equipment:
-                total_bonus += item.bonus.get(attribute_name, 0)
+                item_info = all_items_data.get(item,{})
+                if item_info and "bonus" in item_info:
+                    total_bonus += item_info["bonus"].get(attribute_name,0)
         return base_value + total_bonus
     
     @property
-    def total_defense(self):
-        return self._get_total_attribute("defense", self.defense)
+    def total_defense(self, all_items_data:dict):
+        return self._get_total_attribute("defense", self.defense, all_items_data)
     
     @property
-    def total_strength(self):
-        return self._get_total_attribute("strength", self.strength)
+    def total_strength(self, all_items_data:dict):
+        return self._get_total_attribute("strength", self.strength, all_items_data)
     
     @property
-    def total_speed(self):
-        return self._get_total_attribute("speed", self.speed)
+    def total_speed(self, all_items_data:dict):
+        return self._get_total_attribute("speed", self.speed, all_items_data)
     
     #endregion
 
@@ -145,10 +149,10 @@ class PlayerModel(AliveModel):
 
     def level_up(self):
         self.level += 1
-        self.max_hp += self.class_name['upgrade']['hp']
-        self.strength += self.class_name['upgrade']['strength'] 
-        self.defense += self.class_name['upgrade']['defense']
-        self.speed += self.class_name['upgrade']['speed']
+        self.max_hp += self.class_data['upgrade']['hp']
+        self.strength += self.class_data['upgrade']['strength'] 
+        self.defense += self.class_data['upgrade']['defense']
+        self.speed += self.class_data['upgrade']['speed']
         self.hp = self.max_hp
 
     #endregion

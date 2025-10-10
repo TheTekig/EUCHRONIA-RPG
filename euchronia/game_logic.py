@@ -17,8 +17,8 @@ def initial_hud_menu(hero, atlas, gps, all_items_data):
         case "E":
             print("\nPara onde você quer ir?")
             possible_destinations = gps.get(hero.position, [])
-            
-            # SOLUÇÃO: Cria um mapa de escolha para o jogador (ex: "1" -> "C")
+
+
             destination_map = {}
             for i, place_id in enumerate(possible_destinations):
                 place_name = atlas[place_id]['nome']
@@ -30,12 +30,12 @@ def initial_hud_menu(hero, atlas, gps, all_items_data):
                 return
 
             travel_choice = input(">> ")
-            # Valida a escolha usando o mapa criado
+
             while travel_choice not in destination_map:
                 print("Opção inválida.")
                 travel_choice = input(">> ")
             
-            # Traduz a escolha numérica para o ID e atualiza a posição
+
             chosen_id = destination_map[travel_choice]
             hero.position = chosen_id
             new_location_name = atlas[chosen_id]['nome']
@@ -128,7 +128,7 @@ def manage_inventory(hero, all_items_data):
             action = input("[E]quipar item ou [V]oltar? ").upper()
             if action == 'E':
                 equip_item(hero, item_name, item_data)
-        
+
         elif item_type == "Material":
             print("Este é um material de criação e não pode ser usado ou equipado diretamente.")
             input("Pressione Enter para continuar...")
@@ -162,7 +162,7 @@ def equip_item(hero, item_name, item_data):
         equipped_item_name = hero.equipment[item_type][0]
         print(f"O slot de '{item_type}' já está ocupado por: {equipped_item_name}.")
         
-        choice = input(f"Deseja substituir {equipped_item_name} por {item_name_to_equip}? [S/N]: ").upper()
+        choice = input(f"Deseja substituir {equipped_item_name} por {item_name}? [S/N]: ").upper()
         
         if choice == 'S':
             hero.inventory.append(equipped_item_name)
