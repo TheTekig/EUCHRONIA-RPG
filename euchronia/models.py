@@ -9,7 +9,7 @@ class HitResult(Enum):
 class AliveModel():
     def __init__(self, name, hp, strength, defense, speed):
         self.name = name
-        self.max_hp = hp
+        self.maxhp = hp
         self.hp = hp
         self.strength = strength
         self.defense = defense
@@ -29,8 +29,8 @@ class AliveModel():
     
     def heal(self, amount):
         self.hp += amount
-        if self.hp > self.max_hp:
-            self.hp = self.max_hp
+        if self.hp > self.maxhp:
+            self.hp = self.maxhp
             
     #endregion
 
@@ -65,7 +65,7 @@ class PlayerModel(AliveModel):
     def __init__(self, name, classes_data, position = None):
         super().__init__(
             name = name, 
-            hp = classes_data['maxlife'], 
+            hp = classes_data['maxhp'], 
             strength = classes_data['strength'], 
             defense = classes_data['defense'], 
             speed = classes_data['speed'],
@@ -135,7 +135,7 @@ class EnemyModel(AliveModel):
     def __init__(self, enemy_data):
         super().__init__(
             name = enemy_data.get('name', 'Unknow Enemy'), 
-            hp = enemy_data.get('maxlife', 10), 
+            hp = enemy_data.get('maxhp', 10), 
             strength = enemy_data.get('strength', 5), 
             defense = enemy_data.get('defense', 0), 
             speed =  enemy_data.get('speed', 10),
