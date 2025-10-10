@@ -18,7 +18,7 @@
 ███████╗╚██████╔╝╚██████╗██║  ██║██║  ██║╚██████╔╝██║ ╚████║██║██║  ██║
 ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
 ```
-
+</div>
 
 > 🜏 *Um RPG de terminal que une Programação Orientada a Objetos, narrativa procedural e Inteligência Artificial para criar um mundo vivo e imprevisível.*
 
@@ -200,4 +200,3 @@ Diogo Teodoro Dias Lamas
 Distribuído sob MIT License — sinta-se livre para modificar, estudar e expandir o projeto.
 
 <p align="center"> 🌒 <i>“Cada bug conta uma história. Cada linha, uma nova era de Euchronia.”</i> 🌘 </p> 
-</div>
