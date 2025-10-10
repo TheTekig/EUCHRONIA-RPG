@@ -16,6 +16,7 @@ class AliveModel():
         self.speed = speed
         self.action_time = 0
         self.effect = []
+        self.action_time = 0
     
     #region Combat 
     
@@ -88,7 +89,27 @@ class PlayerModel(AliveModel):
         self.equipment = {'weapon': [], 'armor' : [], 'accessory': []}
         self.max_equipment = {'weapon': 1, 'armor' : 1, 'accessory': 2}    
 
- 
+
+    def _status(self, all_itens_data):
+        """Exibe o status completo do jogador."""
+    print("\n--- STATUS DO HERÓI ---")
+    print(f"Nome: {self.name} | Classe: {self.class_name}")
+    print(f"Nível: {self.level} | XP: {self.experience}")
+    print(f"Vida: {self.hp}/{self.maxhp}")
+    print("-" * 20)
+    # As propriedades 'total_strength', etc., agora precisam dos dados dos itens
+    print(f"Força Total: {self.total_strength(all_items_data)}")
+    print(f"Defesa Total: {self.total_defense(all_items_data)}")
+    print(f"Velocidade Total: {self.total_speed(all_items_data)}")
+    print("-" * 20)
+    print("Equipamento:")
+    for slot, items in self.equipment.items():
+        item_names = ", ".join(items) if items else "Vazio"
+        print(f"  - {slot.capitalize()}: {item_names}")
+    print("-----------------------\n")
+    input("Pressione Enter para continuar...")
+
+    
     #region Equipment Attribute
 
     def _get_total_attribute(self, attribute_name: str, base_value: int):
