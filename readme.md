@@ -9,15 +9,13 @@
 
 ---
 
-███████╗██╗ ██╗ ██████╗██╗ ██╗██████╗ ██████╗ ███╗ ██╗██╗ █████╗
-██╔════╝██║ ██║██╔════╝██║ ██║██╔══██╗██╔═══██╗████╗ ██║██║██╔══██╗
-█████╗ ██║ ██║██║ ███████║██║ ██║██║ ██║██╔██╗ ██║██║███████║
-██╔══╝ ╚██╗ ██╔╝██║ ██╔══██║██║ ██║██║ ██║██║╚██╗██║██║██╔══██║
-███████╗ ╚████╔╝ ╚██████╗██║ ██║██████╔╝╚██████╔╝██║ ╚████║██║██║ ██║
-╚══════╝ ╚═══╝ ╚═════╝╚═╝ ╚═╝╚═════╝ ╚═════╝ ╚═╝ ╚═══╝╚═╝╚═╝ ╚═╝
+███████╗██╗   ██╗ ██████╗██╗  ██╗██████╗  ██████╗ ███╗   ██╗██╗ █████╗
+██╔════╝██║   ██║██╔════╝██║  ██║██╔══██╗██╔═══██╗████╗  ██║██║██╔══██╗
+█████╗  ██║   ██║██║     ███████║██████╔╝██║   ██║██╔██╗ ██║██║███████║
+██╔══╝  ██║   ██║██║     ██╔══██║██╔══██╗██║   ██║██║╚██╗██║██║██╔══██║
+███████╗╚██████╔╝╚██████╗██║  ██║██║  ██║╚██████╔╝██║ ╚████║██║██║  ██║
+╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
 
-yaml
-Copiar código
 
 > 🜏 *Um RPG de terminal que une Programação Orientada a Objetos, narrativa procedural e Inteligência Artificial para criar um mundo vivo e imprevisível.*
 
@@ -37,59 +35,63 @@ O resultado é uma engine narrativa de RPG que **reage às ações do jogador** 
 
 ## 🧱 Estrutura do Projeto
 
-```bash
-EUCHRONIA/
-│
-├── euchronia/
-│   ├── models.py          # Classes: Player, Enemy, AliveModel
-│   ├── combat_logic.py    # Sistema de combate e skills
-│   ├── game_logic.py      # HUD, menus e exploração
-│   └── ai_services.py     # (futuro) integração com IA
-│
-├── data/
-│   ├── classes.json       # Classes jogáveis
-│   ├── skills.json        # Habilidades e efeitos
-│   ├── itens.json         # Armas, poções e equipamentos
-│   ├── enemy.json         # Inimigos e loot tables
-│   ├── gps_map.json       # Conexões entre regiões
-│   └── atlas.json         # Locais do mundo
-│
-├── saves/                 # Dados persistentes do jogador
-├── docs/                  # GDD e documentação
-│   └── RPG - EUCHRONIA.pdf
-├── main.py
-├── requirements.txt
-└── README.md
-⚔️ Mecânica de Combate
+    EUCHRONIA/
+    │
+    ├── euchronia/
+    │   ├── models.py          # Classes: Player, Enemy, AliveModel
+    │   ├── combat_logic.py    # Sistema de combate e skills
+    │   ├── game_logic.py      # HUD, menus e exploração
+    │   └── ai_services.py     # (futuro) integração com IA
+    │
+    ├── data/
+    │   ├── classes.json       # Classes jogáveis
+    │   ├── skills.json        # Habilidades e efeitos
+    │   ├── itens.json         # Armas, poções e equipamentos
+    │   ├── enemy.json         # Inimigos e loot tables
+    │   ├── gps_map.json       # Conexões entre regiões
+    │   └── atlas.json         # Locais do mundo
+    │
+    ├── saves/                 # Dados persistentes do jogador
+    ├── docs/                  # GDD e documentação
+    │   └── RPG - EUCHRONIA.pdf
+    ├── main.py
+    ├── requirements.txt
+    └── README.md
+
+---
+
+<p align="center"> ## ⚔️ Mecânica de Combate </p>
 Action Time: a velocidade define a ordem de ataque, com variação aleatória a cada rodada.
 
 Precisão probabilística:
 
-MISS (erro total)
-
-SCRATCH (dano reduzido)
-
-HIT (dano completo)
+    MISS (erro total)
+        
+    SCRATCH (dano reduzido)
+        
+    HIT (dano completo)
 
 Fórmula balanceada de dano:
 
-python
-Copiar código
-defense_reduction = defense / (defense + 100)
-damage_final = damage * (1 - defense_reduction)
-🧩 Skills são categorizadas em:
+    defense_reduction = defense / (defense + 100)
+    damage_final = damage * (1 - defense_reduction)
 
-Tipo	Exemplo	Efeito
-ATTACK	Golpe Pesado	Dano físico direto
-BUFF	Grito de Batalha	Aumenta força ou defesa
-DEBUFF	Adagas Envenenadas	Reduz defesa ou aplica veneno
-CONTROL	Prisão de Gelo	Paralisa o inimigo
+---
+
+## 🧩 Skills são categorizadas em:
+
+  Tipo	Exemplo	Efeito
+  ATTACK	Golpe Pesado	Dano físico direto
+  BUFF	Grito de Batalha	Aumenta força ou defesa
+  DEBUFF	Adagas Envenenadas	Reduz defesa ou aplica veneno
+  CONTROL	Prisão de Gelo	Paralisa o inimigo
 
 Todas configuradas em skills.json — expansíveis sem alterar o código.
+ 
+ ---
+ 
+## 🎮 Prévia de Combate (Terminal)
 
-🎮 Prévia de Combate (Terminal)
-bash
-Copiar código
 ──────────────────────────────────────────────────────────────
 👤 Herói (Lv 3)        ❤️ HP: 78/100   ⚔️ STR: 12   🛡 DEF: 9
 vs
@@ -103,23 +105,30 @@ vs
 ──────────────────────────────────────────────────────────────
 Interface otimizada para cores com rich e termcolor, incluindo HUD dinâmica com Live() e logs coloridos.
 
-🧠 Arquitetura POO
-Classe	Função	Destaque
-AliveModel	Entidades vivas	HP, força, defesa, efeitos
-PlayerModel	Jogador	Inventário, XP, level, equips
-EnemyModel	Inimigos	Dados carregados de enemy.json
-CombatManager	(planejado)	Controla rodada e ordem de turnos
+---
+
+## 🧠 Arquitetura POO
+
+Classe	          Função	            Destaque
+AliveModel	    Entidades       vivas	HP, força, defesa, efeitos
+PlayerModel	    Jogador	        Inventário, XP, level, equips
+EnemyModel	    Inimigos	      Dados carregados de enemy.json
+CombatManager	  (planejado)	    Controla rodada e ordem de turnos
 
 Cada entidade pode aplicar, atualizar e remover efeitos temporários de combate (buffs, debuffs, status).
 
-🌍 Mundo e Exploração
+---
+
+## 🌍 Mundo e Exploração
 Baseado em grafo de conexões (gps_map.json), cada nó é uma região explorável.
 
 O atlas contém lore, bioma e inimigos locais.
 
 O jogador pode viajar, explorar e enfrentar batalhas aleatórias em cada zona.
 
-💾 Saves e Persistência
+---
+
+## 💾 Saves e Persistência
 O progresso do jogador é salvo em saves/, incluindo:
 
 Status e nível atual
@@ -130,40 +139,48 @@ Efeitos ativos e buffs
 
 Localização no mapa
 
-python
-Copiar código
 player.save("saves/slot_1.json")
 player.load("saves/slot_1.json")
-🚀 Instalação e Execução
-1️⃣ Clonar o repositório
-bash
-Copiar código
-git clone https://github.com/TheTekig/EUCHORNIA.git
-cd EUCHORNIA
-2️⃣ Criar ambiente virtual
-bash
-Copiar código
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
-3️⃣ Instalar dependências
-bash
-Copiar código
-pip install -r requirements.txt
-4️⃣ Executar o jogo
-bash
-Copiar código
-python main.py
-🧩 Roadmap (v0.2 → v1.0)
-Versão	Foco	Status
-0.2	Sistema de buffs/debuffs empilháveis	🧩 Em andamento
-0.3	Sistema de saves e load dinâmico	🔄 Planejado
-0.4	HUD visual com rich.Live()	🔜
-0.5	IA narrativa com OpenAI API	⚙️ Em design
-0.6+	Interface visual e expansão de mundo	🌌 Futuro
 
-🧙 Autor
+---
+
+🚀 Instalação e Execução
+
+1️⃣ Clonar o repositório
+
+    git clone https://github.com/TheTekig/EUCHORNIA.git
+    cd EUCHORNIA
+    
+2️⃣ Criar ambiente virtual
+
+    python -m venv venv
+    source venv/bin/activate  # Linux/Mac
+    venv\Scripts\activate     # Windows
+    
+3️⃣ Instalar dependências
+
+    pip install -r requirements.txt
+    
+4️⃣ Executar o jogo
+
+    python main.py
+
+---
+
+## 🧩 Roadmap (v0.2 → v1.0)
+
+     Versão	                Foco	                        Status
+      0.2	   Sistema de buffs/debuffs empilháveis	  🧩 Em andamento
+      0.3	   Sistema de saves e load dinâmico	      🔄 Planejado
+      0.4	   HUD visual com rich.Live()	            🔜
+      0.5	   IA narrativa com OpenAI API	          ⚙️ Em design
+      0.6+	 Interface visual e expansão de mundo	  🌌 Futuro
+
+---
+
+## 🧙 Autor
 Diogo Teodoro Dias Lamas
+
 🎮 Desenvolvedor & Criador do universo Euchronia
 📦 GitHub: @TheTekig
 💬 “A fronteira entre o código e o imaginário é o que dá vida a Euchronia.”
@@ -171,4 +188,4 @@ Diogo Teodoro Dias Lamas
 📜 Licença
 Distribuído sob MIT License — sinta-se livre para modificar, estudar e expandir o projeto.
 
-<p align="center"> 🌒 <i>“Cada bug conta uma história. Cada linha, uma nova era de Euchronia.”</i> 🌘 </p> ```
+<p align="center"> 🌒 <i>“Cada bug conta uma história. Cada linha, uma nova era de Euchronia.”</i> 🌘 </p> 
