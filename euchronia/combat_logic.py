@@ -4,6 +4,15 @@ import euchronia.game_logic as gl
 
 #region   Calculate Base Functions
 
+def _use_skill(attacker, defender, skill_data):
+    if "uses" in skill_data and skill_data["uses"] <= 0:
+        #skill não pode ser usada
+        return "NoAttack"
+        
+    if "uses" in skill_data:
+        skill_data["uses"] -= 1
+        return "Attack"
+        
 def _action_time(Hero, Enemy):
     """ """
     combat = [Hero, Enemy]
@@ -189,9 +198,15 @@ def combat_loop(Hero, Enemy, Skills, items_data):
                         skill_choice = input(">> ")
                         while skill_choice not in skill_option:
                             skill_choice = input(">> ")
-                            
+
                         selected_skill_option = skill_option[skill_choice]
-                        action = _skill_manager(Hero, Enemy, Skills[selected_skill_option])
+                        skilluse = _use_skill(Hero, Enemy, Skills[selected_skill_option])
+                        
+                        if skilluse == "NoAttack":
+                            return
+                            
+                        else:
+                            action = _skill_manager(Hero, Enemy, Skills[selected_skill_option])
                         
                         print(action)
 
