@@ -53,8 +53,10 @@ O resultado é uma engine narrativa de RPG que **reage às ações do jogador** 
                                           │   ├── skills.json        # Habilidades e efeitos
                                           │   ├── itens.json         # Armas, poções e equipamentos
                                           │   ├── enemy.json         # Inimigos e loot tables
-                                          │   ├── gps_map.json       # Conexões entre regiões
-                                          │   └── atlas.json         # Locais do mundo
+                                          │   └── mapconfig/ 
+                                          │        ├── gps_map.json       # Conexões entre regiões
+                                          │        ├── map.txt
+                                          │        └── atlas.json         # Locais do mundo
                                           │
                                           ├── saves/                 # Dados persistentes do jogador
                                           ├── docs/                  # GDD e documentação
