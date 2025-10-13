@@ -1,0 +1,28 @@
+{
+  "Ferreiro Orin": {
+    "type": "Smith",
+    "gold": 500,
+    "dialogue": [
+      "As melhores lâminas de Euchronia, forjadas com fogo e alma!",
+      "Precisa de algo que corte até o destino?"
+    ],
+    "stock": {
+      "Adaga Enferrujada": 3,
+      "Clava de Madeira": 2,
+      "Túnica de Viajante": 1
+    }
+  },
+
+  "Alquimista Lyra": {
+    "type": "Alchemist",
+    "gold": 300,
+    "dialogue": [
+      "Poções raras para mentes curiosas...",
+      "A cura e a loucura estão no mesmo frasco."
+    ],
+    "stock": {
+      "Poção de Cura Fraca": 5,
+      "Amuleto da Sorte do Rato": 2
+    }
+  }
+}
