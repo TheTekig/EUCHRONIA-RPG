@@ -3,6 +3,7 @@
   "Flechada" : {
     "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 99,
     "uses" : 99,
     "precision" : 0.7,
     "duration" : 0,
@@ -12,6 +13,7 @@
   "Corte Leve" : {
     "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 99,
     "uses" : 99,
     "precision" : 0.7,
     "duration" : 0,
@@ -21,6 +23,7 @@
   "Cajadada" : {
     "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 99,
     "uses" : 99,
     "precision" : 0.7,
     "duration" : 0,
@@ -30,6 +33,7 @@
   "Golpe Comum" : {
     "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 99,
     "uses" : 99,
     "precision" : 0.7,
     "duration" : 0,
@@ -39,6 +43,7 @@
   "Grito de Batalha" : {
     "description" : "",
     "type" : "BUFF",
+    "maxuses" : 2,
     "uses" : 2,
     "precision" : 0.5,
     "duration" : 3,
@@ -48,6 +53,7 @@
   "Golpe Pesado" : {
     "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 5,
     "uses" : 5,
     "precision" : 0.4,
     "duration" : 0,
@@ -57,6 +63,7 @@
   "Ataque Furtivo" : {
     "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 1,
     "uses" : 1,
     "precision" : 1.0,
     "duration" : 0,
@@ -66,6 +73,7 @@
   "Adagas Envenenadas" : {
     "description" : "",
     "type" : "DEBUFF",
+    "maxuses" : 3,
     "uses" : 3,
     "precision" : 0.5,
     "duration" : 3,
@@ -75,6 +83,7 @@
   "Seta de Fogo" : {
     "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 6,
     "uses" : 6,
     "precision" : 0.7,
     "duration" : 3,
@@ -84,6 +93,7 @@
   "Prisão de Gelo" : {
     "description" : "",
     "type" : "CONTROL",
+    "maxuses" : 2,
     "uses" : 2,
     "precision" : 0.7,
     "duration" : 3,
@@ -93,6 +103,7 @@
   "Tiro Certeiro": {
     "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 5,
     "uses" : 5,
     "precision" : 0.9,
     "duration" : 3,
@@ -102,6 +113,7 @@
   "Armadilha de Espinhos" : {
     "description" : "",
     "type" : "CONTROL",
+    "maxuses" : 2,
     "uses" : 2,
     "precision" : 0.5,
     "duration" : 3,
@@ -111,6 +123,7 @@
 "Mordida" : {
   "description" : "",
     "type" : "ATTACK",
+  "maxuses" : 5,
     "uses" : 5,
     "precision" : 0.9,
     "duration" : 3,
@@ -120,6 +133,7 @@
 "Golpe Baixo" : {
   "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 5,
     "uses" : 5,
     "precision" : 0.9,
     "duration" : 3,
@@ -129,6 +143,7 @@
 "Arremessar Pedra" : {
   "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 5,
     "uses" : 5,
     "precision" : 0.9,
     "duration" : 3,
@@ -138,6 +153,7 @@
 "Mordida Feroz" : {
   "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 5,
     "uses" : 5,
     "precision" : 0.9,
     "duration" : 3,
@@ -147,12 +163,14 @@
 "Golpe de Adaga" : {
   "description" : "",
     "type" : "ATTACK",
+    "maxuses" : 5,
     "uses" : 5,
     "precision" : 0.9,
     "duration" : 3,
     "effect" : { "damage_multiplier" : 1.7 }
 }
 }
+
 
 
 
