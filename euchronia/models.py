@@ -68,6 +68,7 @@ class PlayerModel(AliveModel):
         super().__init__(
             name = name, 
             hp = classes_data['maxhp'], 
+            maxhp = classes_data['maxhp'],
             strength = classes_data['strength'], 
             defense = classes_data['defense'], 
             speed = classes_data['speed'],
@@ -149,11 +150,11 @@ class PlayerModel(AliveModel):
 
     def level_up(self):
         self.level += 1
-        self.max_hp += self.class_data['upgrade']['hp']
+        self.maxhp += self.class_data['upgrade']['hp']
         self.strength += self.class_data['upgrade']['strength'] 
         self.defense += self.class_data['upgrade']['defense']
         self.speed += self.class_data['upgrade']['speed']
-        self.hp = self.max_hp
+        self.hp = self.maxhp
 
     #endregion
 
