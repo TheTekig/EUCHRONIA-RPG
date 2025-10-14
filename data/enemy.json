@@ -2,26 +2,26 @@
 "Rato Gigante": {
     "tipo": "Fera",
     "biomas": ["Oakhaven", "Planícies Verdes", "Caverna Sombria"],
-    "vida_base": 25,
-    "ataque_base": 6,
-    "defesa_base": 2,
-    "velocidade": 14,
-    "xp_concedido": 15,
+    "hp": 25,
+    "strength": 6,
+    "defense": 2,
+    "speed": 14,
+    "experience": 15,
     "skills": ["Mordida"],
-    "loot_possivel": {
+    "loot": {
       "Pele de Rato": 0.6
     }
   },
   "Goblin Batedor": {
     "tipo": "Humanoide",
     "biomas": ["Planícies Verdes", "Colinas Altas", "Acampamento dos Bandidos"],
-    "vida_base": 40,
-    "ataque_base": 10,
-    "defesa_base": 6,
-    "velocidade": 12,
-    "xp_concedido": 30,
+    "hp": 40,
+    "strength": 10,
+    "defense": 6,
+    "speed": 12,
+    "experience": 30,
     "skills": ["Golpe Baixo", "Arremessar Pedra"],
-    "loot_possivel": {
+    "loot": {
       "Adaga Enferrujada": 0.2,
       "Fragmento de Osso": 0.4
     }
@@ -29,26 +29,26 @@
   "Lobo Jovem": {
     "tipo": "Fera",
     "biomas": ["Planícies Verdes", "Bosque Antigo", "Colinas Altas"],
-    "vida_base": 50,
-    "ataque_base": 14,
-    "defesa_base": 7,
-    "velocidade": 16,
-    "xp_concedido": 40,
+    "hp": 50,
+    "strength": 14,
+    "defense": 7,
+    "speed": 16,
+    "experience": 40,
     "skills": ["Mordida Feroz"],
-    "loot_possivel": {
+    "loot": {
       "Pele de Lobo": 0.5
     }
   },
   "Bandido da Estrada": {
     "tipo": "Humanoide",
     "biomas": ["Planícies Verdes", "Oakhaven"],
-    "vida_base": 60,
-    "ataque_base": 12,
-    "defesa_base": 8,
-    "velocidade": 10,
-    "xp_concedido": 50,
+    "hp": 60,
+    "strength": 12,
+    "defense": 8,
+    "speed": 10,
+    "experience": 50,
     "skills": ["Golpe de Adaga"],
-    "loot_possivel": {
+    "loot": {
       "Poção de Cura Fraca": 0.15,
       "Adaga Enferrujada": 0.25
     }
