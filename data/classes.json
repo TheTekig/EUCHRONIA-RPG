@@ -1,5 +1,6 @@
 {
     "Warrior": {
+        "name": "Warrior",
         "description": "A strong and resilient fighter, excelling in melee combat and physical strength.",
         "maxhp": 20,
         "defense": 12,
@@ -10,6 +11,7 @@
     },
 
     "Mage": {
+        "name" : "Mage",
         "description": "A master of arcane arts, capable of casting powerful spells to damage enemies or support allies.",
         "maxhp": 12,
         "defense": 8,
@@ -20,6 +22,7 @@
     },
 
     "Rogue": {
+        "name": "Rogue",
         "description": "A stealthy and agile character, skilled in evasion and critical strikes.",
         "maxhp": 14,
         "defense": 10,
@@ -30,6 +33,7 @@
     },
 
     "Hunter": {
+        "name" : "Hunter",
         "description": "An expert marksman, proficient in ranged combat and tracking.",
         "maxhp": 16,
         "defense": 11,
