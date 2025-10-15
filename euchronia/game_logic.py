@@ -1,5 +1,76 @@
-#region Explore Logic
+from termcolor import colored
+from euchronia import models
+import os
 
+
+
+def create_hero(classes):
+
+    os.system("cls")
+    
+    while True:
+        print(colored("Qual seu nome herói?", "magenta", attrs=["bold"]).center(90))
+        name = input(">> ")
+        print(colored(f"Então seu nome é {name}?", "magenta").center(90))
+        confirm = input("[S/N]>> ")
+        while confirm.upper() not in ["S","N"]:
+            confirm = input("[S/N]>> ")
+        
+        if confirm.upper() ==  "S":
+            break
+        else:
+            continue
+
+
+
+    os.system("cls")
+    print(colored("Com Qual Classe Você se Identifica?", "magenta", attrs=['bold']).center(90))
+    for i, e in enumerate(classes.values()):
+        print(f"{i+1} - {e.get('name')} - {e.get('description')}")
+        
+    
+    while True:
+        try:
+            choice = input(">> ")
+            choice = int(choice) - 1
+            if choice in range(len(classes)):
+                pass
+            else:
+                print(colored("Escolha inválida. Tente novamente."), "red")
+                continue
+        except ValueError:
+            print(colored("Escolha inválida. Tente novamente."), "red")
+            continue
+
+        chosen_class = list(classes.values())[choice]
+        print(colored(f"Então você é um {chosen_class['name']}?", "magenta").center(90))
+
+        confirm = input("[S/N]>> ")
+        while confirm.upper() not in ["S","N"]:
+            confirm = input("[S/N]>> ")
+        
+        if confirm.upper() ==  "S":
+            break
+        else:
+            continue
+
+    try:
+
+        hero = models.PlayerModel(name, chosen_class)
+        print(colored(f"Herói {hero.name} da classe {hero.class_name} criado com sucesso!", "green"))
+        return hero
+
+    except Exception as e:
+        print(colored(f"Erro ao criar herói: {e}", "red"))
+        return None
+
+    input(colored("Pressione Enter para continuar...", "green"))
+            
+    
+
+
+
+#region Explore Logic
 def initial_hud_menu(hero, atlas, gps, all_items_data):
     """O menu principal do jogo durante a exploração."""
     

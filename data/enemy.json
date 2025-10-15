@@ -1,7 +1,7 @@
 {
 "Rato Gigante": {
-    "tipo": "Fera",
-    "biomas": ["Oakhaven", "Planícies Verdes", "Caverna Sombria"],
+    "type": "Fera",
+    "region": ["Oakhaven", "Planícies Verdes", "Caverna Sombria"],
     "hp": 25,
     "strength": 6,
     "defense": 2,
@@ -13,13 +13,8 @@
     }
   },
   "Goblin Batedor": {
-<<<<<<< HEAD
-    "tipo": "Humanoide",
-    "biomas": ["Planícies Verdes", "Colinas Altas", "Acampamento dos Bandidos"],
-=======
     "type": "Humanoide",
     "region": ["Planícies Verdes", "Colinas Altas", "Acampamento dos Bandidos"],
->>>>>>> efaf3f4c8d734a30a9c025b3a9282e01356ac99c
     "hp": 40,
     "strength": 10,
     "defense": 6,
@@ -32,13 +27,8 @@
     }
   },
   "Lobo Jovem": {
-<<<<<<< HEAD
-    "tipo": "Fera",
-    "biomas": ["Planícies Verdes", "Bosque Antigo", "Colinas Altas"],
-=======
     "type": "Fera",
     "region": ["Planícies Verdes", "Bosque Antigo", "Colinas Altas"],
->>>>>>> efaf3f4c8d734a30a9c025b3a9282e01356ac99c
     "hp": 50,
     "strength": 14,
     "defense": 7,
@@ -50,13 +40,8 @@
     }
   },
   "Bandido da Estrada": {
-<<<<<<< HEAD
-    "tipo": "Humanoide",
-    "biomas": ["Planícies Verdes", "Oakhaven"],
-=======
     "type": "Humanoide",
     "region": ["Planícies Verdes", "Oakhaven"],
->>>>>>> efaf3f4c8d734a30a9c025b3a9282e01356ac99c
     "hp": 60,
     "strength": 12,
     "defense": 8,

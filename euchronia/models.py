@@ -7,17 +7,15 @@ class HitResult(Enum):
 
 
 class AliveModel():
-    def __init__(self, name, hp, strength, defense, speed):
+    def __init__(self, name, hp, maxhp, strength, defense, speed):
         self.name = name
-        self.maxhp = hp
+        self.maxhp = maxhp
         self.hp = hp
         self.strength = strength
         self.defense = defense
         self.speed = speed
-        self.action_time = 0
         self.effect = []
         self.efeitos_ativos = {}
-        self.action_time = 0
     
     #region Combat 
     
@@ -72,12 +70,11 @@ class PlayerModel(AliveModel):
             strength = classes_data['strength'], 
             defense = classes_data['defense'], 
             speed = classes_data['speed'],
-            action_time = 0
             )
 
         self.level = 1
         self.experience = 0
-
+        self.action_time = 0
         self.position = position
 
         self.gold = 0
@@ -166,8 +163,8 @@ class EnemyModel(AliveModel):
             strength = enemy_data.get('strength', 5), 
             defense = enemy_data.get('defense', 0), 
             speed =  enemy_data.get('speed', 10),
-            action_time = 0
             )
+        self.action_time = 0
         self.type = enemy_data.get('type', "Unknow Creature")
         self.experience = enemy_data.get('experience', 10)
         self.loot = enemy_data.get('loot', 'Nothing Userfull')
