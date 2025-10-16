@@ -1,6 +1,7 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+from euchronia import general_logic as gl
 
 load_dotenv()
 
@@ -121,7 +122,7 @@ def prompts_item_generator():
     prompt = [system_prompt, user_prompt]
     return prompt
 
-def prompts_merchant_generator():
+def prompts_npc_generator():
 
     system_prompt= """
     Você é um artesão na geração e inimigos, seu trabalho é gerar inimigos seguindo um padrão de Json utilizando-se do nome e do contexto dado do inimigo e aplicando os possiveis efeitos. Siga as regras de estrutura de forma rigorosa!
@@ -239,7 +240,37 @@ def execute_openai(prompt, valorToken=1000):
     
 
 
-def ai_packadge_control():
+def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resume ):
+    packadge = execute_openai(prompt)
+
+    if packadge.get('new_enemy'):
+        new_enemy = prompts_enemy_generator(enemy, heroi, all_itens_data, skills, packadge['enemy_name'], packadge['enemy_description'])
+        new_enemy = execute_openai(new_enemy)
+        gl.append_json(enemy, new_enemy)
+
+        if packadge.get('use_enemy_in_combat'):
+            pass
+
+    if packadge.get('newskill'):
+        new_skill = prompts_skill_generator(skills, packadge['newskill_name'], packadge['newskill_description']):
+        new_skill = execute_openai(new_skill)
+        gl.append_json(skills, new_skill)
     
-    action_packadge = execute_openai(prompt, valorToken)
+    if packadge.get('newitem'):
+        new_item = prompts_item_generator()
+        new_item = execute_openai(new_item)
+        gl.append_json(all_itens_data, new_item)
+    
+    log = []
+    log.append(packadge.get('narrativa'))
+    log.append(packadge.get('quest'))
+    
+    gl.append_json(lore_resume, log))
+        
+
+    
+        
+
+        
+        
 
