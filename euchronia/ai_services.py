@@ -154,7 +154,7 @@ def prompts_resume(lore_resume, npcs, quests):
     prompt = [system_prompt, user_prompt]
     return prompt
 
-def prompts_game_master(action, lore_resume, map, heroi, humor='criativo'):
+def prompts_game_master(action, lore_resume, map, gps, heroi, humor='criativo'):
 
     system_prompt = f"""
         Você é um Mestre de Jogo para o RPG de terminal. Sua voz é descritiva, atmosférica e um pouco misteriosa seja um mestre {humor}. Sua tarefa é interpretar a ação do jogador e decidir oque acontece a seguir, retornando um 'Pacote de Ações' em JSON. Seja Criativo, adapte os eventos á história e ao local, e siga rigorosamente as regras de formatação.
@@ -204,6 +204,7 @@ def prompts_game_master(action, lore_resume, map, heroi, humor='criativo'):
     ---Localização no Mapa---
     posição do Heroi : {heroi.position}
     mapa : {map}
+    gps : {gps}
 
     ---Resumo da História---
     História Até o momento : {lore_resume}
@@ -249,7 +250,7 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
         gl.append_json(enemy, new_enemy)
 
         if packadge.get('use_enemy_in_combat'):
-            pass
+            return 
 
     if packadge.get('newskill'):
         new_skill = prompts_skill_generator(skills, packadge['newskill_name'], packadge['newskill_description']):
@@ -263,10 +264,11 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
     
     log = []
     log.append(packadge.get('narrativa'))
-    log.append(packadge.get('quest'))
+    log.append(packadge.get('quest', ""))
     
     gl.append_json(lore_resume, log))
-        
+
+    return log
 
     
         
