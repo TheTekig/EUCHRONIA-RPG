@@ -21,8 +21,6 @@ def create_hero(classes):
         else:
             continue
 
-
-
     os.system("cls")
     print(colored("Com Qual Classe Você se Identifica?", "magenta", attrs=['bold']).center(90))
     for i, e in enumerate(classes.values()):
@@ -53,7 +51,6 @@ def create_hero(classes):
             break
         else:
             continue
-
     try:
 
         hero = models.PlayerModel(name, chosen_class)
@@ -249,5 +246,6 @@ def equip_item(hero, item_name, item_data):
     print(f"{item_name} foi equipado.")
 
 #endregion
+
 
 
