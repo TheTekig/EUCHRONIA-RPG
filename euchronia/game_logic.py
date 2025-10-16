@@ -1,5 +1,5 @@
 from termcolor import colored
-from euchronia import models
+from euchronia import models, ai_services
 import os
 
 
@@ -68,24 +68,23 @@ def create_hero(classes):
 
 
 #region Explore Logic
-def initial_hud_menu(hero, atlas, gps, all_items_data):
+def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume):
     """O menu principal do jogo durante a exploração."""
     
     current_location_info = atlas.get(hero.position, {"nome": "Lugar Desconhecido"})
     location_name = current_location_info['nome']
     
     print(f"\n====================== VOCÊ ESTÁ EM: {location_name.upper()} =======================")
-    print("[E]xplorar / [I]nventário / [S]tatus / [M]apa / [Q]uit")
+    print("[E]xplorar / [I]nventário / [S]tatus / [M]apa / [R]est / [Q]uit")
     
     choice = input(">> ").upper()
-    while choice not in ["E", "I", "S", "M", "Q"]:
+    while choice not in ["E", "I", "S", "M", "Q", "R"]:
         choice = input(">> ").upper()
     
     match choice:
         case "E":
             print("\nPara onde você quer ir?")
             possible_destinations = gps.get(hero.position, [])
-
 
             destination_map = {}
             for i, place_id in enumerate(possible_destinations):
@@ -107,7 +106,12 @@ def initial_hud_menu(hero, atlas, gps, all_items_data):
             chosen_id = destination_map[travel_choice]
             hero.position = chosen_id
             new_location_name = atlas[chosen_id]['nome']
+
+            prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero)
+            narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_itens_data, skills, lore_resume )
+            print(colored(narrativa, "cyan"))
             print(f"\nVocê viaja para {new_location_name}...")
+            
 
         case "I":
             manage_inventory(hero, all_items_data)
@@ -246,6 +250,7 @@ def equip_item(hero, item_name, item_data):
     print(f"{item_name} foi equipado.")
 
 #endregion
+
 
 
 
