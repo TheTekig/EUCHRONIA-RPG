@@ -11,12 +11,12 @@
 
   
 ```
-                              ███████╗██╗   ██╗ ██████╗██╗  ██╗██████╗  ██████╗ ███╗   ██╗██╗ █████╗
-                              ██╔════╝██║   ██║██╔════╝██║  ██║██╔══██╗██╔═══██╗████╗  ██║██║██╔══██╗
-                              █████╗  ██║   ██║██║     ███████║██████╔╝██║   ██║██╔██╗ ██║██║███████║
-                              ██╔══╝  ██║   ██║██║     ██╔══██║██╔══██╗██║   ██║██║╚██╗██║██║██╔══██║
-                              ███████╗╚██████╔╝╚██████╗██║  ██║██║  ██║╚██████╔╝██║ ╚████║██║██║  ██║
-                              ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
+███████╗██╗   ██╗ ██████╗██╗  ██╗██████╗  ██████╗ ███╗   ██╗██╗ █████╗
+██╔════╝██║   ██║██╔════╝██║  ██║██╔══██╗██╔═══██╗████╗  ██║██║██╔══██╗
+█████╗  ██║   ██║██║     ███████║██████╔╝██║   ██║██╔██╗ ██║██║███████║
+██╔══╝  ██║   ██║██║     ██╔══██║██╔══██╗██║   ██║██║╚██╗██║██║██╔══██║
+███████╗╚██████╔╝╚██████╗██║  ██║██║  ██║╚██████╔╝██║ ╚████║██║██║  ██║
+╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝
 ```
 
 
@@ -40,30 +40,30 @@ O resultado é uma engine narrativa de RPG que **reage às ações do jogador** 
 
 <h2 align="center"> 🧱 Estrutura do Projeto </h2>
 
-                                          EUCHRONIA/
-                                          │
-                                          ├── euchronia/
-                                          │   ├── models.py          # Classes: Player, Enemy, AliveModel
-                                          │   ├── combat_logic.py    # Sistema de combate e skills
-                                          │   ├── game_logic.py      # HUD, menus e exploração
-                                          │   └── ai_services.py     # (futuro) integração com IA
-                                          │
-                                          ├── data/
-                                          │   ├── classes.json       # Classes jogáveis
-                                          │   ├── skills.json        # Habilidades e efeitos
-                                          │   ├── itens.json         # Armas, poções e equipamentos
-                                          │   ├── enemy.json         # Inimigos e loot tables
-                                          │   └── mapconfig/ 
-                                          │        ├── gps_map.json       # Conexões entre regiões
-                                          │        ├── map.txt
-                                          │        └── atlas.json         # Locais do mundo
-                                          │
-                                          ├── saves/                 # Dados persistentes do jogador
-                                          ├── docs/                  # GDD e documentação
-                                          │   └── RPG - EUCHRONIA.pdf
-                                          ├── main.py
-                                          ├── requirements.txt
-                                          └── README.md   
+    EUCHRONIA/
+    │
+    ├── euchronia/
+    │   ├── models.py          # Classes: Player, Enemy, AliveModel
+    │   ├── combat_logic.py    # Sistema de combate e skills
+    │   ├── game_logic.py      # HUD, menus e exploração
+    │   └── ai_services.py     # (futuro) integração com IA
+    │
+    ├── data/
+    │   ├── classes.json       # Classes jogáveis
+    │   ├── skills.json        # Habilidades e efeitos
+    │   ├── itens.json         # Armas, poções e equipamentos
+    │   ├── enemy.json         # Inimigos e loot tables
+    │   └── mapconfig/ 
+    │        ├── gps_map.json       # Conexões entre regiões
+    │        ├── map.txt
+    │        └── atlas.json         # Locais do mundo
+    │
+    ├── saves/                 # Dados persistentes do jogador
+    ├── docs/                  # GDD e documentação
+    │   └── RPG - EUCHRONIA.pdf
+    ├── main.py
+    ├── requirements.txt
+    └── README.md   
 
 ---
 
@@ -100,17 +100,17 @@ Todas configuradas em skills.json — expansíveis sem alterar o código.
 <h2 align="center"> 🎮 Prévia de Combate (Terminal) </h2>
 
 ```
-                                      ──────────────────────────────────────────────────────────────
-                                      👤 Herói (Lv 3)        ❤️ HP: 78/100   ⚔️ STR: 12   🛡 DEF: 9
-                                      vs
-                                      🐀 Rato Gigante        ❤️ HP: 0/25      ☠️ DERROTADO
-                                      ──────────────────────────────────────────────────────────────
-                                      💥 Golpe Pesado causa 23 de dano crítico!
-                                      🧪 Efeito “Sangramento” aplicado por 3 turnos!
-                                      🩸 O inimigo sofre 4 de dano residual.
-                                      ──────────────────────────────────────────────────────────────
-                                      🏆 Vitória! +15 XP | Loot: Pele de Rato (x1)
-                                      ──────────────────────────────────────────────────────────────
+  ──────────────────────────────────────────────────────────────
+  👤 Herói (Lv 3)        ❤️ HP: 78/100   ⚔️ STR: 12   🛡 DEF: 9
+  vs
+  🐀 Rato Gigante        ❤️ HP: 0/25      ☠️ DERROTADO
+  ──────────────────────────────────────────────────────────────
+  💥 Golpe Pesado causa 23 de dano crítico!
+  🧪 Efeito “Sangramento” aplicado por 3 turnos!
+  🩸 O inimigo sofre 4 de dano residual.
+  ──────────────────────────────────────────────────────────────
+  🏆 Vitória! +15 XP | Loot: Pele de Rato (x1)
+  ──────────────────────────────────────────────────────────────
 ```
 
 Interface otimizada para cores com rich e termcolor, incluindo HUD dinâmica com Live() e logs coloridos.
@@ -121,11 +121,11 @@ Interface otimizada para cores com rich e termcolor, incluindo HUD dinâmica com
 
 ```
 
-                                  Classe	             Função	                   Destaque
-                                  AliveModel	        Entidades       vivas	HP, força, defesa, efeitos
-                                  PlayerModel	        Jogador	        Inventário, XP, level, equips
-                                  EnemyModel	        Inimigos	      Dados carregados de enemy.json
-                                  CombatManager	      (planejado)	    Controla rodada e ordem de turnos
+  Classe	             Função	                   Destaque
+  AliveModel	        Entidades       vivas	HP, força, defesa, efeitos
+  PlayerModel	        Jogador	        Inventário, XP, level, equips
+  EnemyModel	        Inimigos	      Dados carregados de enemy.json
+  CombatManager	      (planejado)	    Controla rodada e ordem de turnos
 
 ```
 
@@ -184,12 +184,12 @@ O progresso do jogador é salvo em saves/, incluindo:
 
 <h2 align="center"> 🧩 Roadmap (v0.2 → v1.0) </h2>
 
-                                       Versão	                Foco	                        Status
-                                        0.2	   Sistema de buffs/debuffs empilháveis	  🧩 Em andamento
-                                        0.3	   Sistema de saves e load dinâmico	      🔄 Planejado
-                                        0.4	   HUD visual com rich.Live()	            🔜
-                                        0.5	   IA narrativa com OpenAI API	          ⚙️ Em design
-                                        0.6+	 Interface visual e expansão de mundo	  🌌 Futuro
+    Versão	                Foco	                        Status
+    0.2	   Sistema de buffs/debuffs empilháveis	  🧩 Em andamento
+    0.3	   Sistema de saves e load dinâmico	      🔄 Planejado
+    0.4	   HUD visual com rich.Live()	            🔜
+    0.5	   IA narrativa com OpenAI API	          ⚙️ Em design
+    0.6+	 Interface visual e expansão de mundo	  🌌 Futuro
 
 ---
 
