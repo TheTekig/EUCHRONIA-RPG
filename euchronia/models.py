@@ -108,8 +108,53 @@ class PlayerModel(AliveModel):
             print(f"  - {slot.capitalize()}: {item_names}")
         print("-----------------------\n")
         input("Pressione Enter para continuar...")
-
-    
+        
+    #region  OBJECT TO/FROM DICT
+    def _to_dict(self):
+        return { 
+            'name'       : self.name,
+            'hp'         : self.hp,
+            'maxhp'      : self.maxhp,
+            'strength'   : self.strength,
+            'defense'    : self.defense,
+            'speed'      : self.speed,
+            'level'      : self.level,
+            'experience' : self.experience,
+            'position'   : self.position,
+            'gold'       : self.gold,
+            'class_name' : self.class_name,
+            'class_data' : self.class_data,
+            'skills'     : [skill for skill in self.skills],
+            'inventory'  : [item for item in self.inventory],
+            'key_itens'  : [item for item in self.key_itens],
+            'equipment'  : self.equipment
+        }
+        
+    @classmethod
+    def _from_dict(cls, player_data):
+        player = cls( 
+            name=player_data['name'],
+            classes_data=player_data['class_data'],
+            position=player_data['position']
+        )
+        
+            player.hp=player_data['hp'],
+            player.maxhp=player_data['maxhp'],
+            player.strength=player_data['strength'],
+            player.defense=player_data['defense'],
+            player.speed=player_data['speed'],
+            player.level=player_data['level'],
+            player.experience=player_data['experience'],
+            player.gold=player_data['gold'],
+            player.class_name=player_data['class_name'],
+            player.class_data=player_data['class_data'],
+            player.skills=player_data['skills'],
+            player.inventory=player_data['inventory'],
+            player.key_itens=player_data['key_itens'],
+            player.equipment=player_data['equipment']
+        
+        return player
+    #endregion
     #region Equipment Attribute
 
     def _get_total_attribute(self, attribute_name: str, base_value: int, all_items_data: dict):
@@ -121,15 +166,15 @@ class PlayerModel(AliveModel):
                     total_bonus += item_info["bonus"].get(attribute_name,0)
         return base_value + total_bonus
     
-    @property
+   
     def total_defense(self, all_items_data:dict):
         return self._get_total_attribute("defense", self.defense, all_items_data)
     
-    @property
+
     def total_strength(self, all_items_data:dict):
         return self._get_total_attribute("strength", self.strength, all_items_data)
     
-    @property
+
     def total_speed(self, all_items_data:dict):
         return self._get_total_attribute("speed", self.speed, all_items_data)
     
