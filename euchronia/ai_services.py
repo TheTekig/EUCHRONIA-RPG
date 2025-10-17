@@ -2,6 +2,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 from euchronia import general_logic as gl
+from euchronia import combat_logic as cl
 
 load_dotenv()
 
@@ -250,8 +251,11 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
         gl.append_json(enemy, new_enemy)
 
         if packadge.get('use_enemy_in_combat'):
-            return 
-
+            cl.combatloop(heroi, enemy, all_itens_data, skills)
+    
+    if packadge.get('iniciar_combate'):
+        
+    
     if packadge.get('newskill'):
         new_skill = prompts_skill_generator(skills, packadge['newskill_name'], packadge['newskill_description']):
         new_skill = execute_openai(new_skill)
