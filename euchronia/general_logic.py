@@ -9,7 +9,7 @@ def append_json(filepath, info):
         data.append(info)
     
         with open(filepath, 'w', encoding= 'utf-8') as file:
-            json.dump(data)
+            json.dump(data, indent="4")
 
         print(colored(f"{info} foi salvo ao banco de dados"))
               
@@ -18,7 +18,10 @@ def append_json(filepath, info):
 
 def load_json(filepath):
     with open(filepath, 'r', encoding='utf-8') as file:
-        return json.load(file, indent=4, ensure_ascii=False)
+
+        open_file = json.load(file)
+
+    return open_file
 
 
 

@@ -7,14 +7,17 @@ from termcolor import colored
 
 #region LOAD DATA
 
-classes = general_logic.load_json('./data/classes.json')
-enemies = general_logic.load_json('./data/enemy.json')
-items = general_logic.load_json('./data/itens.json')
-skills = general_logic.load_json('./data/skills.json')
-shopkeepers = general_logic.load_json('./data/shopkeepers.json')
+classes = general_logic.load_json('data/classes.json')
+enemies = general_logic.load_json('data/enemy.json')
+items = general_logic.load_json('data/itens.json')
+skills = general_logic.load_json('data/skills.json')
+shopkeepers = general_logic.load_json('data/shopkeepers.json')
 
-atlas = general_logic.load_json('./data/mapconfig/atlas.json')
-gps = general_logic.load_json('./data/mapconfig/gps_map.json')
+atlas = general_logic.load_json('data/mapconfig/atlas.json')
+gps = general_logic.load_json('data/mapconfig/gps_map.json')
+
+with open ('saves/slot_1/lore.txt', "r") as lore_text:
+    lore = lore_text.read()
 
 #endregion
 
@@ -30,7 +33,14 @@ def main():
 
         match choice:
             case '1':
+
                 hero = game_logic.create_hero(classes)
+
+                input(colored("Pressione Enter para continuar...", "green"))
+                
+                
+                game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore)
+
             case '2':
                 print(colored("SAVE AND LOAD menu is under construction.", 'yellow'))
             case '3':

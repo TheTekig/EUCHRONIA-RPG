@@ -138,20 +138,20 @@ class PlayerModel(AliveModel):
             position=player_data['position']
         )
         
-            player.hp=player_data['hp'],
-            player.maxhp=player_data['maxhp'],
-            player.strength=player_data['strength'],
-            player.defense=player_data['defense'],
-            player.speed=player_data['speed'],
-            player.level=player_data['level'],
-            player.experience=player_data['experience'],
-            player.gold=player_data['gold'],
-            player.class_name=player_data['class_name'],
-            player.class_data=player_data['class_data'],
-            player.skills=player_data['skills'],
-            player.inventory=player_data['inventory'],
-            player.key_itens=player_data['key_itens'],
-            player.equipment=player_data['equipment']
+        player.hp=player_data['hp'],
+        player.maxhp=player_data['maxhp'],
+        player.strength=player_data['strength'],
+        player.defense=player_data['defense'],
+        player.speed=player_data['speed'],
+        player.level=player_data['level'],
+        player.experience=player_data['experience'],
+        player.gold=player_data['gold'],
+        player.class_name=player_data['class_name'],
+        player.class_data=player_data['class_data'],
+        player.skills=player_data['skills'],
+        player.inventory=player_data['inventory'],
+        player.key_itens=player_data['key_itens'],
+        player.equipment=player_data['equipment']
         
         return player
     #endregion

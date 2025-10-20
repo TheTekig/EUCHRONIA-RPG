@@ -70,7 +70,7 @@ def create_hero(classes):
 #region Explore Logic
 def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume):
     """O menu principal do jogo durante a exploração."""
-    
+    os.system('cls')
     current_location_info = atlas.get(hero.position, {"nome": "Lugar Desconhecido"})
     location_name = current_location_info['nome']
     
