@@ -1,6 +1,7 @@
 from termcolor import colored
-from euchronia import models, ai_services
+from euchronia import models, ai_services, general_logic
 import os
+
 
 
 
@@ -66,7 +67,6 @@ def create_hero(classes):
     
 
 
-
 #region Explore Logic
 def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume):
     """O menu principal do jogo durante a exploração."""
@@ -121,9 +121,13 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
 
         case "M":
             show_map_from_file()
-                     
+
+        case "R":
+            hero.heal(10)
+            
         case "Q":
             print("Obrigado por jogar EUCHRONIA!")
+            general_logic.append_json(filepath, info)
             return "QUIT" 
 
 def show_map_from_file(filepath="map.txt"):
@@ -250,6 +254,7 @@ def equip_item(hero, item_name, item_data):
     print(f"{item_name} foi equipado.")
 
 #endregion
+
 
 
 
