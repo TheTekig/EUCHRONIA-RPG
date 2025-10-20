@@ -243,6 +243,7 @@ def execute_openai(prompt, valorToken=1000):
 
 def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resume ):
     packadge = execute_openai(prompt)
+    packadge = json.loads(packadge)
 
     if packadge.get('new_enemy'):
         new_enemy = prompts_enemy_generator(enemy, heroi, all_itens_data, skills, packadge['enemy_name'], packadge['enemy_description'])
@@ -253,7 +254,7 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
             return 
 
     if packadge.get('newskill'):
-        new_skill = prompts_skill_generator(skills, packadge['newskill_name'], packadge['newskill_description']):
+        new_skill = prompts_skill_generator(skills, packadge['newskill_name'], packadge['newskill_description'])
         new_skill = execute_openai(new_skill)
         gl.append_json(skills, new_skill)
     
@@ -266,7 +267,7 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
     log.append(packadge.get('narrativa'))
     log.append(packadge.get('quest', ""))
     
-    gl.append_json(lore_resume, log))
+    gl.append_json(lore_resume, log)
 
     return log
 
