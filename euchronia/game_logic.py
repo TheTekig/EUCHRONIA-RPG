@@ -102,13 +102,14 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
                 print("Opção inválida.")
                 travel_choice = input(">> ")
             
+            action = "Explore"
 
             chosen_id = destination_map[travel_choice]
             hero.position = chosen_id
             new_location_name = atlas[chosen_id]['nome']
 
             prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero)
-            narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_itens_data, skills, lore_resume )
+            narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
             print(colored(narrativa, "cyan"))
             print(f"\nVocê viaja para {new_location_name}...")
             

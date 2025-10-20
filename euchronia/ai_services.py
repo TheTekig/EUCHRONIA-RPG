@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 from euchronia import general_logic as gl
 from euchronia import combat_logic as cl
+import json
 
 load_dotenv()
 
@@ -200,7 +201,7 @@ def prompts_game_master(action, lore_resume, map, gps, heroi, humor='criativo'):
 
     user_prompt = f"""
     ---Contexto Atual---
-    Herói: {heroi.nome}, um {heroi.class_name} de nivel {heroi.level} com status - hp{heroi.hp}, strenght{heroi.strenght}, defense{heroi.defense}, speed{heroi.speed}
+    Herói: {heroi.name}, um {heroi.class_name} de nivel {heroi.level} com status - hp{heroi.hp}, strenght{heroi.strength}, defense{heroi.defense}, speed{heroi.speed}
 
     ---Localização no Mapa---
     posição do Heroi : {heroi.position}
