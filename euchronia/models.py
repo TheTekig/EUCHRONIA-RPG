@@ -62,7 +62,7 @@ class AliveModel():
     #endregion
 
 class PlayerModel(AliveModel):
-    def __init__(self, name, classes_data, position = None):
+    def __init__(self, name, classes_data, position = "C"):
         super().__init__(
             name = name, 
             hp = classes_data['maxhp'], 
