@@ -70,66 +70,69 @@ def create_hero(classes):
 #region Explore Logic
 def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume):
     """O menu principal do jogo durante a exploração."""
-    os.system('cls')
-    current_location_info = atlas.get(hero.position, {"nome": "Lugar Desconhecido"})
-    location_name = current_location_info['nome']
-    
-    print(f"\n====================== VOCÊ ESTÁ EM: {location_name.upper()} =======================")
-    print("[E]xplorar / [I]nventário / [S]tatus / [M]apa / [R]est / [Q]uit")
-    
-    choice = input(">> ").upper()
-    while choice not in ["E", "I", "S", "M", "Q", "R"]:
-        choice = input(">> ").upper()
-    
-    match choice:
-        case "E":
-            print("\nPara onde você quer ir?")
-            possible_destinations = gps.get(hero.position, [])
-
-            destination_map = {}
-            for i, place_id in enumerate(possible_destinations):
-                place_name = atlas[place_id]['nome']
-                destination_map[str(i + 1)] = place_id
-                print(f"  [{i + 1}] {place_name}")
-
-            if not destination_map:
-                print("Não há para onde ir a partir daqui.")
-                return
-
-            travel_choice = input(">> ")
-
-            while travel_choice not in destination_map:
-                print("Opção inválida.")
-                travel_choice = input(">> ")
-            
-            action = "Explore"
-
-            chosen_id = destination_map[travel_choice]
-            hero.position = chosen_id
-            new_location_name = atlas[chosen_id]['nome']
-
-            prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero)
-            narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
-            print(colored(narrativa, "cyan"))
-            print(f"\nVocê viaja para {new_location_name}...")
-            
-
-        case "I":
-            manage_inventory(hero, all_items_data)
+    while True:
+        os.system('cls')
+        current_location_info = atlas.get(hero.position, {"nome": "Lugar Desconhecido"})
+        location_name = current_location_info['nome']
         
-        case "S":
-            hero._status(all_items_data)
+        print(f"\n====================== VOCÊ ESTÁ EM: {location_name.upper()} =======================")
+        print("[E]xplorar / [I]nventário / [S]tatus / [M]apa / [R]est / [Q]uit")
+        
+        choice = input(">> ").upper()
+        while choice not in ["E", "I", "S", "M", "Q", "R"]:
+            choice = input(">> ").upper()
+        
+        match choice:
+            case "E":
+                print("\nPara onde você quer ir?")
+                possible_destinations = gps.get(hero.position, [])
 
-        case "M":
-            show_map_from_file()
+                destination_map = {}
+                for i, place_id in enumerate(possible_destinations):
+                    place_name = atlas[place_id]['nome']
+                    destination_map[str(i + 1)] = place_id
+                    print(f"  [{i + 1}] {place_name}")
 
-        case "R":
-            hero.heal(10)
+                if not destination_map:
+                    print("Não há para onde ir a partir daqui.")
+                    continue
+
+                travel_choice = input(">> ")
+
+                while travel_choice not in destination_map:
+                    print("Opção inválida.")
+                    travel_choice = input(">> ")
+                
+                action = "Explore"
+
+                chosen_id = destination_map[travel_choice]
+                hero.position = chosen_id
+                new_location_name = atlas[chosen_id]['nome']
+
+                prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero)
+                narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
+                print(colored(narrativa, "cyan"))
+                print(f"\nVocê viaja para {new_location_name}...")
+                input(colored("Pressione Enter para continuar...", "green"))
+
+                continue
+
+            case "I":
+                manage_inventory(hero, all_items_data)
             
-        case "Q":
-            print("Obrigado por jogar EUCHRONIA!")
-            general_logic.append_json(filepath, info)
-            return "QUIT" 
+            case "S":
+                hero._status(all_items_data)
+
+            case "M":
+                show_map_from_file()
+
+            case "R":
+                hero.heal(10)
+                
+            case "Q":
+                print("Obrigado por jogar EUCHRONIA!")
+                general_logic.append_json(filepath, info)
+                return "QUIT" 
 
 def show_map_from_file(filepath="map.txt"):
     """

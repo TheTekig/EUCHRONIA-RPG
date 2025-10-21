@@ -38,7 +38,6 @@ def main():
 
                 input(colored("Pressione Enter para continuar...", "green"))
                 
-                
                 game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore)
 
             case '2':

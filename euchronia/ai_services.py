@@ -4,15 +4,7 @@ import os
 from euchronia import general_logic as gl
 from euchronia import combat_logic as cl
 import json
-
-load_dotenv()
-
-api_key = os.getenv("OPENAI_API_KEY")
-
-try:
-    Client = OpenAI(api_key="OPENAI_API_KEY")
-except Exception as e:
-    print("ERRO: Interrupção da conexão com OpenAI key - ", e)
+from termcolor import colored
 
 def prompts_enemy_generator(enemy, heroi, all_itens_data, skills, enemy_name, enemy_description):
 
@@ -222,6 +214,16 @@ def prompts_game_master(action, lore_resume, map, gps, heroi, humor='criativo'):
 
 
 def execute_openai(prompt, valorToken=1000):
+
+    load_dotenv("venv/.env")
+
+    api_key = os.getenv("OPENAI_API_KEY")
+    try:
+        Client = OpenAI(api_key=api_key)
+
+    except Exception as e:
+        print("ERRO: Interrupção da conexão com OpenAI key - ", e)
+
     try:
         response = Client.chat.completions.create(
             model="gpt-4o-mini",
@@ -245,10 +247,18 @@ def execute_openai(prompt, valorToken=1000):
 
 def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resume ):
     packadge = execute_openai(prompt)
+
+    packadge= packadge.strip()
+
+    if packadge.startswith("```json"):
+        packadge = packadge.replace("```json", "")
+    if packadge.endswith("```"):
+        packadge = packadge.replace("```", "")
+
     packadge = json.loads(packadge)
 
     if packadge.get('new_enemy'):
-        new_enemy = prompts_enemy_generator(enemy, heroi, all_itens_data, skills, packadge['enemy_name'], packadge['enemy_description'])
+        new_enemy = prompts_enemy_generator(enemy, heroi, all_itens_data, skills, packadge['new_enemy_name'], packadge['new_enemy_description'])
         new_enemy = execute_openai(new_enemy)
         gl.append_json(enemy, new_enemy)
 
