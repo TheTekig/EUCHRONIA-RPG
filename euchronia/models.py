@@ -205,6 +205,7 @@ class EnemyModel(AliveModel):
         super().__init__(
             name = enemy_data.get('name', 'Unknow Enemy'), 
             hp = enemy_data.get('maxhp', 10), 
+            maxhp = enemy_data.get('maxhp', 10),
             strength = enemy_data.get('strength', 5), 
             defense = enemy_data.get('defense', 0), 
             speed =  enemy_data.get('speed', 10),
@@ -213,5 +214,5 @@ class EnemyModel(AliveModel):
         self.type = enemy_data.get('type', "Unknow Creature")
         self.experience = enemy_data.get('experience', 10)
         self.loot = enemy_data.get('loot', 'Nothing Userfull')
-        self.region = enemy_data['region']
-        self.skills = enemy_data['skills']
+        self.region = enemy_data.get('region', 'Unknown Region')
+        self.skills = enemy_data.get('skills', ["Flechada"])

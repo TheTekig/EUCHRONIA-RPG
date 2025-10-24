@@ -12,7 +12,7 @@ def prompts_enemy_generator(enemy, heroi, all_itens_data, skills, enemy_name, en
     system_prompt= f"""
 
         Você é um artesão na geração e inimigos, seu trabalho é gerar inimigos seguindo um padrão de Json utilizando-se do nome e do contexto dado do inimigo. Siga as regras de estrutura de forma rigorosa!
-
+        RETORNE APENAS UM JSON DE UM INIMIGO!
         ###REGRA DE FORMATAÇÃO DE INIMIGOS###
 
         (chave com nome do inimigo):
@@ -155,12 +155,13 @@ def prompts_game_master(action, lore_resume, map, gps, heroi, past_hero_position
     system_prompt = f"""
         Você é um Mestre de Jogo para o RPG de terminal. Sua voz é descritiva, atmosférica e um pouco misteriosa seja um mestre {humor}. Sua tarefa é interpretar a ação do jogador e decidir oque acontece a seguir, retornando um 'Pacote de Ações' em JSON. Seja Criativo, adapte os eventos á história e ao local, e siga rigorosamente as regras de formatação e tenha a posicao do jogador como base para a continuacao da narrativa.
         SE O JOGADOR SAIR DE UM LOCAL E FOR PAR OUTRO ADAPTE A NARRATIVA PARA ESSA MUDANÇA DE CENÁRIO E FAZER REFERENCIA A POSIÇÃO ANTERIOR DO JOGADOR!
+        EVITE CRIAR NPCS CRIE MAIS INIMIGOS!
 
         ###REGRAS DE FORMATAÇÃO DO PACOTE DE AÇÃO (JSON)###
 
         Você deve apenas retornar um pacote de ações em formato JSON válido e a estrutura deve ser a seguinte:
 
-        'narrativa': (string) #Descreva a cena e o resultado da ação  do jogador de forma imersiva (1 parágrafos e meio no máximo).
+        'narrativa': (string) #Descreva a cena e o resultado da ação  do jogador de forma imersiva (50palavras no máximo).
 
         'quest': (string) #Se resolver iniciar uma quest escreva de forma mais simples possivel a quest, se não apenas coloque null(não inicie outra quest até a quest atual ser considerada finalizada por você!).
 
@@ -190,7 +191,7 @@ def prompts_game_master(action, lore_resume, map, gps, heroi, past_hero_position
 
         'newnpc' : (boolean) #'True' se um novo NPC deve ser criado, senão 'False'
         'newnpc_name' : (string) #Nome do novo NPC
-        'newnpc_description' : (string) #Descrição do novo NPC
+        'newnpc_description' : (string) #Descrição do novo NPC 
 
     """
 
@@ -252,8 +253,6 @@ def execute_openai(prompt, valorToken=1000):
 def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resume ):
     packadge = execute_openai(prompt)
 
-    print(colored(f"lore_resume antes de processar o packadge: {lore_resume}", "green"))
-
     packadge= packadge.strip()
 
     if packadge.startswith("```json"):
@@ -262,6 +261,8 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
         packadge = packadge.replace("```", "")
 
     packadge = json.loads(packadge)
+
+    print(colored(f"Packadge recebido da IA: {packadge}", "green"))
 
     if packadge.get('new_enemy'):
         new_enemy = prompts_enemy_generator(enemy, heroi, all_itens_data, skills, packadge['new_enemy_name'], packadge['new_enemy_description'])
@@ -272,15 +273,12 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
         if new_enemy.endswith("```"):
             new_enemy = new_enemy.replace("```", "")
 
-        gl.append_json(enemy, new_enemy)
+        enemy_data = json.loads(new_enemy)
+        print(enemy_data)   
 
-        if packadge.get('use_enemy_in_combat'):
-            enemy_data = json.loads(new_enemy)
-            print(enemy_data)   
+        enemy = models.EnemyModel(enemy_data)
 
-            enemy = models.EnemyModel(enemy_data)
-
-            cl.combat_loop(heroi, enemy, all_itens_data, skills)
+        cl.combat_loop(heroi, enemy, all_itens_data, skills)
     
     if packadge.get('newskill'):
         new_skill = prompts_skill_generator(skills, packadge['newskill_name'], packadge['newskill_description'])

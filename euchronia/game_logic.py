@@ -133,7 +133,7 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
             
             case "O":
 
-                action = "Observe the surroundings"
+                action = "Continue the narrative"
                 past_hero_position = hero.position
                 prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
                 narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
