@@ -76,10 +76,10 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
         location_name = current_location_info['nome']
         
         print(f"\n====================== VOCÊ ESTÁ EM: {location_name.upper()} =======================")
-        print("[E]xplorar / [I]nventário / [S]tatus / [M]apa / [R]est / [Q]uit")
+        print("[E]xplorar / [O]bserve [I]nventário / [S]tatus / [M]apa / [R]est / [Q]uit")
         
         choice = input(">> ").upper()
-        while choice not in ["E", "I", "S", "M", "Q", "R"]:
+        while choice not in ["E", "O", "I", "S", "M", "Q", "R"]:
             choice = input(">> ").upper()
         
         match choice:
@@ -105,12 +105,14 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
                 
                 action = "Explore"
 
+                past_hero_position = hero.position
+
                 chosen_id = destination_map[travel_choice]
                 hero.position = chosen_id
                 new_location_name = atlas[chosen_id]['nome']
 
-                prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero)
-                narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
+                prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
+                narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume)
                 print(colored(narrativa, "cyan"))
                 print(f"\nVocê viaja para {new_location_name}...")
                 input(colored("Pressione Enter para continuar...", "green"))
@@ -128,6 +130,16 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
 
             case "R":
                 hero.heal(10)
+            
+            case "O":
+
+                action = "Observe the surroundings"
+                past_hero_position = hero.position
+                prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
+                narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
+                
+                print(colored(narrativa, "cyan"))
+                input(colored("Pressione Enter para continuar...", "green"))
                 
             case "Q":
                 print("Obrigado por jogar EUCHRONIA!")

@@ -5,6 +5,7 @@ from euchronia import general_logic as gl
 from euchronia import combat_logic as cl
 import json
 from termcolor import colored
+from euchronia import models
 
 def prompts_enemy_generator(enemy, heroi, all_itens_data, skills, enemy_name, enemy_description):
 
@@ -19,6 +20,7 @@ def prompts_enemy_generator(enemy, heroi, all_itens_data, skills, enemy_name, en
         'type' : (string) #tipo do inimigo (humanoide ou fera)
         'region' : (list) #lista com string com os nome dos locais do mapa que ele pode ser encontrado.
         'hp' : (int) #vida do inimigo
+        'maxhp' : (int) #vida maxima do inimigo
         'strength' : (int) #ataque do inimigo
         'defense' : (int) #defesa do inimigo
         'speed' : (int) #velocidade do inimigo
@@ -29,7 +31,7 @@ def prompts_enemy_generator(enemy, heroi, all_itens_data, skills, enemy_name, en
         exemplos de inimigos:{enemy}
 
         use os inimigos de exemplo e os dados do herói como forma de balanceamento:
-        Heroi - hp{heroi.hp}, strenght{heroi.strenght}, defense{heroi.defense}, speed{heroi.speed}
+        Heroi - hp{heroi.hp}, strenght{heroi.strength}, defense{heroi.defense}, speed{heroi.speed}
 
         skills.json = {skills}
 
@@ -148,16 +150,17 @@ def prompts_resume(lore_resume, npcs, quests):
     prompt = [system_prompt, user_prompt]
     return prompt
 
-def prompts_game_master(action, lore_resume, map, gps, heroi, humor='criativo'):
+def prompts_game_master(action, lore_resume, map, gps, heroi, past_hero_position, humor='criativo'):
 
     system_prompt = f"""
-        Você é um Mestre de Jogo para o RPG de terminal. Sua voz é descritiva, atmosférica e um pouco misteriosa seja um mestre {humor}. Sua tarefa é interpretar a ação do jogador e decidir oque acontece a seguir, retornando um 'Pacote de Ações' em JSON. Seja Criativo, adapte os eventos á história e ao local, e siga rigorosamente as regras de formatação.
+        Você é um Mestre de Jogo para o RPG de terminal. Sua voz é descritiva, atmosférica e um pouco misteriosa seja um mestre {humor}. Sua tarefa é interpretar a ação do jogador e decidir oque acontece a seguir, retornando um 'Pacote de Ações' em JSON. Seja Criativo, adapte os eventos á história e ao local, e siga rigorosamente as regras de formatação e tenha a posicao do jogador como base para a continuacao da narrativa.
+        SE O JOGADOR SAIR DE UM LOCAL E FOR PAR OUTRO ADAPTE A NARRATIVA PARA ESSA MUDANÇA DE CENÁRIO E FAZER REFERENCIA A POSIÇÃO ANTERIOR DO JOGADOR!
 
         ###REGRAS DE FORMATAÇÃO DO PACOTE DE AÇÃO (JSON)###
 
         Você deve apenas retornar um pacote de ações em formato JSON válido e a estrutura deve ser a seguinte:
 
-        'narrativa': (string) #Descreva a cena e o resultado da ação  do jogador de forma imersiva (2-3 parágrafos no máximo).
+        'narrativa': (string) #Descreva a cena e o resultado da ação  do jogador de forma imersiva (1 parágrafos e meio no máximo).
 
         'quest': (string) #Se resolver iniciar uma quest escreva de forma mais simples possivel a quest, se não apenas coloque null(não inicie outra quest até a quest atual ser considerada finalizada por você!).
 
@@ -196,7 +199,8 @@ def prompts_game_master(action, lore_resume, map, gps, heroi, humor='criativo'):
     Herói: {heroi.name}, um {heroi.class_name} de nivel {heroi.level} com status - hp{heroi.hp}, strenght{heroi.strength}, defense{heroi.defense}, speed{heroi.speed}
 
     ---Localização no Mapa---
-    posição do Heroi : {heroi.position}
+    posicao anterior do Heroi : {past_hero_position}
+    posição atual do Heroi : {heroi.position}
     mapa : {map}
     gps : {gps}
 
@@ -248,6 +252,8 @@ def execute_openai(prompt, valorToken=1000):
 def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resume ):
     packadge = execute_openai(prompt)
 
+    print(colored(f"lore_resume antes de processar o packadge: {lore_resume}", "green"))
+
     packadge= packadge.strip()
 
     if packadge.startswith("```json"):
@@ -260,10 +266,21 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
     if packadge.get('new_enemy'):
         new_enemy = prompts_enemy_generator(enemy, heroi, all_itens_data, skills, packadge['new_enemy_name'], packadge['new_enemy_description'])
         new_enemy = execute_openai(new_enemy)
+        new_enemy = new_enemy.strip()
+        if new_enemy.startswith("```json"):
+            new_enemy = new_enemy.replace("```json", "")
+        if new_enemy.endswith("```"):
+            new_enemy = new_enemy.replace("```", "")
+
         gl.append_json(enemy, new_enemy)
 
         if packadge.get('use_enemy_in_combat'):
-            cl.combatloop(heroi, enemy, all_itens_data, skills)
+            enemy_data = json.loads(new_enemy)
+            print(enemy_data)   
+
+            enemy = models.EnemyModel(enemy_data)
+
+            cl.combat_loop(heroi, enemy, all_itens_data, skills)
     
     if packadge.get('newskill'):
         new_skill = prompts_skill_generator(skills, packadge['newskill_name'], packadge['newskill_description'])
@@ -278,8 +295,24 @@ def ai_packadge_control(prompt, enemy, heroi, all_itens_data, skills, lore_resum
     log = []
     log.append(packadge.get('narrativa'))
     log.append(packadge.get('quest', ""))
+
+    with open ('saves/slot_1/lore.txt', "r") as lore_text:
+        lore_resume = lore_text.read()
+
+    if len(lore_resume) > 10000:
+        resumed_lore = prompts_resume(lore_resume, "null", "null")
+        resumed_lore = execute_openai(resumed_lore, valorToken=2000)
+
+        with open ('saves/slot_1/lore.txt', "w") as lore_text:
+            lore_text.write(resumed_lore)
     
-    gl.append_json(lore_resume, log)
+
+    nar = packadge.get('narrativa', "")
+    lore_resume += ("\n" + nar)
+
+    with open ('saves/slot_1/lore.txt', "w") as lore_text:
+        lore_text.write(lore_resume)
+        
 
     return log
 
