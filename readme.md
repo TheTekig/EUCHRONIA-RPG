@@ -184,7 +184,7 @@ O progresso do jogador é salvo em saves/, incluindo:
 
 <h2 align="center"> 🧙 Autor </h2>
 
-<h2 align="center"> ***Diogo Teodoro Dias Lamas*** </h2>
+<h2 align="center"> Diogo Teodoro Dias Lamas </h2>
 
     🎮 Desenvolvedor & Criador do universo Euchronia
     📦 GitHub: @TheTekig
