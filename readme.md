@@ -1,4 +1,4 @@
-<h1 align="center"> <img src="./UI/Logo.png" /></h1>
+<h1 align="center"> <img src="./UI/banner.png" /></h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.11%2B-blue?logo=python">
