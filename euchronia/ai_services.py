@@ -41,7 +41,7 @@ class JSONCleaner:
             if cleaned.startswith("```"):
                 cleaned = cleaned[3:]
             if cleaned.endswith("```"):
-                cleaned = cleaned[:-3]:
+                cleaned = cleaned[:-3]
 
             cleaned = cleaned.strip()
             return json.loads(cleaned)
