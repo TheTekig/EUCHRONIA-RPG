@@ -170,18 +170,29 @@ def _skill_manager(attacker, defensor, skill_data):
 
 def combat_loop(Hero, Enemy, Skills, items_data):
     
-    while Hero.is_alive() and Enemy.is_alive():
-
-        round = _action_time(Hero, Enemy)
-        if "Freeze" in round.effect:
-            if round == Hero:
-                round = Enemy
-            else:
-                round = Hero
-            
+     while Hero.is_alive() and Enemy.is_alive():
+        # Processa efeitos ativos no início do turno
+        _process_active_effects(Hero)
+        _process_active_effects(Enemy)
         
-        if round == Hero:
-                print("[S]kill [I]nventory [ST]atus [R]un")
+        # Determina quem age
+        active_fighter = _action_time(Hero, Enemy)
+        
+        # Verifica se está congelado
+        if active_fighter.has_effect("Freezed"):
+            print(f"{active_fighter.name} está congelado e não pode agir!")
+            _reduce_effect_duration(active_fighter, "Freezed")
+            continue
+        
+        # Executa turno do lutador ativo
+        if active_fighter == Hero:
+            _hero_turn(Hero, Enemy, Skills, items_data)
+        else:
+            _enemy_turn(Enemy, Hero, Skills)
+
+def _hero_turn(Hero, Enemy, Skills, items_data):
+    
+    print("[S]kill [I]nventory [ST]atus [R]un")
                 
                 option = input(">> ")
                 while option.upper() not in ["S", "I", "ST", "R"]:
@@ -224,17 +235,19 @@ def combat_loop(Hero, Enemy, Skills, items_data):
                     case _:
                         pass
 
-        else:
-                print("Enemy Turn")
-                size = len(Enemy.skills)
-                if size > 0:
-                    skill_option = randint(0, size - 1)
-                    skill_option = Enemy.skills[skill_option]
-                    action = _skill_manager(Enemy, Hero, Skills[skill_option])
-                    print(action)
-                else:
-                    skill_option = 0
-                    action = _skill_manager(Enemy, Hero, Skills[skill_option])
-                    print(action)
+    
+def _enemy_turn(Enemy, Hero, Skills):
+    
+    print("Enemy Turn")
+    size = len(Enemy.skills)
+    if size > 0:
+        skill_option = randint(0, size - 1)
+        skill_option = Enemy.skills[skill_option]
+        action = _skill_manager(Enemy, Hero, Skills[skill_option])
+        print(action)
+    else:
+        skill_option = 0
+        action = _skill_manager(Enemy, Hero, Skills[skill_option])
+        print(action)
                     
                 
