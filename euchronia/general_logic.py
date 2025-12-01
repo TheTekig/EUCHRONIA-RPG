@@ -8,13 +8,14 @@ def append_json(filepath, info):
     
         data.append(info)
     
-        with open(filepath, 'w', encoding= 'utf-8') as file:
-            json.dump(data, indent="4")
+        with open(filepath, 'w', encoding='utf-8') as file:
+            json.dump(data, file, indent=4, ensure_ascii=False)
 
-        print(colored(f"{info} foi salvo ao banco de dados"))
+        print(colored(f"{info} foi salvo ao banco de dados", "green"))
               
-    except Exception:
-        print(colored(f"Erro ao salvar {info} no banco de dados"))
+    except Exception as e:
+        print(colored(f"Erro ao salvar {info} no banco de dados: {e}", "red"))
+
 
 def load_json(filepath):
     with open(filepath, 'r', encoding='utf-8') as file:
