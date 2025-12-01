@@ -165,7 +165,27 @@ def _skill_manager(attacker, defensor, skill_data):
             return _control_skill(defensor, skill_data)
         case _: 
             return "INVALID"
+
+def _process_active_effects(fighter):
+    """Processa efeitos ativos (dano por turno, etc)"""
+    for effect_name, effect_data in list(fighter.efeitos_ativos.items()):
+        effects = effect_data.get("effect", {})
         
+        # Dano por turno (veneno, queimadura)
+        if "damage_per_round" in effects:
+            damage = effects["damage_per_round"]
+            fighter.take_damage(damage)
+            print(f"{fighter.name} sofre {damage} de dano de {effect_name}!")
+
+def _reduce_effect_duration(fighter, effect_name):
+    """Reduz duração de um efeito e remove se necessário"""
+    if effect_name in fighter.efeitos_ativos:
+        fighter.efeitos_ativos[effect_name]["duration"] -= 1
+        
+        if fighter.efeitos_ativos[effect_name]["duration"] <= 0:
+            fighter.remove_effect(effect_name)
+            print(f"O efeito {effect_name} de {fighter.name} terminou!")
+
 #endregion 
 
 def combat_loop(Hero, Enemy, Skills, items_data):
