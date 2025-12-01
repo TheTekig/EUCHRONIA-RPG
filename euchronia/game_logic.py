@@ -76,46 +76,75 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
         location_name = current_location_info['nome']
         
         print(f"\n====================== VOCÊ ESTÁ EM: {location_name.upper()} =======================")
-        print("[E]xplorar / [O]bserve [I]nventário / [S]tatus / [M]apa / [R]est / [Q]uit")
+        print("[A]ctions / [I]nventário / [S]tatus / [M]apa / [R]est / [Q]uit")
         
         choice = input(">> ").upper()
-        while choice not in ["E", "O", "I", "S", "M", "Q", "R"]:
+        while choice not in ["A", "I", "S", "M", "Q", "R"]:
             choice = input(">> ").upper()
         
         match choice:
-            case "E":
-                print("\nPara onde você quer ir?")
-                possible_destinations = gps.get(hero.position, [])
+            case "A":
+                print("[E}xplore / [F]ight / [O]bserve / [R]eturn")
+                choice = input(">> ").upper()
+                while choice not in ["E", "F", "O", "R"]:
+                    choice = input(">> ").upper()
 
-                destination_map = {}
-                for i, place_id in enumerate(possible_destinations):
-                    place_name = atlas[place_id]['nome']
-                    destination_map[str(i + 1)] = place_id
-                    print(f"  [{i + 1}] {place_name}")
-
-                if not destination_map:
-                    print("Não há para onde ir a partir daqui.")
-                    continue
-
-                travel_choice = input(">> ")
-
-                while travel_choice not in destination_map:
-                    print("Opção inválida.")
-                    travel_choice = input(">> ")
+                    match choice:
+                        case "E":
+                            print("\nPara onde você quer ir?")
+                            possible_destinations = gps.get(hero.position, [])
                 
-                action = "Explore"
+                            destination_map = {}
+                            for i, place_id in enumerate(possible_destinations):
+                                place_name = atlas[place_id]['nome']
+                                destination_map[str(i + 1)] = place_id
+                                print(f"  [{i + 1}] {place_name}")
+                
+                            if not destination_map:
+                                print("Não há para onde ir a partir daqui.")
+                                continue
+                
+                            travel_choice = input(">> ")
+                
+                            while travel_choice not in destination_map:
+                                print("Opção inválida.")
+                                travel_choice = input(">> ")
+                
+                            past_hero_position = hero.position
+                
+                            chosen_id = destination_map[travel_choice]
+                            hero.position = chosen_id
+                            new_location_name = atlas[chosen_id]['nome']
 
-                past_hero_position = hero.position
+                            action = f"Travelling from {past_hero_position} to {new_location_name}"
+                            
+                            prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
+                            narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume)
+                            print(colored(narrativa, "cyan"))
+                            print(f"\nVocê viaja para {new_location_name}...")
+                            input(colored("Pressione Enter para continuar...", "green"))
 
-                chosen_id = destination_map[travel_choice]
-                hero.position = chosen_id
-                new_location_name = atlas[chosen_id]['nome']
+                            continue
+                            
+                        case "F":
 
-                prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
-                narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume)
-                print(colored(narrativa, "cyan"))
-                print(f"\nVocê viaja para {new_location_name}...")
-                input(colored("Pressione Enter para continuar...", "green"))
+                            action = "Start a fight"
+                            past_hero_position = hero.position
+                            prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
+                            narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
+                            
+                        case "O":
+                            
+                            action = "Continue the narrative"
+                            past_hero_position = hero.position
+                            prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
+                            narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
+                
+                            print(colored(narrativa, "cyan"))
+                            input(colored("Pressione Enter para continuar...", "green"))
+                            
+                        case "R":
+                            continue
 
                 continue
 
@@ -130,16 +159,6 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
 
             case "R":
                 hero.heal(10)
-            
-            case "O":
-
-                action = "Continue the narrative"
-                past_hero_position = hero.position
-                prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
-                narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume )
-                
-                print(colored(narrativa, "cyan"))
-                input(colored("Pressione Enter para continuar...", "green"))
                 
             case "Q":
                 print("Obrigado por jogar EUCHRONIA!")
@@ -270,6 +289,7 @@ def equip_item(hero, item_name, item_data):
     print(f"{item_name} foi equipado.")
 
 #endregion
+
 
 
 
