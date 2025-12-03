@@ -214,46 +214,46 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
     
     print("[S]kill [I]nventory [ST]atus [R]un")
                 
-                option = input(">> ")
-                while option.upper() not in ["S", "I", "ST", "R"]:
-                    option = input(">> ")
+    option = input(">> ")
+    while option.upper() not in ["S", "I", "ST", "R"]:
+        option = input(">> ")
 
-                match option.upper():
-                    case "S":
-                        print("Skills:")
-                        skill_option = {}
-                        for i, skill_name in enumerate(Hero.skills):
-                            print(f"[{i+1}].{skill_name} / ", end="")
-                            skill_option[str(i+1)] = skill_name
+    match option.upper():
+        case "S":
+            print("Skills:")
+            skill_option = {}
+            for i, skill_name in enumerate(Hero.skills):
+                print(f"[{i+1}].{skill_name} / ", end="")
+                skill_option[str(i+1)] = skill_name
 
-                        skill_choice = input(">> ")
-                        while skill_choice not in skill_option:
-                            skill_choice = input(">> ")
+            skill_choice = input(">> ")
+            while skill_choice not in skill_option:
+                skill_choice = input(">> ")
 
-                        selected_skill_option = skill_option[skill_choice]
-                        skilluse = _use_skill(Hero, Enemy, Skills[selected_skill_option])
-                        
-                        if skilluse == "NoAttack":
-                            return
-                            
-                        else:
-                            action = _skill_manager(Hero, Enemy, Skills[selected_skill_option])
-                        
-                        print(action)
+            selected_skill_option = skill_option[skill_choice]
+            skilluse = _use_skill(Hero, Enemy, Skills[selected_skill_option])
+            
+            if skilluse == "NoAttack":
+                return
+                
+            else:
+                action = _skill_manager(Hero, Enemy, Skills[selected_skill_option])
+            
+            print(action)
 
-                    case "I":
-                        gl.list_player_inventory(Hero)
-                        gl.manage_inventory(Hero, items_data)
+        case "I":
+            gl.list_player_inventory(Hero)
+            gl.manage_inventory(Hero, items_data)
 
-                    case "ST":
-                        print("Status:")
-                        Hero.status()
+        case "ST":
+            print("Status:")
+            Hero.status()
 
-                    case "R":
-                        print("Run")
-                        return "You Runaway"
-                    case _:
-                        pass
+        case "R":
+            print("Run")
+            return "You Runaway"
+        case _:
+            pass
 
     
 def _enemy_turn(Enemy, Hero, Skills):

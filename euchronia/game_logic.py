@@ -152,22 +152,23 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
 def action_submenu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume):
     """Submenu de ações"""
     
+    past_hero_position = hero.position
     print("\n[E]xplore / [F]ight / [O]bserve / [R]eturn")
     choice = input(">> ").upper()
     
     if choice == "E":
-        explore_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume)
+        explore_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, past_hero_position)
     
     elif choice == "F":
-        fight_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume)
+        fight_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, past_hero_position)
     
     elif choice == "O":
-        observe_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume)
+        observe_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, past_hero_position)
     
     elif choice == "R":
         return
 
-def explore_actions(hero, atlas, gps, all_items_data, enemy, skills, lore_resume):
+def explore_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, past_hero_position):
     
     print("\nPara onde vocÃª quer ir?")
     possible_destinations = gps.get(hero.position, [])
@@ -180,7 +181,6 @@ def explore_actions(hero, atlas, gps, all_items_data, enemy, skills, lore_resume
 
     if not destination_map:
         print("NÃ£o hÃ¡ para onde ir a partir daqui.")
-        continue
 
     travel_choice = input(">> ")
 
@@ -188,29 +188,29 @@ def explore_actions(hero, atlas, gps, all_items_data, enemy, skills, lore_resume
         print("OpÃ§Ã£o invÃ¡lida.")
         travel_choice = input(">> ")
 
-    past_hero_position = hero.position
-
     chosen_id = destination_map[travel_choice]
     hero.position = chosen_id
     new_location_name = atlas[chosen_id]['nome']
 
     action = f"Travelling from {past_hero_position} to {new_location_name}"
     
-    prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
-    narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume)
+    prompt = ai_services.PromptBuilder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position)
+    narrativa = ai_services.GamePackageProcessor.process_package(prompt, enemy, hero, all_items_data, skills, lore_resume)
     print(colored(narrativa, "cyan"))
     print(f"\nVocÃª viaja para {new_location_name}...")
     input(colored("Pressione Enter para continuar...", "green"))
 
-def fight_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume):
+def fight_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, past_hero_position):
     action = "Start Fight"
-    prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
-    narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume)
+    prompt = ai_services.PromptBuilder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position)
+    narrativa = ai_services.GamePackageProcessor.process_package(prompt, enemy, hero, all_items_data, skills, lore_resume)
+    print(colored(narrativa, "cyan"))
 
-def observe_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume):
+def observe_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, past_hero_position):
     action = input("Your Action >> ")
-    prompt = ai_services.prompts_game_master(action, lore_resume, atlas, gps, hero, past_hero_position)
-    narrativa = ai_services.ai_packadge_control(prompt, enemy, hero, all_items_data, skills, lore_resume)
+    prompt = ai_services.PromptBuilder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position)
+    narrativa = ai_services.GamePackageProcessor.process_package(prompt, enemy, hero, all_items_data, skills, lore_resume)
+    print(colored(narrativa, "cyan"))
 
 def show_map_from_file(filepath="map.txt"):
     """

@@ -100,7 +100,7 @@ Skills disponíveis: {json.dumps(skills, indent=2)}
 Itens disponíveis: {json.dumps(items_data, indent=2)}
 """
 
-                user_prompt = f"""
+            user_prompt = f"""
 ### CRIAR NOVO INIMIGO ###
 
 Nome: {enemy_name}
@@ -108,7 +108,7 @@ Descrição: {enemy_description}
 
 Gere um inimigo balanceado em formato JSON puro (sem markdown).
 """
-                return [system_prompt, user_prompt]
+            return [system_prompt, user_prompt]
         
     @staticmethod
     def build_skill_prompt(
@@ -268,7 +268,6 @@ Crie um resumo conciso mantendo informações essenciais.
 """
             return [system_prompt, user_prompt]
 
-
 class OpenAIClient:
 
     def __init__(self, config : GameConfig):
@@ -383,7 +382,7 @@ class GamePackageProcessor:
 
             package = self.json_cleaner.clean_and_parse(raw_response)
             if not package:
-                log.error("Falha ao parsear pacote de ação")
+                logger.error("Falha ao parsear pacote de ação")
                 return ["Erro ao interpretar resposta da IA", ""]
             
             logger.info(colored(f"Pacote recebido: {package}", "green"))
