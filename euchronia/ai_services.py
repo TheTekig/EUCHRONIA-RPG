@@ -57,13 +57,7 @@ class JSONCleaner:
 class PromptBuilder:
 
     @staticmethod
-    def build_enemy_prompt(
-        enemy_examples : Dict,
-        hero : Any,
-        items_data : Dict,
-        skills : Dict,
-        enemy_name : str,
-        enemy_description : str ) -> List[str]:
+    def build_enemy_prompt(enemy_examples : Dict, hero : Any, items_data : Dict, skills : Dict, enemy_name : str, enemy_description : str ) -> List[str]:
                 
             system_prompt = f"""
             Você é um especialista em design de inimigos para RPG. Sua tarefa é criar um inimigo balanceado 
@@ -111,10 +105,7 @@ Gere um inimigo balanceado em formato JSON puro (sem markdown).
             return [system_prompt, user_prompt]
         
     @staticmethod
-    def build_skill_prompt(
-        skill_examples : Dict,
-        skill_name : str,
-        skill_description : str) -> List[str]:
+    def build_skill_prompt(skill_examples : Dict, skill_name : str, skill_description : str) -> List[str]:
 
             system_prompt = f"""
 Você é um especialista em design de habilidades para RPG. Crie uma skill seguindo a estrutura JSON.
@@ -167,14 +158,7 @@ Gere uma skill balanceada em formato JSON puro (sem markdown).
             return [system_prompt, user_prompt]
 
     @staticmethod
-    def build_game_master_prompt(
-        action : str,
-        lore_resume : str,
-        game_map : Dict,
-        gps : Any,
-        hero : Any,
-        past_position : Any,
-        mood: str = 'criativo' ) -> List[str]:
+    def build_game_master_prompt(action : str, lore_resume : str, game_map : Dict, gps : Any, hero : Any, past_position : Any, mood: str = 'criativo' ) -> List[str]:
 
             system_prompt = f"""
 Você é o Mestre de Jogo para um RPG de terminal. Seu estilo é {mood}, descritivo e atmosférico.
@@ -240,10 +224,7 @@ Gere o Pacote de Ações em JSON puro (sem markdown).
             return [system_prompt, user_prompt]
 
     @staticmethod
-    def build_resume_prompt(
-        lore_text: str,
-        npcs: Dict,
-        quests : Dict ) -> List[str]:
+    def build_resume_prompt(lore_text: str, npcs: Dict, quests : Dict ) -> List[str]:
 
             system_prompt = """
 Você é um especialista em resumos e contextualização. Resuma o arquivo de lore de um RPG
@@ -288,10 +269,7 @@ class OpenAIClient:
             logger.error(f"Erro ao inicializar cliente OpenAI: {e}")
             return None
 
-    def execute(
-        self,
-        prompt : List[str],
-        max_tokens: Optional[int] = None ) -> Optional[str]:
+    def execute(self, prompt : List[str], max_tokens: Optional[int] = None ) -> Optional[str]:
 
             if not self.client:
                 logger.error("Cliente OpenAI não inicializado")
@@ -356,87 +334,76 @@ class LoreManager:
 
 class GamePackageProcessor:
 
-    def __init__(
-        self,
-        config: GameConfig,
-        openai_client: OpenAIClient,
-        lore_manager: LoreManager ):
-            self.config = config
-            self.openai_client = openai_client
-            self.lore_manager = lore_manager
-            self.json_cleaner = JSONCleaner()
-            self.prompt_builder = PromptBuilder()
+    def __init__(self, config: GameConfig, openai_client: OpenAIClient, lore_manager: LoreManager):
+        self.config = config
+        self.openai_client = openai_client
+        self.lore_manager = lore_manager
+        self.json_cleaner = JSONCleaner()
+        self.prompt_builder = PromptBuilder()
 
-    def process_package(
-        self,
-        prompt: List[str],
-        hero: Any,
-        enemy_examples: Dict,
-        items_data: Dict,
-        skills: Dict ) -> List[str]:
+    def process_package(self, prompt: List[str], hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict) -> List[str]:
 
-            raw_response = self.openai_client_execute(prompt)
-            if not raw_response:
-                logger.error("Falha ao obter resposta da IA")
-                return["Error ao processar ação.", ""]
+        raw_response = self.openai_client.execute(prompt)
+        if not raw_response:
+            logger.error("Falha ao obter resposta da IA")
+            return["Erro ao processar ação.", ""]
 
-            package = self.json_cleaner.clean_and_parse(raw_response)
-            if not package:
-                logger.error("Falha ao parsear pacote de ação")
-                return ["Erro ao interpretar resposta da IA", ""]
-            
-            logger.info(colored(f"Pacote recebido: {package}", "green"))
+        package = self.json_cleaner.clean_and_parse(raw_response)
+        if not package:
+            logger.error("Falha ao parsear pacote de ação")
+            return ["Erro ao interpretar resposta da IA", ""]
+        
+        logger.info(colored(f"Pacote recebido: {package}", "green"))
 
-            if package.get('new_enemy', False):
-                self._process_new_enemy(package, hero, enemy_examples, items_data, skills)
+        if package.get('new_enemy', False):
+            self._process_new_enemy(package, hero, enemy_examples, items_data, skills)
 
-            if package.get('newskill', False):
-                self._process_new_skill(package, skills)
+        if package.get('newskill', False):
+            self._process_new_skill(package, skills)
 
-            if package.get('newitem', False):
-                self._process_new_item(package, items_data)
+        if package.get('newitem', False):
+            self._process_new_item(package, items_data)
 
-            self._update_lore(package)
+        self._update_lore(package)
 
-            narrative = package.get('narrativa', 'Nada acontece...')
-            quest = package.get('quest', '')
+        narrative = package.get('narrativa', 'Nada acontece...')
+        quest = package.get('quest', '')
 
-            return [narrative, quest]
+        return [narrative, quest]
 
-    def _process_new_enemy(
-        self,
-        package: Dict,
-        hero: Any,
-        enemy_examples: Dict,
-        items_data: Dict,
-        skills: Dict ):
-            enemy_name = package.get('new_enemy_name', 'Inimigo Desconhecido')
-            enemy_desc = package.get('new_enemy_description', '')
-    
-            logger.info(f"Criando novo inimigo: {enemy_name}")
-    
-            enemy_prompt = self.prompt_builder.build_enemy_prompt(
-                enemy_examples, hero, items_data, skills, enemy_name, enemy_desc)
-    
-            raw_enemy = self.openai_client.execute(enemy_prompt)
-            if not raw_enemy:
-                logger.error("Falha ao gerar inimigo")
-                return
-    
-            enemy_data = self.json_cleaner.clean_and_parse(raw_enemy)
-            if not enemy_data:
-                logger.error("Falha ao parsear dados do inimigo")
-                return
-    
-            logger.info(colored(f"Inimigo criado: {enemy_data}", "yellow"))
-    
-            try:
-                enemy = models.EnemyModel(enemy_data)
-    
-                if package.get('use_enemy_in_combat', False):
-                    cl.combat_loop(hero, enemy, items_data, skills)
-            except Exception as e:
-                logger.error(f"Erro ao criar modelo de inimigo: {e}")
+    def _process_new_enemy(self, package: Dict, hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict):
+        # Import tardio para evitar circular import
+        from euchronia import combat_logic as cl
+        
+        enemy_name = package.get('new_enemy_name', 'Inimigo Desconhecido')
+        enemy_desc = package.get('new_enemy_description', '')
+
+        logger.info(f"Criando novo inimigo: {enemy_name}")
+
+        enemy_prompt = self.prompt_builder.build_enemy_prompt(
+            enemy_examples, hero, items_data, skills, enemy_name, enemy_desc)
+
+        raw_enemy = self.openai_client.execute(enemy_prompt)
+        if not raw_enemy:
+            logger.error("Falha ao gerar inimigo")
+            return
+
+        enemy_data = self.json_cleaner.clean_and_parse(raw_enemy)
+        if not enemy_data:
+            logger.error("Falha ao parsear dados do inimigo")
+            return
+
+        logger.info(colored(f"Inimigo criado: {enemy_data}", "yellow"))
+
+        try:
+            enemy = models.EnemyModel(enemy_data)
+
+            if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False):
+                cl.combat_loop(hero, enemy, skills, items_data)
+                
+        except Exception as e:
+            logger.error(f"Erro ao criar modelo de inimigo: {e}")
+
     
     def _process_new_skill(self, package: Dict, skills: Dict):
     
