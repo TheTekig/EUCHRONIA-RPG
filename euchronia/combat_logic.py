@@ -1,3 +1,4 @@
+from termcolor import colored
 from euchronia.models import HitResult
 from random import choices,random,randint
 import euchronia.game_logic as gl
@@ -192,6 +193,10 @@ def combat_loop(Hero, Enemy, Skills, items_data):
     
      while Hero.is_alive() and Enemy.is_alive():
         # Processa efeitos ativos no início do turno
+
+        print(colored(f"{Hero.name} | {Hero.hp}/{Hero.maxhp}", 'cyan'))
+        print(colored(f"{Enemy.name} | {Enemy.hp}", 'red'))
+
         _process_active_effects(Hero)
         _process_active_effects(Enemy)
         
@@ -203,12 +208,14 @@ def combat_loop(Hero, Enemy, Skills, items_data):
             print(f"{active_fighter.name} está congelado e não pode agir!")
             _reduce_effect_duration(active_fighter, "Freezed")
             continue
+
         
         # Executa turno do lutador ativo
         if active_fighter == Hero:
             _hero_turn(Hero, Enemy, Skills, items_data)
         else:
             _enemy_turn(Enemy, Hero, Skills)
+            
 
 def _hero_turn(Hero, Enemy, Skills, items_data):
     
@@ -247,7 +254,7 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
 
         case "ST":
             print("Status:")
-            Hero.status()
+            Hero._status()
 
         case "R":
             print("Run")
