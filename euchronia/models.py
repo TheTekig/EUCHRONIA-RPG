@@ -1,3 +1,4 @@
+from termcolor import colored
 from enum import Enum, auto 
 
 class HitResult(Enum):
