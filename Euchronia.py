@@ -4,7 +4,7 @@ from UI import ui_menu
 import os
 from termcolor import colored
 
-game_processor = game_logic.initialize_game_services()
+
 
 #region LOAD DATA
 
@@ -17,8 +17,10 @@ shopkeepers = general_logic.load_json('data/shopkeepers.json')
 atlas = general_logic.load_json('data/mapconfig/atlas.json')
 gps = general_logic.load_json('data/mapconfig/gps_map.json')
 
-with open ('saves/slot_1/lore.txt', "r") as lore_text:
-    lore = lore_text.read()
+def load_lore(slot):
+    with open (f'saves/{slot}/lore.txt', "r") as lore_text:
+        lore = lore_text.read()
+        return lore
 
 #endregion
 
@@ -40,25 +42,24 @@ def main():
                 hero = game_logic.create_hero(classes)
                 slot = game_logic.choose_save_slot()
 
-                with open (f'saves/{slot}/lore.txt', "r") as lore_text:
-                    lore = lore_text.read()
+                game_processor = game_logic.initialize_game_services(slot)
+
+                lore = load_lore(slot)
 
                 game_logic.save_game(hero, lore, slot)
                 input(colored("Pressione Enter para continuar...", "green"))
                 
-                game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore, game_processor)
+                game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore, game_processor, slot)
 
             case '2':
-                print(colored("SAVE AND LOAD menu is under construction.", 'yellow'))
-                print(colored("Choose a save slot to load:", 'cyan'))
-
                 slot = game_logic.choose_save_slot()
-                
+                game_processor = game_logic.initialize_game_services(slot)
+                lore = load_lore(slot)
                 try:
                     hero , narrativa = game_logic.load_game(slot)
                     print(colored(narrativa, 'cyan'))
                     input(colored("Pressione Enter para continuar...", "green"))
-                    game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore, game_processor)
+                    game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore, game_processor, slot)
                 
                 except Exception as e:
                     print(colored(f"Erro ao carregar o jogo: {e}", "red"))
