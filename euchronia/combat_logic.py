@@ -1,7 +1,12 @@
+import os
+
 from termcolor import colored
 from euchronia.models import HitResult
 from random import choices,random,randint
+from time import sleep
+
 import euchronia.game_logic as gl
+from UI.ui_menu import _combat_menu , _combat_menu_actions
 
 #region   Calculate Base Functions
 
@@ -190,36 +195,53 @@ def _reduce_effect_duration(fighter, effect_name):
 #endregion 
 
 def combat_loop(Hero, Enemy, Skills, items_data):
-    
-     while Hero.is_alive() and Enemy.is_alive():
+    log = ""
+    loop = True
+    while loop:
         # Processa efeitos ativos no início do turno
+        os.system("cls")
+        _combat_menu(Hero, Enemy, log)
 
-        print(colored(f"{Hero.name} | {Hero.hp}/{Hero.maxhp}", 'cyan'))
-        print(colored(f"{Enemy.name} | {Enemy.hp}", 'red'))
+        if not Hero.is_alive() and Enemy.is_alive():
+            loop = False
 
         _process_active_effects(Hero)
         _process_active_effects(Enemy)
         
         # Determina quem age
         active_fighter = _action_time(Hero, Enemy)
-        
+        log += f"⚠ {active_fighter.name} Turn!\n"
         # Verifica se está congelado
         if active_fighter.has_effect("Freezed"):
-            print(f"{active_fighter.name} está congelado e não pode agir!")
+            log += f"{active_fighter.name} está congelado e não pode agir!\n"
             _reduce_effect_duration(active_fighter, "Freezed")
             continue
 
         
         # Executa turno do lutador ativo
         if active_fighter == Hero:
-            _hero_turn(Hero, Enemy, Skills, items_data)
+            skill_log, action = _hero_turn(Hero, Enemy, Skills, items_data)
         else:
-            _enemy_turn(Enemy, Hero, Skills)
-            
+            skill_log, action = _enemy_turn(Enemy, Hero, Skills)
+
+        log += (skill_log + "\n")
+        log += (action + "\n")
+        
+    if Hero.is_alive():
+        print(colored(f"{Enemy.name} foi derrotado!", "green"))
+        sleep(0.5)
+        print(colored(f"{Hero.name} recebeu {Enemy.experience} XP", "cyan"))
+        sleep(0.5)
+        print(colored(f"{Hero.name} recebeu {Enemy.loot}", "yellow"))
+        sleep(0.5)
+    else:
+        print(colored(f"{Hero.name} foi derrotado", "red"))
+
+    input(colored("Press Enter to Continue", "green"))
 
 def _hero_turn(Hero, Enemy, Skills, items_data):
     
-    print("[S]kill [I]nventory [ST]atus [R]un")
+    _combat_menu_actions()
                 
     option = input(">> ")
     while option.upper() not in ["S", "I", "ST", "R"]:
@@ -230,7 +252,7 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
             print("Skills:")
             skill_option = {}
             for i, skill_name in enumerate(Hero.skills):
-                print(f"[{i+1}].{skill_name} / ", end="")
+                print(colored(f"[{i+1}].{skill_name} / ", "cyan", attrs=["bold"]), end="")
                 skill_option[str(i+1)] = skill_name
 
             skill_choice = input(">> ")
@@ -240,13 +262,15 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
             selected_skill_option = skill_option[skill_choice]
             skilluse = _use_skill(Hero, Enemy, Skills[selected_skill_option])
             
+            skill_log = selected_skill_option
+
             if skilluse == "NoAttack":
                 return
                 
             else:
                 action = _skill_manager(Hero, Enemy, Skills[selected_skill_option])
-            
-            print(action)
+                
+            return skill_log , action
 
         case "I":
             gl.list_player_inventory(Hero)
@@ -264,17 +288,17 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
 
     
 def _enemy_turn(Enemy, Hero, Skills):
-    
-    print("Enemy Turn")
+
     size = len(Enemy.skills)
     if size > 0:
         skill_option = randint(0, size - 1)
         skill_option = Enemy.skills[skill_option]
         action = _skill_manager(Enemy, Hero, Skills[skill_option])
-        print(action)
+        skill_log = skill_option
+        return skill_log, action
     else:
         skill_option = 0
         action = _skill_manager(Enemy, Hero, Skills[skill_option])
-        print(action)
+        return action
                     
                 
