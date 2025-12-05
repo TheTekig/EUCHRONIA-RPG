@@ -1,8 +1,8 @@
 import os
 from termcolor import colored
 from euchronia import models, general_logic
+from UI.ui_menu import _Hud, _sub_Hud
 
-# REMOVA este import do topo:
 # from euchronia.ai_services import GameConfig, OpenAIClient, LoreManager, GamePackageProcessor
 
 #region SAVE/LOAD
@@ -12,6 +12,8 @@ def save_game(hero, lore_resume, slot="slot_1"):
     import json
     from pathlib import Path
     
+    print(f"saves/{slot}")
+    input(">>")
     save_dir = Path(f"saves/{slot}")
     save_dir.mkdir(parents=True, exist_ok=True)
     
@@ -51,6 +53,8 @@ def load_game(slot="slot_1"):
     from pathlib import Path
     from euchronia import models
     
+    print(f"saves/{slot}")
+    input(">>")
     save_dir = Path(f"saves/{slot}")
     
     if not save_dir.exists():
@@ -73,7 +77,7 @@ def choose_save_slot():
     """Permite ao jogador escolher um slot de save"""
     print(colored("Escolha um slot de save:", 'cyan'))
     
-    for slot in range(1, 4):
+    for slot in range(1, 5):
         print(colored(f"{slot} - slot_{slot}", 'yellow'))
     
     slot_choice = input(">> ")
@@ -159,7 +163,7 @@ def create_hero(classes):
     input(colored("Pressione Enter para continuar...", "green"))
             
 #region Explore Logic
-def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, game_processor):
+def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, game_processor, slot):
     """Menu principal do jogo durante a exploração"""
     
     while True:
@@ -167,9 +171,7 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
         current_location_info = atlas.get(hero.position, {"nome": "Lugar Desconhecido"})
         location_name = current_location_info['nome']
         
-        print(f"\n============== VOCÊ ESTÁ EM: {location_name.upper()} ==============")
-        print("[A]ctions / [I]nventário / [S]tatus / [M]apa / [R]est / [Q]uit")
-        
+        _Hud(location_name)
         choice = input(">> ").upper()
         
         if choice == "A":
@@ -193,19 +195,19 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
             print("Obrigado por jogar EUCHRONIA!")
             try:
                 updated_lore = game_processor.lore_manager.read()
-                save_game(hero, updated_lore)
+                save_game(hero, updated_lore, slot)
             except Exception as e:
                 print(colored(f"Erro ao ler lore atualizado: {e}", "red"))
                 print(colored("Salvando com lore anterior...", "yellow"))
-                save_game(hero, lore_resume)
+                save_game(hero, lore_resume, slot)
                 
             return "QUIT"
 
 def action_submenu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, game_processor):
     """Submenu de ações"""
-    
+    os.system("cls")
     past_hero_position = hero.position
-    print("\n[E]xplore / [F]ight / [O]bserve / [R]eturn")
+    _sub_Hud()
     choice = input(">> ").upper()
     
     if choice == "E":
