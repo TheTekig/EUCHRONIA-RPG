@@ -1,0 +1,44 @@
+{
+    "name": "Diogo",
+    "hp": 20,
+    "maxhp": 20,
+    "strength": 8,
+    "defense": 12,
+    "speed": 2,
+    "level": 1,
+    "experience": 0,
+    "position": "C",
+    "gold": 0,
+    "class_name": "Warrior",
+    "class_data": {
+        "name": "Warrior",
+        "description": "A strong and resilient fighter, excelling in melee combat and physical strength.",
+        "maxhp": 20,
+        "defense": 12,
+        "strength": 8,
+        "speed": 2,
+        "upgrade": {
+            "maxhp": 4,
+            "defense": 2,
+            "strength": 1,
+            "speed": 0
+        },
+        "initial_Skills": [
+            "Golpe Comum",
+            "Grito de Guerra",
+            "Golpe Pesado"
+        ]
+    },
+    "skills": [
+        "Golpe Comum",
+        "Grito de Guerra",
+        "Golpe Pesado"
+    ],
+    "inventory": [],
+    "key_itens": [],
+    "equipment": {
+        "weapon": [],
+        "armor": [],
+        "accessory": []
+    }
+}

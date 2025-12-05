@@ -21,10 +21,29 @@ def save_game(hero, lore_resume, slot="slot_1"):
         json.dump(hero_data, f, indent=4, ensure_ascii=False)
     
     # Salva lore
-    with open(save_dir / "lore.txt", 'w', encoding='utf-8') as f:
-        f.write(lore_resume)
+    lore_path = save_dir / "lore.txt"
+    current_lore = ""
+    if lore_path.exists():
+        try:
+            with open(lore_path, 'r', encoding='utf-8') as f:
+                current_lore = f.read()
+        except Exception as e:
+            print(colored(f"Aviso: Não foi possível ler lore anterior: {e}", "yellow"))
     
-    print(colored(f"Jogo salvo no slot {slot}!", "green"))
+    # Se lore_resume estiver vazio ou for None, usa o lore atual do arquivo
+    if not lore_resume or lore_resume.strip() == "":
+        lore_to_save = current_lore
+        print(colored("⚠ Lore vazio detectado, mantendo lore anterior.", "yellow"))
+    else:
+        lore_to_save = lore_resume
+    
+    # Salva lore
+    with open(lore_path, 'w', encoding='utf-8') as f:
+        f.write(lore_to_save)
+    
+    print(colored(f"✓ Jogo salvo no slot {slot}!", "green"))
+    print(colored(f"  - Herói: {hero.name} (Level {hero.level})", "cyan"))
+    print(colored(f"  - Lore: {len(lore_to_save)} caracteres salvos", "cyan"))
 
 def load_game(slot="slot_1"):
     """Carrega um save"""
@@ -50,6 +69,19 @@ def load_game(slot="slot_1"):
     print(colored(f"Save {slot} carregado!", "green"))
     return hero, lore_resume
 
+def choose_save_slot():
+    """Permite ao jogador escolher um slot de save"""
+    print(colored("Escolha um slot de save:", 'cyan'))
+    
+    for slot in range(1, 4):
+        print(colored(f"{slot} - slot_{slot}", 'yellow'))
+    
+    slot_choice = input(">> ")
+    while slot_choice not in ['1', '2', '3', '4']:
+        print("Invalid option. Please try again.")
+        slot_choice = input(">>")
+    
+    return f"slot_{slot_choice}"
 #endregion
 
 # NOVA FUNÇÃO: Inicializa serviços de IA
@@ -159,7 +191,14 @@ def initial_hud_menu(hero, atlas, gps, all_items_data, enemy, skills, lore_resum
         
         elif choice == "Q":
             print("Obrigado por jogar EUCHRONIA!")
-            save_game(hero, lore_resume)
+            try:
+                updated_lore = game_processor.lore_manager.read()
+                save_game(hero, updated_lore)
+            except Exception as e:
+                print(colored(f"Erro ao ler lore atualizado: {e}", "red"))
+                print(colored("Salvando com lore anterior...", "yellow"))
+                save_game(hero, lore_resume)
+                
             return "QUIT"
 
 def action_submenu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, game_processor):

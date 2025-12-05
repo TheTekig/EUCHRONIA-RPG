@@ -89,6 +89,14 @@ Herói atual:
 - Defesa: {hero.defense}
 - Velocidade: {hero.speed}
 
+###OBJETIVOS DE BALANCEAMENTO###
+1. O inimigo deve ser desafiador, mas derrotável.
+2. Use habilidades que complementem suas estatísticas.
+3. Itens de loot devem ter chances razoáveis de drop.
+4. Considere o nível e habilidades do herói ao definir estatísticas.
+5. Inimigos não devem ter mais de 20% de chance de derrotar o herói em um combate direto.
+6. Inimigos devem ter statos proximos ao herói, com pequenas variações para cima ou para baixo.
+
 Skills disponíveis: {json.dumps(skills, indent=2)}
 
 Itens disponíveis: {json.dumps(items_data, indent=2)}
@@ -397,12 +405,39 @@ class GamePackageProcessor:
 
         try:
             enemy = models.EnemyModel(enemy_data)
-
+            self._save_enemy_to_json(enemy_data, enemy_examples)
+            
             if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False):
                 cl.combat_loop(hero, enemy, skills, items_data)
                 
         except Exception as e:
             logger.error(f"Erro ao criar modelo de inimigo: {e}")
+    
+    def _save_enemy_to_json(self, enemy_data: Dict, enemy_dict: Dict, filepath: str = 'data/enemy.json'):
+        try:
+            enemy_name = enemy_data.get('name', 'Inimigo Desconhecido')
+
+            if enemy_name in enemy_dict:
+                logger.warning(f"Inimigo {enemy_name} já existe no banco de dados.")
+            
+            enemy_dict[enemy_name] = enemy_data
+
+            try:
+                with open(filepath, 'r', encoding='utf-8') as file:
+                    all_enemies = json.load(file)
+            except FileNotFoundError:
+                all_enemies = {}
+            
+            all_enemies[enemy_name] = enemy_data
+
+            with open(filepath, 'w', encoding='utf-8') as file:
+                json.dump(all_enemies, file, indent=4, ensure_ascii=False)
+            
+            logger.info(colored(f"Inimigo {enemy_name} salvo no banco de dados.", "green"))
+            print(colored(f"Inimigo salvo: {enemy_name}", "green"))
+
+        except Exception as e:
+            logger.error(f"Erro ao salvar inimigo no banco de dados: {e}")
 
     
     def _process_new_skill(self, package: Dict, skills: Dict):

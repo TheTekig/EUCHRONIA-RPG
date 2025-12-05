@@ -4,6 +4,7 @@ from UI import ui_menu
 import os
 from termcolor import colored
 
+game_processor = game_logic.initialize_game_services()
 
 #region LOAD DATA
 
@@ -22,10 +23,12 @@ with open ('saves/slot_1/lore.txt', "r") as lore_text:
 #endregion
 
 def main():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    ui_menu._inital_menu()
 
     while True:
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+        ui_menu._inital_menu()
+
         choice = input(">> ")
         while choice not in ['1', '2', '3', '4']:
             print("Invalid option. Please try again.")
@@ -35,15 +38,35 @@ def main():
             case '1':
 
                 hero = game_logic.create_hero(classes)
+                slot = game_logic.choose_save_slot()
 
+                with open (f'saves/{slot}/lore.txt', "r") as lore_text:
+                    lore = lore_text.read()
+
+                game_logic.save_game(hero, lore, slot)
                 input(colored("Pressione Enter para continuar...", "green"))
                 
-                game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore)
+                game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore, game_processor)
 
             case '2':
                 print(colored("SAVE AND LOAD menu is under construction.", 'yellow'))
+                print(colored("Choose a save slot to load:", 'cyan'))
+
+                slot = game_logic.choose_save_slot()
+                
+                try:
+                    hero , narrativa = game_logic.load_game(slot)
+                    print(colored(narrativa, 'cyan'))
+                    input(colored("Pressione Enter para continuar...", "green"))
+                    game_logic.initial_hud_menu(hero,atlas,gps,items,enemies,skills,lore, game_processor)
+                
+                except Exception as e:
+                    print(colored(f"Erro ao carregar o jogo: {e}", "red"))
+                    input(colored("Pressione Enter para continuar...", "green"))
+
             case '3':
                 print(colored("Settings menu is under construction.", 'yellow'))
+                input(colored("Pressione Enter para continuar...", "green"))
             case '4':
                 print(colored("Exiting the game. Goodbye!", 'red'))
                 break

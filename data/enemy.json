@@ -1,57 +1,127 @@
 {
-"Rato Gigante": {
-    "type": "Fera",
-    "region": ["Oakhaven", "Planícies Verdes", "Caverna Sombria"],
-    "hp": 25,
-    "strength": 6,
-    "defense": 2,
-    "speed": 14,
-    "experience": 15,
-    "skills": ["Mordida"],
-    "loot": {
-      "Pele de Rato": 0.6
+    "Rato Gigante": {
+        "type": "Fera",
+        "region": [
+            "Oakhaven",
+            "Planícies Verdes",
+            "Caverna Sombria"
+        ],
+        "hp": 25,
+        "strength": 6,
+        "defense": 2,
+        "speed": 14,
+        "experience": 15,
+        "skills": [
+            "Mordida"
+        ],
+        "loot": {
+            "Pele de Rato": 0.6
+        }
+    },
+    "Goblin Batedor": {
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 40,
+        "strength": 10,
+        "defense": 6,
+        "speed": 12,
+        "experience": 30,
+        "skills": [
+            "Golpe Baixo",
+            "Arremessar Pedra"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.2,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Lobo Jovem": {
+        "type": "Fera",
+        "region": [
+            "Planícies Verdes",
+            "Bosque Antigo",
+            "Colinas Altas"
+        ],
+        "hp": 50,
+        "strength": 14,
+        "defense": 7,
+        "speed": 16,
+        "experience": 40,
+        "skills": [
+            "Mordida Feroz"
+        ],
+        "loot": {
+            "Pele de Lobo": 0.5
+        }
+    },
+    "Bandido da Estrada": {
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Oakhaven"
+        ],
+        "hp": 60,
+        "strength": 12,
+        "defense": 8,
+        "speed": 10,
+        "experience": 50,
+        "skills": [
+            "Golpe de Adaga"
+        ],
+        "loot": {
+            "Poção de Cura Fraca": 0.15,
+            "Adaga Enferrujada": 0.25
+        }
+    },
+    "Bando de Goblins": {
+        "name": "Bando de Goblins",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 38,
+        "maxhp": 38,
+        "strength": 9,
+        "defense": 5,
+        "speed": 11,
+        "experience": 32,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Guardião de Cristal": {
+        "name": "Guardião de Cristal",
+        "type": "Humanoide",
+        "region": [
+            "Deserto Esquecido",
+            "Caverna Oculta"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 11,
+        "defense": 7,
+        "speed": 12,
+        "experience": 40,
+        "skills": [
+            "Golpe Comum",
+            "Golpe Baixo"
+        ],
+        "loot": {
+            "Túnica de Viajante": 0.2,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        }
     }
-  },
-  "Goblin Batedor": {
-    "type": "Humanoide",
-    "region": ["Planícies Verdes", "Colinas Altas", "Acampamento dos Bandidos"],
-    "hp": 40,
-    "strength": 10,
-    "defense": 6,
-    "speed": 12,
-    "experience": 30,
-    "skills": ["Golpe Baixo", "Arremessar Pedra"],
-    "loot": {
-      "Adaga Enferrujada": 0.2,
-      "Fragmento de Osso": 0.4
-    }
-  },
-  "Lobo Jovem": {
-    "type": "Fera",
-    "region": ["Planícies Verdes", "Bosque Antigo", "Colinas Altas"],
-    "hp": 50,
-    "strength": 14,
-    "defense": 7,
-    "speed": 16,
-    "experience": 40,
-    "skills": ["Mordida Feroz"],
-    "loot": {
-      "Pele de Lobo": 0.5
-    }
-  },
-  "Bandido da Estrada": {
-    "type": "Humanoide",
-    "region": ["Planícies Verdes", "Oakhaven"],
-    "hp": 60,
-    "strength": 12,
-    "defense": 8,
-    "speed": 10,
-    "experience": 50,
-    "skills": ["Golpe de Adaga"],
-    "loot": {
-      "Poção de Cura Fraca": 0.15,
-      "Adaga Enferrujada": 0.25
-    }
-  }
 }
-
