@@ -23,10 +23,11 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class GameConfig:
+
     LORE_MAX_LENGTH : int = 10000
     LORE_RESUME_TOKENS : int = 2000
     DEFAULT_MAX_TOKENS : int = 1000
-    SAVE_SLOT : str = "saves/slot_1"
+    SAVE_SLOT : str = f"saves/slot_1"
     AI_MODEL : str = "gpt-4o-mini"
 
 class JSONCleaner:
@@ -439,7 +440,6 @@ class GamePackageProcessor:
         except Exception as e:
             logger.error(f"Erro ao salvar inimigo no banco de dados: {e}")
 
-    
     def _process_new_skill(self, package: Dict, skills: Dict):
     
         skill_name = package.get('newskill_name', 'Habilidade Desconhecida')
