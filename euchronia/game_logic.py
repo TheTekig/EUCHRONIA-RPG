@@ -1,4 +1,5 @@
 import os
+from time import sleep
 from termcolor import colored
 from euchronia import models, general_logic
 from UI.ui_menu import _Hud, _sub_Hud
@@ -12,8 +13,6 @@ def save_game(hero, lore_resume, slot="slot_1"):
     import json
     from pathlib import Path
     
-    print(f"saves/{slot}")
-    input(">>")
     save_dir = Path(f"saves/{slot}")
     save_dir.mkdir(parents=True, exist_ok=True)
     
@@ -46,6 +45,7 @@ def save_game(hero, lore_resume, slot="slot_1"):
     print(colored(f"✓ Jogo salvo no slot {slot}!", "green"))
     print(colored(f"  - Herói: {hero.name} (Level {hero.level})", "cyan"))
     print(colored(f"  - Lore: {len(lore_to_save)} caracteres salvos", "cyan"))
+    sleep(2)
 
 def load_game(slot="slot_1"):
     """Carrega um save"""
@@ -53,8 +53,6 @@ def load_game(slot="slot_1"):
     from pathlib import Path
     from euchronia import models
     
-    print(f"saves/{slot}")
-    input(">>")
     save_dir = Path(f"saves/{slot}")
     
     if not save_dir.exists():
@@ -71,6 +69,8 @@ def load_game(slot="slot_1"):
         lore_resume = f.read()
     
     print(colored(f"Save {slot} carregado!", "green"))
+    print(colored(f"  - Herói: {hero.name} (Level {hero.level})", "cyan"))
+    sleep(2)
     return hero, lore_resume
 
 def choose_save_slot():

@@ -641,5 +641,52 @@
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
         }
+    },
+    "Sombra do Pirata": {
+        "name": "Sombra do Pirata",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Praia do Destino"
+        ],
+        "hp": 30,
+        "maxhp": 30,
+        "strength": 10,
+        "defense": 5,
+        "speed": 17,
+        "experience": 32,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Adaga Enferrujada": 0.25,
+            "Poção de Cura Fraca": 0.15
+        }
+    },
+    "Espectro do Marinheiro": {
+        "name": "Espectro do Marinheiro",
+        "type": "Humanoide",
+        "region": [
+            "Ruínas Oceânicas",
+            "Caverna Sombria"
+        ],
+        "hp": 42,
+        "maxhp": 42,
+        "strength": 11,
+        "defense": 6,
+        "speed": 16,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.2,
+            "Túnica de Viajante": 0.15
+        }
     }
 }
