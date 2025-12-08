@@ -1,178 +1,204 @@
-  {
-    
-  "Flechada" : {
-    "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 0.7,
-    "duration" : 0,
-    "effect" : { "damage_multiplier" : 1.0 }
-  },
-    
-  "Corte Leve" : {
-    "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 0.7,
-    "duration" : 0,
-    "effect" : { "damage_multiplier" : 1.0 }
-  },
-    
-  "Cajadada" : {
-    "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 0.7,
-    "duration" : 0,
-    "effect" : { "damage_multiplier" : 1.0 }
-  },
-    
-  "Golpe Comum" : {
-    "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 0.7,
-    "duration" : 0,
-    "effect" : { "damage_multiplier" : 1.0 }
-  },
-    
-  "Grito de Batalha" : {
-    "description" : "",
-    "type" : "BUFF",
-    "maxuses" : 2,
-    "uses" : 2,
-    "precision" : 0.5,
-    "duration" : 3,
-    "effect" : { "defense_multiplier" : 1.5 }
-  },
-
-  "Golpe Pesado" : {
-    "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 5,
-    "uses" : 5,
-    "precision" : 0.4,
-    "duration" : 0,
-    "effect" : { "damage_multiplier" : 1.5 }
-  },
-  
-  "Ataque Furtivo" : {
-    "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 1.0,
-    "duration" : 0,
-    "effect" : { "defense_multiplier" : 2.0, "defense_ignore" : 0.5 }
-  },
-
-  "Adagas Envenenadas" : {
-    "description" : "",
-    "type" : "DEBUFF",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 0.5,
-    "duration" : 3,
-    "effect" : { "damage_per_turn" : 1.5 }
-  },
-
-  "Seta de Fogo" : {
-    "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 6,
-    "uses" : 6,
-    "precision" : 0.7,
-    "duration" : 3,
-    "effect" : { "damage_multiplier" : 1.5, "burn_chance" : 0.3 }
-  },
-
-  "Prisão de Gelo" : {
-    "description" : "",
-    "type" : "CONTROL",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 0.7,
-    "duration" : 3,
-    "effect" : { "freeze_chance" : 0.6 }
-  },
-
-  "Tiro Certeiro": {
-    "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 5,
-    "uses" : 5,
-    "precision" : 0.9,
-    "duration" : 3,
-    "effect" : { "damage_multiplier" : 1.7 }
-  },
-
-  "Armadilha de Espinhos" : {
-    "description" : "",
-    "type" : "CONTROL",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 0.5,
-    "duration" : 3,
-    "effect" : { "speed_reduce" : 1.5 }
-  },
-
-"Mordida" : {
-  "description" : "",
-    "type" : "ATTACK",
-  "maxuses" : 5,
-    "uses" : 5,
-    "precision" : 0.9,
-    "duration" : 3,
-    "effect" : { "damage_multiplier" : 1.7 }
-},
-
-"Golpe Baixo" : {
-  "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 5,
-    "uses" : 5,
-    "precision" : 0.9,
-    "duration" : 3,
-    "effect" : { "damage_multiplier" : 1.7 }
-},
-
-"Arremessar Pedra" : {
-  "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 5,
-    "uses" : 5,
-    "precision" : 0.9,
-    "duration" : 3,
-    "effect" : { "damage_multiplier" : 1.7 }
-},
-
-"Mordida Feroz" : {
-  "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 5,
-    "uses" : 5,
-    "precision" : 0.9,
-    "duration" : 3,
-    "effect" : { "damage_multiplier" : 1.7 }
-},
-
-"Golpe de Adaga" : {
-  "description" : "",
-    "type" : "ATTACK",
-    "maxuses" : 99,
-    "uses" : 99,
-    "precision" : 0.9,
-    "duration" : 3,
-    "effect" : { "damage_multiplier" : 1.7 }
+{
+    "Flechada": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.7,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 1.0
+        }
+    },
+    "Corte Leve": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.7,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 1.0
+        }
+    },
+    "Cajadada": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.7,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 1.0
+        }
+    },
+    "Golpe Comum": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.7,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 1.0
+        }
+    },
+    "Grito de Guerra": {
+        "description": "",
+        "type": "BUFF",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.5,
+        "duration": 3,
+        "effect": {
+            "defense_multiplier": 1.5
+        }
+    },
+    "Golpe Pesado": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.4,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 1.5
+        }
+    },
+    "Ataque Furtivo": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 1.0,
+        "duration": 0,
+        "effect": {
+            "defense_multiplier": 2.0,
+            "defense_ignore": 0.5
+        }
+    },
+    "Adagas Envenenadas": {
+        "description": "",
+        "type": "DEBUFF",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.5,
+        "duration": 3,
+        "effect": {
+            "damage_per_turn": 1.5
+        }
+    },
+    "Seta de Fogo": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 6,
+        "uses": 6,
+        "precision": 0.7,
+        "duration": 3,
+        "effect": {
+            "damage_multiplier": 1.5,
+            "burn_chance": 0.3
+        }
+    },
+    "Prisão de Gelo": {
+        "description": "",
+        "type": "CONTROL",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.7,
+        "duration": 3,
+        "effect": {
+            "freeze_chance": 0.6
+        }
+    },
+    "Tiro Certeiro": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.9,
+        "duration": 3,
+        "effect": {
+            "damage_multiplier": 1.7
+        }
+    },
+    "Armadilha de Espinhos": {
+        "description": "",
+        "type": "CONTROL",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.5,
+        "duration": 3,
+        "effect": {
+            "speed_reduce": 1.5
+        }
+    },
+    "Mordida": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.9,
+        "duration": 3,
+        "effect": {
+            "damage_multiplier": 1.7
+        }
+    },
+    "Golpe Baixo": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.9,
+        "duration": 3,
+        "effect": {
+            "damage_multiplier": 1.7
+        }
+    },
+    "Arremessar Pedra": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.9,
+        "duration": 3,
+        "effect": {
+            "damage_multiplier": 1.7
+        }
+    },
+    "Mordida Feroz": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.9,
+        "duration": 3,
+        "effect": {
+            "damage_multiplier": 1.7
+        }
+    },
+    "Golpe de Adaga": {
+        "description": "",
+        "type": "ATTACK",
+        "maxuses": 99,
+        "uses": 99,
+        "precision": 0.9,
+        "duration": 3,
+        "effect": {
+            "damage_multiplier": 1.7
+        }
+    },
+    "Sabedoria da Natureza": {
+        "name": "Sabedoria da Natureza",
+        "description": "Uma habilidade que permite a Tekig se conectar mais profundamente com a natureza, aumentando sua percepção e intuição em ambientes naturais. Pode ajudar a evitar emboscadas e detectar presas com maior eficácia.",
+        "type": "BUFF",
+        "maxuses": 10,
+        "uses": 10,
+        "precision": 0.8,
+        "duration": 5,
+        "effect": {
+            "speed_multiplier": 1.2,
+            "strength_multiplier": 1.1
+        }
+    }
 }
-}
-
-
-
-
-
-

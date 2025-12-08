@@ -198,6 +198,7 @@ class PlayerModel(AliveModel):
         self.defense += self.class_data['upgrade']['defense']
         self.speed += self.class_data['upgrade']['speed']
         self.hp = self.maxhp
+        
 
     #endregion
 

@@ -442,6 +442,34 @@ class GamePackageProcessor:
 
         except Exception as e:
             logger.error(f"Erro ao salvar inimigo no banco de dados: {e}")
+    
+    def _save_skill_to_json(self, skill_data: Dict, skill_dict: Dict, filepath: str = 'data/skills.json'):
+        try:
+            skill_name = skill_data.get('name', 'Inimigo Desconhecido')
+
+            if skill_name in skill_dict:
+                logger.warning(f"Skill {skill_name} já existe no banco de dados.")
+            
+            skill_dict[skill_name] = skill_data
+
+            try:
+                with open(filepath, 'r', encoding='utf-8') as file:
+                    all_skills = json.load(file)
+            except FileNotFoundError:
+                all_skills = {}
+            
+            all_skills[skill_name] = skill_data
+
+            with open(filepath, 'w', encoding='utf-8') as file:
+                json.dump(all_skills, file, indent=4, ensure_ascii=False)
+            
+            logger.info(colored(f"Skill {skill_name} salvo no banco de dados.", "green"))
+            print(colored(f"Skill salvo: {skill_name}", "green"))
+
+        except Exception as e:
+            logger.error(f"Erro ao salvar Skill no banco de dados: {e}")
+
+    
 
     def _process_new_skill(self, package: Dict, skills: Dict):
     
@@ -460,7 +488,7 @@ class GamePackageProcessor:
     
         skill_data = self.json_cleaner.clean_and_parse(raw_skill)
         if skill_data:
-            gl.append_json(skills, skill_data)
+            self._save_skill_to_json(skill_data, skills)
             logger.info(colored(f"Skill criada: {skill_name}", "cyan"))
     
     def _process_new_item(self, package: Dict, items_data: Dict ):

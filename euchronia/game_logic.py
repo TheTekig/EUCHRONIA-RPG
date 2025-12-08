@@ -313,9 +313,9 @@ def show_map_from_file(filepath="./data/mapconfig/map.txt"):
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
                 map_content = f.read()
-                print("\n" + "="*20 + " MAPA DO MUNDO " + "="*20)
+                print("\n" + "\u2500"*20 + colored(" MAPA DO MUNDO ", "magenta") + "\u2500"*20)
                 print(map_content)
-                print("="*56)
+                print("\u2500"*56)
                 input("Pressione Enter para fechar o mapa...")
     
         except FileNotFoundError:

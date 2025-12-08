@@ -971,5 +971,52 @@
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15
         }
+    },
+    "Grifo Selvagem": {
+        "name": "Grifo Selvagem",
+        "type": "Fera",
+        "region": [
+            "Planícies Verdes",
+            "Caverna Sombria",
+            "Bosque Antigo"
+        ],
+        "hp": 50,
+        "maxhp": 50,
+        "strength": 13,
+        "defense": 6,
+        "speed": 17,
+        "experience": 40,
+        "skills": [
+            "Golpe Comum",
+            "Mordida Feroz"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Pele de Rato": 0.25,
+            "Poção de Cura Fraca": 0.15
+        }
+    },
+    "Guardião do Gelo": {
+        "name": "Guardião do Gelo",
+        "type": "Fera",
+        "region": [
+            "Caverna Sombria",
+            "Bosque Antigo"
+        ],
+        "hp": 47,
+        "maxhp": 47,
+        "strength": 12,
+        "defense": 8,
+        "speed": 9,
+        "experience": 39,
+        "skills": [
+            "Mordida Feroz",
+            "Prisão de Gelo"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Pele de Rato": 0.25,
+            "Poção de Cura Fraca": 0.15
+        }
     }
 }
