@@ -193,7 +193,7 @@ class PlayerModel(AliveModel):
 
     def level_up(self):
         self.level += 1
-        self.maxhp += self.class_data['upgrade']['hp']
+        self.maxhp += self.class_data['upgrade']['maxhp']
         self.strength += self.class_data['upgrade']['strength'] 
         self.defense += self.class_data['upgrade']['defense']
         self.speed += self.class_data['upgrade']['speed']

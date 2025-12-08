@@ -100,8 +100,8 @@ def _buff_skill(attacker, skill_data):
         return f"{attacker.name} tried to buff, but nothing happend!"
     
     attacker.apply_effect(
-        name=f"Buff_{attacker.name}",
-        data={"effect" : applied_effect, "duration" : duration}
+        nome=f"Buff_{attacker.name}",
+        dados={"effect" : applied_effect, "duration" : duration}
     )
 
     return f"{attacker.name} got a buff during {duration} rounds!"
@@ -118,17 +118,19 @@ def _debuff_skill(defender, skill_data):
     if "defense_reduce" in skill_effect:
          applied_effect["defense_reduce"] = skill_effect["defense_reduce"] 
     if "burn_chance" in skill_effect:
-         applied_effect["damage_per_round"] = skill_effect.get("burn_damage", 5) 
+         applied_effect["damage_per_turn"] = skill_effect.get("burn_damage", 5) 
+    if "damage_per_turn" in skill_effect:
+         applied_effect["damage_per_round"] = skill_effect["damage_per_turn"]
 
     if not applied_effect:
-        return
+        return f"{defender.name} tried to debuff, but nothing happend!"
     
     defender.apply_effect(
-        name=f"Debuff_{defender.name}",
-        data={"effect" : applied_effect, "duration" : duration}
+        nome=f"Debuff_{defender.name}",
+        dados={"effect" : applied_effect, "duration" : duration}
     )
 
-    return  f"{defender} got a debuff during {duration} rounds"
+    return  f"{defender.name} got a debuff during {duration} rounds"
 
 def _control_skill(defender, skill_data):
     """ """
@@ -139,8 +141,8 @@ def _control_skill(defender, skill_data):
 
     if random() <= freeze:
         defender.apply_effect(
-            name= "Freezed",
-            data= {"effect" : {"lost_round" : True}, "duration" : duration} 
+            nome= "Freezed",
+            dados= {"effect" : {"lost_round" : True}, "duration" : duration} 
         )
         return f"{defender.name} got freeze"
     else:
@@ -152,7 +154,7 @@ def _skill_manager(attacker, defensor, skill_data):
     skill_name = skill_data.get("name", "Unknow Attack")
     skill_type = skill_data.get("type", "ATTACK")
 
-    if skill_type != "ATTACK":
+    if skill_type in ["ATTACK", "DEBUFF", "CONTROL"]:
         accuracy = _calculate_precision(skill_data.get("precision", 1))
         if accuracy == HitResult.MISS:
             return "MISS"
@@ -183,6 +185,7 @@ def _process_active_effects(fighter):
             fighter.take_damage(damage)
             print(f"{fighter.name} sofre {damage} de dano de {effect_name}!")
 
+
 def _reduce_effect_duration(fighter, effect_name):
     """Reduz duração de um efeito e remove se necessário"""
     if effect_name in fighter.efeitos_ativos:
@@ -202,38 +205,41 @@ def combat_loop(Hero, Enemy, Skills, items_data):
         os.system("cls")
         _combat_menu(Hero, Enemy, log)
 
-        if not Hero.is_alive() and Enemy.is_alive():
-            loop = False
+        if Hero.is_alive() and Enemy.is_alive():
+            _process_active_effects(Hero)
+            _process_active_effects(Enemy)
+            
+            # Determina quem age
+            active_fighter = _action_time(Hero, Enemy)
+            log += f"⚠ {active_fighter.name} Turn!\n"
+            # Verifica se está congelado
+            if active_fighter.has_effect("Freezed"):
+                log += f"{active_fighter.name} está congelado e não pode agir!\n"
+                _reduce_effect_duration(active_fighter, "Freezed")
+                continue
 
-        _process_active_effects(Hero)
-        _process_active_effects(Enemy)
-        
-        # Determina quem age
-        active_fighter = _action_time(Hero, Enemy)
-        log += f"⚠ {active_fighter.name} Turn!\n"
-        # Verifica se está congelado
-        if active_fighter.has_effect("Freezed"):
-            log += f"{active_fighter.name} está congelado e não pode agir!\n"
-            _reduce_effect_duration(active_fighter, "Freezed")
-            continue
+            
+            # Executa turno do lutador ativo
+            if active_fighter == Hero:
+                skill_log, action = _hero_turn(Hero, Enemy, Skills, items_data)
+            else:
+                skill_log, action = _enemy_turn(Enemy, Hero, Skills)
 
-        
-        # Executa turno do lutador ativo
-        if active_fighter == Hero:
-            skill_log, action = _hero_turn(Hero, Enemy, Skills, items_data)
+            log += (skill_log + "\n")
+            log += (action + "\n")
+
         else:
-            skill_log, action = _enemy_turn(Enemy, Hero, Skills)
-
-        log += (skill_log + "\n")
-        log += (action + "\n")
+            loop = False
         
     if Hero.is_alive():
+        Hero.gain_experience(Enemy)
         print(colored(f"{Enemy.name} foi derrotado!", "green"))
         sleep(0.5)
         print(colored(f"{Hero.name} recebeu {Enemy.experience} XP", "cyan"))
         sleep(0.5)
         print(colored(f"{Hero.name} recebeu {Enemy.loot}", "yellow"))
         sleep(0.5)
+
     else:
         print(colored(f"{Hero.name} foi derrotado", "red"))
 

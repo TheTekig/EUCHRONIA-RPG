@@ -2,32 +2,32 @@
     "Warrior": {
         "name": "Warrior",
         "description": "A strong and resilient fighter, excelling in melee combat and physical strength.",
-        "maxhp": 20,
+        "maxhp": 55,
         "defense": 12,
-        "strength": 8,
-        "speed": 2,
-        "upgrade" : {"maxhp": 4, "defense": 2, "strength": 1, "speed": 0},
+        "strength": 14,
+        "speed": 8,
+        "upgrade" : {"maxhp": 5, "defense": 2, "strength": 2, "speed": 0},
         "initial_Skills": ["Golpe Comum", "Grito de Guerra", "Golpe Pesado"]
     },
 
     "Mage": {
         "name" : "Mage",
         "description": "A master of arcane arts, capable of casting powerful spells to damage enemies or support allies.",
-        "maxhp": 12,
-        "defense": 8,
-        "strength": 4,
-        "speed": 3,
-        "upgrade" : {"maxhp": 2, "defense": 1, "strength": 1, "speed": 0},
+        "maxhp": 42,
+        "defense": 6,
+        "strength": 16,
+        "speed": 10,
+        "upgrade" : {"maxhp": 3, "defense": 1, "strength": 2, "speed": 0},
         "initial_Skills": ["Cajadada", "Seta de Fogo", "Prisão de Gelo"]
     },
 
     "Rogue": {
         "name": "Rogue",
         "description": "A stealthy and agile character, skilled in evasion and critical strikes.",
-        "maxhp": 14,
-        "defense": 10,
-        "strength": 6,
-        "speed": 4,
+        "maxhp": 48,
+        "defense": 7,
+        "strength": 13,
+        "speed": 17,
         "upgrade" : {"maxhp": 3, "defense": 1, "strength": 1, "speed": 1},
         "initial_Skills": ["Corte Leve", "Ataque Furtivo", "Adagas Envenenadas"]
     },
@@ -35,11 +35,11 @@
     "Hunter": {
         "name" : "Hunter",
         "description": "An expert marksman, proficient in ranged combat and tracking.",
-        "maxhp": 16,
-        "defense": 11,
-        "strength": 7,
-        "speed": 3,
-        "upgrade" : {"maxhp": 3, "defense": 1, "strength": 1, "speed": 0},
+        "maxhp": 50,
+        "defense": 8,
+        "strength": 12,
+        "speed": 12,
+        "upgrade" : {"maxhp": 3, "defense": 1, "strength": 1, "speed": 1},
         "initial_Skills": ["Flechada", "Tiro Certeiro", "Armadilha de Espinhos"]
     }
 }

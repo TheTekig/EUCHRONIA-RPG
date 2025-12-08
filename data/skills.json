@@ -63,8 +63,8 @@
   "Ataque Furtivo" : {
     "description" : "",
     "type" : "ATTACK",
-    "maxuses" : 1,
-    "uses" : 1,
+    "maxuses" : 99,
+    "uses" : 99,
     "precision" : 1.0,
     "duration" : 0,
     "effect" : { "defense_multiplier" : 2.0, "defense_ignore" : 0.5 }
@@ -73,8 +73,8 @@
   "Adagas Envenenadas" : {
     "description" : "",
     "type" : "DEBUFF",
-    "maxuses" : 3,
-    "uses" : 3,
+    "maxuses" : 99,
+    "uses" : 99,
     "precision" : 0.5,
     "duration" : 3,
     "effect" : { "damage_per_turn" : 1.5 }
@@ -163,8 +163,8 @@
 "Golpe de Adaga" : {
   "description" : "",
     "type" : "ATTACK",
-    "maxuses" : 5,
-    "uses" : 5,
+    "maxuses" : 99,
+    "uses" : 99,
     "precision" : 0.9,
     "duration" : 3,
     "effect" : { "damage_multiplier" : 1.7 }

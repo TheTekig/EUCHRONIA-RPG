@@ -123,5 +123,523 @@
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15
         }
+    },
+    "Goblins Ágeis": {
+        "name": "Goblins Ágeis",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas"
+        ],
+        "hp": 42,
+        "maxhp": 42,
+        "strength": 10,
+        "defense": 4,
+        "speed": 13,
+        "experience": 35,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblins Escondidos": {
+        "name": "Goblins Escondidos",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 11,
+        "defense": 5,
+        "speed": 15,
+        "experience": 35,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Malicioso": {
+        "name": "Goblin Malicioso",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 48,
+        "maxhp": 48,
+        "strength": 11,
+        "defense": 5,
+        "speed": 15,
+        "experience": 35,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Cunning": {
+        "name": "Goblin Cunning",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 46,
+        "maxhp": 46,
+        "strength": 11,
+        "defense": 5,
+        "speed": 14,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Sneak": {
+        "name": "Goblin Sneak",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 42,
+        "maxhp": 42,
+        "strength": 9,
+        "defense": 5,
+        "speed": 15,
+        "experience": 33,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblins Zurrus": {
+        "name": "Goblins Zurrus",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 42,
+        "maxhp": 42,
+        "strength": 11,
+        "defense": 5,
+        "speed": 14,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblins Sorrateiros": {
+        "name": "Goblins Sorrateiros",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 43,
+        "maxhp": 43,
+        "strength": 11,
+        "defense": 5,
+        "speed": 16,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblins Astutos": {
+        "name": "Goblins Astutos",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 43,
+        "maxhp": 43,
+        "strength": 10,
+        "defense": 5,
+        "speed": 15,
+        "experience": 35,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Sombra Esquiva": {
+        "name": "Sombra Esquiva",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Floresta Obscura"
+        ],
+        "hp": 38,
+        "maxhp": 38,
+        "strength": 12,
+        "defense": 6,
+        "speed": 18,
+        "experience": 35,
+        "skills": [
+            "Golpe Baixo",
+            "Mordida"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.2
+        }
+    },
+    "Bandido Esquelético": {
+        "name": "Bandido Esquelético",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 44,
+        "maxhp": 44,
+        "strength": 11,
+        "defense": 6,
+        "speed": 15,
+        "experience": 38,
+        "skills": [
+            "Golpe Baixo",
+            "Arremessar Pedra"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Poção de Cura Fraca": 0.15,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Fantasma do Marinheiro": {
+        "name": "Fantasma do Marinheiro",
+        "type": "Humanoide",
+        "region": [
+            "Ruínas Antigas",
+            "Deserto Esquecido",
+            "Caverna Sombria"
+        ],
+        "hp": 44,
+        "maxhp": 44,
+        "strength": 11,
+        "defense": 7,
+        "speed": 15,
+        "experience": 38,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15,
+            "Túnica de Viajante": 0.2
+        }
+    },
+    "Sombra Vigiadora": {
+        "name": "Sombra Vigiadora",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 46,
+        "maxhp": 46,
+        "strength": 12,
+        "defense": 6,
+        "speed": 16,
+        "experience": 37,
+        "skills": [
+            "Golpe Baixo",
+            "Mordida"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        }
+    },
+    "Goblin Esquecido": {
+        "name": "Goblin Esquecido",
+        "type": "Humanoide",
+        "region": [
+            "Ruínas Antigas",
+            "Caverna Sombria"
+        ],
+        "hp": 38,
+        "maxhp": 38,
+        "strength": 10,
+        "defense": 5,
+        "speed": 14,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Caçador": {
+        "name": "Goblin Caçador",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Acampamento dos Bandidos",
+            "Caverna Sombria"
+        ],
+        "hp": 40,
+        "maxhp": 40,
+        "strength": 10,
+        "defense": 4,
+        "speed": 15,
+        "experience": 30,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Perdido": {
+        "name": "Goblin Perdido",
+        "type": "Humanoide",
+        "region": [
+            "Ruínas Antigas",
+            "Caverna Sombria"
+        ],
+        "hp": 39,
+        "maxhp": 39,
+        "strength": 9,
+        "defense": 4,
+        "speed": 16,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Garimpeiro": {
+        "name": "Goblin Garimpeiro",
+        "type": "Humanoide",
+        "region": [
+            "Ruínas Antigas",
+            "Caverna Sombria"
+        ],
+        "hp": 38,
+        "maxhp": 38,
+        "strength": 9,
+        "defense": 4,
+        "speed": 18,
+        "experience": 32,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Espectro do Cemitério": {
+        "name": "Espectro do Cemitério",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 12,
+        "defense": 6,
+        "speed": 16,
+        "experience": 37,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15,
+            "Túnica de Viajante": 0.2
+        }
+    },
+    "Escavador de Vidro": {
+        "name": "Escavador de Vidro",
+        "type": "Humanoide",
+        "region": [
+            "Deserto Esquecido",
+            "Caverna Oculta"
+        ],
+        "hp": 46,
+        "maxhp": 46,
+        "strength": 11,
+        "defense": 5,
+        "speed": 16,
+        "experience": 38,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Bandido do Leste": {
+        "name": "Bandido do Leste",
+        "type": "Humanoide",
+        "region": [
+            "Cânions Vermelhos",
+            "Deserto Esquecido"
+        ],
+        "hp": 48,
+        "maxhp": 48,
+        "strength": 12,
+        "defense": 6,
+        "speed": 15,
+        "experience": 36,
+        "skills": [
+            "Golpe de Adaga",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        }
+    },
+    "Ladrão de Areia": {
+        "name": "Ladrão de Areia",
+        "type": "Humanoide",
+        "region": [
+            "Cânions Vermelhos",
+            "Deserto Esquecido"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 11,
+        "defense": 5,
+        "speed": 18,
+        "experience": 37,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Capitão Bandido": {
+        "name": "Capitão Bandido",
+        "type": "Humanoide",
+        "region": [
+            "Deserto Esquecido",
+            "Cânions Vermelhos",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 13,
+        "defense": 6,
+        "speed": 15,
+        "experience": 40,
+        "skills": [
+            "Golpe de Adaga",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Poção de Cura Fraca": 0.15
+        }
+    },
+    "Ladrão dos Cânions": {
+        "name": "Ladrão dos Cânions",
+        "type": "Humanoide",
+        "region": [
+            "Cânions Vermelhos",
+            "Deserto Esquecido"
+        ],
+        "hp": 42,
+        "maxhp": 42,
+        "strength": 11,
+        "defense": 5,
+        "speed": 18,
+        "experience": 35,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
     }
 }
