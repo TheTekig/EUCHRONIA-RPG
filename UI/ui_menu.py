@@ -35,7 +35,6 @@ def _combat_menu(hero, enemy, _log):
 
     for char in _log:
         print(char, end="")
-        sleep(0.1)
     
     print("\u2500" * 85)
     input(colored("Press Enter to Continue", "green"))

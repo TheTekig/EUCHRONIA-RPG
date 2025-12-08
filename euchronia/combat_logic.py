@@ -75,12 +75,12 @@ def _attack_skill(attacker, defender, skill_data):
             damage *= 0.5
             damage = _calculate_damage(defender, damage, skill_effect)
             defender.take_damage(damage)
-            return "Half Damage"
+            return f"Half Damage - {damage} Damage"
 
         case HitResult.HIT:
             damage = _calculate_damage(defender, damage, skill_effect)
             defender.take_damage(damage)
-            return "Full Damage"
+            return f"Full Damage - {damage} Damage"
         
 def _buff_skill(attacker, skill_data):
     """ """
@@ -204,6 +204,7 @@ def combat_loop(Hero, Enemy, Skills, items_data):
         # Processa efeitos ativos no início do turno
         os.system("cls")
         _combat_menu(Hero, Enemy, log)
+        log = ""
 
         if Hero.is_alive() and Enemy.is_alive():
             _process_active_effects(Hero)
@@ -271,7 +272,7 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
             skill_log = selected_skill_option
 
             if skilluse == "NoAttack":
-                return
+                return skill_log, f"{Hero.name} tentou usar {selected_skill_option}, mas não tinha usos restantes!"
                 
             else:
                 action = _skill_manager(Hero, Enemy, Skills[selected_skill_option])
@@ -288,7 +289,7 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
 
         case "R":
             print("Run")
-            return "You Runaway"
+            return "You Runaway", "💨"
         case _:
             pass
 

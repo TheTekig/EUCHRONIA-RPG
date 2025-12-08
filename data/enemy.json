@@ -299,8 +299,8 @@
             "Colinas Altas",
             "Acampamento dos Bandidos"
         ],
-        "hp": 43,
-        "maxhp": 43,
+        "hp": 40,
+        "maxhp": 40,
         "strength": 10,
         "defense": 5,
         "speed": 15,
@@ -440,12 +440,12 @@
             "Acampamento dos Bandidos",
             "Caverna Sombria"
         ],
-        "hp": 40,
-        "maxhp": 40,
+        "hp": 38,
+        "maxhp": 38,
         "strength": 10,
-        "defense": 4,
-        "speed": 15,
-        "experience": 30,
+        "defense": 5,
+        "speed": 17,
+        "experience": 34,
         "skills": [
             "Golpe Baixo",
             "Ataque Furtivo"
@@ -687,6 +687,289 @@
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.2,
             "Túnica de Viajante": 0.15
+        }
+    },
+    "Espírito Errante": {
+        "name": "Espírito Errante",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 40,
+        "maxhp": 40,
+        "strength": 10,
+        "defense": 5,
+        "speed": 14,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.2,
+            "Túnica de Viajante": 0.15
+        }
+    },
+    "Goblin Ladrão": {
+        "name": "Goblin Ladrão",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Acampamento dos Bandidos",
+            "Ruínas Antigas"
+        ],
+        "hp": 39,
+        "maxhp": 39,
+        "strength": 10,
+        "defense": 5,
+        "speed": 15,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Rápido": {
+        "name": "Goblin Rápido",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 40,
+        "maxhp": 40,
+        "strength": 10,
+        "defense": 5,
+        "speed": 17,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Espectro Errante": {
+        "name": "Espectro Errante",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 40,
+        "maxhp": 40,
+        "strength": 10,
+        "defense": 5,
+        "speed": 14,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.2,
+            "Túnica de Viajante": 0.15
+        }
+    },
+    "Goblin Armado": {
+        "name": "Goblin Armado",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Acampamento dos Bandidos",
+            "Caverna Sombria"
+        ],
+        "hp": 41,
+        "maxhp": 41,
+        "strength": 11,
+        "defense": 5,
+        "speed": 16,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Pirata": {
+        "name": "Goblin Pirata",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Acampamento dos Bandidos",
+            "Caverna Sombria"
+        ],
+        "hp": 39,
+        "maxhp": 39,
+        "strength": 11,
+        "defense": 5,
+        "speed": 16,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblins Assassinos": {
+        "name": "Goblins Assassinos",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Acampamento dos Bandidos",
+            "Caverna Sombria"
+        ],
+        "hp": 41,
+        "maxhp": 41,
+        "strength": 10,
+        "defense": 5,
+        "speed": 17,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Emboscador": {
+        "name": "Goblin Emboscador",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Colinas Altas",
+            "Acampamento dos Bandidos"
+        ],
+        "hp": 42,
+        "maxhp": 42,
+        "strength": 10,
+        "defense": 5,
+        "speed": 16,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Goblin Insidioso": {
+        "name": "Goblin Insidioso",
+        "type": "Humanoide",
+        "region": [
+            "Planícies Verdes",
+            "Acampamento dos Bandidos",
+            "Caverna Sombria"
+        ],
+        "hp": 40,
+        "maxhp": 40,
+        "strength": 10,
+        "defense": 5,
+        "speed": 16,
+        "experience": 34,
+        "skills": [
+            "Golpe Baixo",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        }
+    },
+    "Cervo Errante": {
+        "name": "Cervo Errante",
+        "type": "Fera",
+        "region": [
+            "Planícies Verdes",
+            "Bosque Antigo"
+        ],
+        "hp": 36,
+        "maxhp": 36,
+        "strength": 9,
+        "defense": 5,
+        "speed": 15,
+        "experience": 30,
+        "skills": [
+            "Corte Leve"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Pele de Rato": 0.25,
+            "Poção de Cura Fraca": 0.15
+        }
+    },
+    "Cervo da Floresta": {
+        "name": "Cervo da Floresta",
+        "type": "Fera",
+        "region": [
+            "Planícies Verdes",
+            "Bosque Antigo"
+        ],
+        "hp": 36,
+        "maxhp": 36,
+        "strength": 9,
+        "defense": 5,
+        "speed": 16,
+        "experience": 30,
+        "skills": [
+            "Corte Leve"
+        ],
+        "loot": {
+            "Pele de Rato": 0.25,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        }
+    },
+    "Lobo de Gelo": {
+        "name": "Lobo de Gelo",
+        "type": "Fera",
+        "region": [
+            "Bosque Antigo",
+            "Caverna Sombria"
+        ],
+        "hp": 48,
+        "maxhp": 48,
+        "strength": 12,
+        "defense": 6,
+        "speed": 15,
+        "experience": 38,
+        "skills": [
+            "Mordida Feroz",
+            "Corte Leve"
+        ],
+        "loot": {
+            "Pele de Lobo": 0.5,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
         }
     }
 }

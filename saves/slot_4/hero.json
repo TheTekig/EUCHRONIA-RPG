@@ -1,22 +1,22 @@
 {
-    "name": "Handerson The Greater",
-    "hp": 28,
-    "maxhp": 48,
-    "strength": 13,
-    "defense": 7,
-    "speed": 17,
-    "level": 2,
-    "experience": 39,
-    "position": "B",
+    "name": "Tekig the Dark",
+    "hp": 50,
+    "maxhp": 50,
+    "strength": 12,
+    "defense": 8,
+    "speed": 12,
+    "level": 1,
+    "experience": 0,
+    "position": "C",
     "gold": 0,
-    "class_name": "Rogue",
+    "class_name": "Hunter",
     "class_data": {
-        "name": "Rogue",
-        "description": "A stealthy and agile character, skilled in evasion and critical strikes.",
-        "maxhp": 48,
-        "defense": 7,
-        "strength": 13,
-        "speed": 17,
+        "name": "Hunter",
+        "description": "An expert marksman, proficient in ranged combat and tracking.",
+        "maxhp": 50,
+        "defense": 8,
+        "strength": 12,
+        "speed": 12,
         "upgrade": {
             "maxhp": 3,
             "defense": 1,
@@ -24,15 +24,15 @@
             "speed": 1
         },
         "initial_Skills": [
-            "Corte Leve",
-            "Ataque Furtivo",
-            "Adagas Envenenadas"
+            "Flechada",
+            "Tiro Certeiro",
+            "Armadilha de Espinhos"
         ]
     },
     "skills": [
-        "Corte Leve",
-        "Ataque Furtivo",
-        "Adagas Envenenadas"
+        "Flechada",
+        "Tiro Certeiro",
+        "Armadilha de Espinhos"
     ],
     "inventory": [],
     "key_itens": [],

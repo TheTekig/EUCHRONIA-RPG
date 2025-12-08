@@ -93,8 +93,8 @@
   "Prisão de Gelo" : {
     "description" : "",
     "type" : "CONTROL",
-    "maxuses" : 2,
-    "uses" : 2,
+    "maxuses" : 99,
+    "uses" : 99,
     "precision" : 0.7,
     "duration" : 3,
     "effect" : { "freeze_chance" : 0.6 }
@@ -113,8 +113,8 @@
   "Armadilha de Espinhos" : {
     "description" : "",
     "type" : "CONTROL",
-    "maxuses" : 2,
-    "uses" : 2,
+    "maxuses" : 99,
+    "uses" : 99,
     "precision" : 0.5,
     "duration" : 3,
     "effect" : { "speed_reduce" : 1.5 }

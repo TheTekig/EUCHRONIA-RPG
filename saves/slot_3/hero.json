@@ -1,38 +1,38 @@
 {
-    "name": "Diogo",
-    "hp": 20,
-    "maxhp": 20,
-    "strength": 8,
-    "defense": 12,
-    "speed": 2,
+    "name": "William the Wise",
+    "hp": 0.0,
+    "maxhp": 42,
+    "strength": 16,
+    "defense": 6,
+    "speed": 10,
     "level": 1,
     "experience": 0,
-    "position": "C",
+    "position": "Y",
     "gold": 0,
-    "class_name": "Warrior",
+    "class_name": "Mage",
     "class_data": {
-        "name": "Warrior",
-        "description": "A strong and resilient fighter, excelling in melee combat and physical strength.",
-        "maxhp": 20,
-        "defense": 12,
-        "strength": 8,
-        "speed": 2,
+        "name": "Mage",
+        "description": "A master of arcane arts, capable of casting powerful spells to damage enemies or support allies.",
+        "maxhp": 42,
+        "defense": 6,
+        "strength": 16,
+        "speed": 10,
         "upgrade": {
-            "maxhp": 4,
-            "defense": 2,
-            "strength": 1,
+            "maxhp": 3,
+            "defense": 1,
+            "strength": 2,
             "speed": 0
         },
         "initial_Skills": [
-            "Golpe Comum",
-            "Grito de Guerra",
-            "Golpe Pesado"
+            "Cajadada",
+            "Seta de Fogo",
+            "Prisão de Gelo"
         ]
     },
     "skills": [
-        "Golpe Comum",
-        "Grito de Guerra",
-        "Golpe Pesado"
+        "Cajadada",
+        "Seta de Fogo",
+        "Prisão de Gelo"
     ],
     "inventory": [],
     "key_itens": [],

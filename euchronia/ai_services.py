@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from openai import OpenAI
 from dotenv import load_dotenv
 from termcolor import colored
+from time import sleep
 
 #Importação do Projeto
 from euchronia import general_logic as gl
@@ -409,6 +410,8 @@ class GamePackageProcessor:
             self._save_enemy_to_json(enemy_data, enemy_examples)
             
             if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False):
+                print(colored(f"{package.get('narrativa', '...')}", "yellow"))
+                sleep(5)
                 cl.combat_loop(hero, enemy, skills, items_data)
                 
         except Exception as e:

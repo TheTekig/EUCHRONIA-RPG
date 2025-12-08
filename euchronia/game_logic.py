@@ -278,20 +278,49 @@ def observe_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume,
     print(colored(narrativa, "cyan"))
     input(colored("Pressione Enter para continuar...", "green"))
 
-def show_map_from_file(filepath="map.txt"):
+def open_map_png(filepath="./data/mapconfig/EuchroniaMap.png"):
     """
-    Abre e exibe um mapa a partir de um ficheiro de texto (ASCII art).
+    Abre e exibe um mapa a partir de um ficheiro PNG.
     """
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            map_content = f.read()
-            print("\n" + "="*20 + " MAPA DO MUNDO " + "="*20)
-            print(map_content)
-            print("="*56)
-            input("Pressione Enter para fechar o mapa...")
+        from PIL import Image
+        import matplotlib.pyplot as plt
+
+        img = Image.open(filepath)
+        plt.imshow(img)
+        plt.axis('off')  # Oculta os eixos
+        plt.show()
+    except ImportError:
+        print("\nErro: As bibliotecas necessárias para exibir o mapa PNG não estão instaladas.")
+        print("Por favor, instale Pillow e matplotlib para usar esta funcionalidade.")
+        input("Pressione Enter para continuar...")
     except FileNotFoundError:
         print(f"\nErro: O ficheiro do mapa '{filepath}' não foi encontrado.")
         input("Pressione Enter para continuar...")
+
+def show_map_from_file(filepath="./data/mapconfig/map.txt"):
+    """
+    Abre e exibe um mapa a partir de um ficheiro de texto (ASCII art).
+    """
+    print("\nDeseja ver o mapa em PNG ou ASCII art?")
+    choice = input("[P]NG / [A]SCI >> ").upper()
+    if choice not in ['P', 'A']:
+        print("Opção inválida. Retornando ao menu anterior.")
+        return
+    if choice == 'P':
+        open_map_png()
+    else:
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                map_content = f.read()
+                print("\n" + "="*20 + " MAPA DO MUNDO " + "="*20)
+                print(map_content)
+                print("="*56)
+                input("Pressione Enter para fechar o mapa...")
+    
+        except FileNotFoundError:
+            print(f"\nErro: O ficheiro do mapa '{filepath}' não foi encontrado.")
+            input("Pressione Enter para continuar...")
 
 #endregion
 

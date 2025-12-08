@@ -1,22 +1,22 @@
 {
-    "name": "Diogo",
-    "hp": 14,
-    "maxhp": 14,
-    "strength": 6,
-    "defense": 10,
-    "speed": 4,
-    "level": 1,
-    "experience": 0,
-    "position": "C",
+    "name": "Tekig The Master",
+    "hp": 53,
+    "maxhp": 53,
+    "strength": 13,
+    "defense": 9,
+    "speed": 13,
+    "level": 2,
+    "experience": 2,
+    "position": "G",
     "gold": 0,
-    "class_name": "Rogue",
+    "class_name": "Hunter",
     "class_data": {
-        "name": "Rogue",
-        "description": "A stealthy and agile character, skilled in evasion and critical strikes.",
-        "maxhp": 14,
-        "defense": 10,
-        "strength": 6,
-        "speed": 4,
+        "name": "Hunter",
+        "description": "An expert marksman, proficient in ranged combat and tracking.",
+        "maxhp": 50,
+        "defense": 8,
+        "strength": 12,
+        "speed": 12,
         "upgrade": {
             "maxhp": 3,
             "defense": 1,
@@ -24,15 +24,15 @@
             "speed": 1
         },
         "initial_Skills": [
-            "Corte Leve",
-            "Ataque Furtivo",
-            "Adagas Envenenadas"
+            "Flechada",
+            "Tiro Certeiro",
+            "Armadilha de Espinhos"
         ]
     },
     "skills": [
-        "Corte Leve",
-        "Ataque Furtivo",
-        "Adagas Envenenadas"
+        "Flechada",
+        "Tiro Certeiro",
+        "Armadilha de Espinhos"
     ],
     "inventory": [],
     "key_itens": [],
