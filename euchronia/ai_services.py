@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class GameConfig:
 
-    LORE_MAX_LENGTH : int = 10000
+    LORE_MAX_LENGTH : int = 5000
     LORE_RESUME_TOKENS : int = 2000
     DEFAULT_MAX_TOKENS : int = 1000
     SAVE_SLOT : str = f"saves/slot_1"
@@ -166,6 +166,112 @@ Descrição: {skill_description}
 Gere uma skill balanceada em formato JSON puro (sem markdown).
 """
             return [system_prompt, user_prompt]
+
+    @staticmethod
+    def build_item_prompt(itens_examples : Dict, item_name : str, item_description : str) -> List[str]:
+        system_prompt = f"""
+Você é um especialista em design de itens para RPG. Crie um item seguindo a estrutura JSON.
+RETORNE APENAS UM JSON válido!
+
+### REGRAS DE CATEGORIA ###
+
+1. Weapon / Armor / Accessory (Equipamentos):
+   - DEVEM ter o campo "bonus".
+   - NÃO DEVEM ter o campo "effect".
+   - Atributos comuns: strength, defense, speed.
+
+2. Potion / Consumable:
+   - DEVEM ter o campo "effect".
+   - NÃO DEVEM ter o campo "bonus".
+   - Efeitos comuns: heal (cura HP).
+
+3. Material:
+   - NÃO possui "bonus" nem "effect".
+   - Serve apenas para venda ou crafting.
+
+### LIMITES DE BALANCEAMENTO POR RARIDADE ###
+Use estes valores como base para os atributos (bonus/effect):
+ - Comum: 1 a 5
+ - Raro: 6 a 15
+ - Épico: 16 a 30
+ - Lendário: 31+
+
+### ESTRUTURA DO ITEM (JSON) ###
+
+ {{
+  "Nome do Item": {{
+    "type": (string) - "Weapon", "Armor", "Accessory", "Potion" ou "Material",
+    "gold": (int) - Valor de venda,
+    "rarity": (string) - "A Raridade segundo o Balancemaneto",
+    "description": (string) - Lore curta e envolvente,
+    "bonus": (Dict) - (Opcional: Apenas para equipamentos),
+    "effect": (Dict) - (Opcional: Apenas para poções)
+  }}
+
+Exemplos de skills: {json.dumps(itens_examples, indent=2)}
+"""
+        user_prompt = f"""
+### CRIAR NOVO ITEM ###
+
+Nome: {item_name}
+Descrição: {item_description}
+
+Gere um item balanceada em formato JSON puro (sem markdown).
+"""
+        return [system_prompt, user_prompt]
+
+    @staticmethod
+    def build_post_combat_prompt(winner: str, enemy_name: str, lore_resume: str, hero: Any, location: str) -> List[str]:
+
+        system_prompt = f"""
+Você é o Mestre de Jogo narrando o FIM de um combate. 
+Seu objetivo é descrever o desfecho e determinar recompensas especiais (Epifania de Batalha).
+
+RETORNE APENAS UM JSON válido seguindo a estrutura abaixo.
+
+### REGRAS DE GERAÇÃO ###
+
+1. NARRATIVA:
+   - Se Vencedor = "{hero.name}": Descreva o golpe final ou a queda do inimigo (max 40 palavras).
+   - Se Vencedor = "{enemy_name}": Descreva o herói caindo derrotado ou fugindo (sem morte permanente).
+
+2. SAQUE (LOOT):
+   - 'loot_found': true se o inimigo deixou cair algo (se o herói venceu).
+
+3. NOVA SKILL (EPIFANIA DE BATALHA):
+   - O Herói tem uma CHANCE BAIXA (aprox. 5% a 10%) de aprender uma skill nova após vencer.
+   - CRITÉRIO: Só gere 'newskill': true se o combate foi difícil ou se a IA "rolar" essa chance baixa.
+   - A skill deve ser temática com a Classe do Herói ({hero.class_name}) ou copiar um traço do Inimigo.
+
+### ESTRUTURA DO JSON ###
+
+{{
+  "narrativa": (string) - O desfecho da luta,
+  "loot_found": (boolean) - Se encontrou itens,
+  "xp_gained": (int) - Sugestão de XP baseada no inimigo,
+  
+  // Geração de Skill (Sistema de Epifania)
+  "newskill": (boolean) - true APENAS se ocorrer a chance baixa (5-10%),
+  "newskill_name": (string) - Nome criativo da nova skill,
+  "newskill_description": (string) - Descrição do que a skill faz
+}}
+"""
+        user_prompt = f"""
+### RELATÓRIO DE COMBATE ###
+
+Vencedor: {winner}
+Inimigo Enfrentado: {enemy_name}
+
+CONTEXTO DO HERÓI:
+Nome: {hero.name} | Classe: {hero.class_name} | HP Restante: {hero.hp}
+Local Atual: {location}
+
+CONTEXTO DA HISTÓRIA ANTERIOR:
+{lore_resume}
+
+Gere o JSON de pós-combate. Lembre-se: a chance de nova skill é BAIXA.
+"""
+        return [system_prompt, user_prompt]
 
     @staticmethod
     def build_game_master_prompt(action : str, lore_resume : str, game_map : Dict, gps : Any, hero : Any, past_position : Any, mood: str = 'criativo' ) -> List[str]:
@@ -366,7 +472,8 @@ class GamePackageProcessor:
         logger.info(colored(f"Pacote recebido: {package}", "green"))
 
         if package.get('new_enemy', False):
-            self._process_new_enemy(package, hero, enemy_examples, items_data, skills)
+            narrative = self._process_new_enemy(package, hero, enemy_examples, items_data, skills)
+            return[narrative, ""]
 
         if package.get('newskill', False):
             self._process_new_skill(package, skills)
@@ -387,6 +494,22 @@ class GamePackageProcessor:
         
         enemy_name = package.get('new_enemy_name', 'Inimigo Desconhecido')
         enemy_desc = package.get('new_enemy_description', '')
+
+        if enemy_name in enemy_examples:
+            enemy_data = enemy_examples[enemy_name]
+            try:
+                enemy = models.EnemyModel(enemy_data)
+
+                if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False):
+                    print(colored(f"{package.get('narrativa', '...')}", "yellow"))
+                    input(">>")
+                    result = cl.combat_loop(hero, enemy, skills, items_data)
+                    prompt = PromptBuilder.build_post_combat_prompt(result, enemy_name, package.get('narrativa'), hero, hero.position)
+                    narrativa = self.process_package(prompt[0], hero, enemy_examples, items_data, skills)
+            except Exception as e:
+                logger.error(f"Erro ao criar modelo de inimigo: {e}")
+            
+            return [narrativa, ""]
 
         logger.info(f"Criando novo inimigo: {enemy_name}")
 
@@ -411,12 +534,80 @@ class GamePackageProcessor:
             
             if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False):
                 print(colored(f"{package.get('narrativa', '...')}", "yellow"))
-                sleep(5)
-                cl.combat_loop(hero, enemy, skills, items_data)
-                
+                input(">>")
+                result = cl.combat_loop(hero, enemy, skills, items_data)
+                prompt = PromptBuilder.build_post_combat_prompt(result, enemy_name, package.get('narrativa'), hero, hero.position)
+                narrativa = self.process_package(prompt[0], hero, enemy_examples, items_data, skills)
+
         except Exception as e:
             logger.error(f"Erro ao criar modelo de inimigo: {e}")
+        
+        return [narrativa, ""]
+
+    def _process_new_skill(self, package: Dict, skills: Dict):
     
+        skill_name = package.get('newskill_name', 'Habilidade Desconhecida')
+        skill_desc = package.get('newskill_description', '')
+    
+        logger.info(f"Criando nova skill: {skill_name}")
+    
+        skill_prompt = self.prompt_builder.build_skill_prompt(
+            skills, skill_name, skill_desc)
+    
+        raw_skill = self.openai_client.execute(skill_prompt)
+        if not raw_skill:
+            logger.error("Falha ao gerar skill")
+            return
+    
+        skill_data = self.json_cleaner.clean_and_parse(raw_skill)
+        if skill_data:
+            self._save_skill_to_json(skill_data, skills)
+            logger.info(colored(f"Skill criada: {skill_name}", "cyan"))
+    
+    def _process_new_item(self, package: Dict, items_data: Dict ):
+    
+        item_name = package.get('newskill_name', 'Habilidade Desconhecida')
+        item_desc = package.get('newskill_description', '')
+    
+        logger.info(f"Criando nova skill: {item_name}")
+    
+        item_prompt = self.prompt_builder.build_item_prompt(
+            items_data, item_name, item_desc)
+    
+        raw_item = self.openai_client.execute(item_prompt)
+        if not raw_item:
+            logger.error("Falha ao gerar skill")
+            return
+    
+        item_data = self.json_cleaner.clean_and_parse(raw_item)
+        if item_data:
+            self._save_item_to_json(item_data, items_data)
+            logger.info(colored(f"Item criado: {item_name}", "cyan"))
+    
+    def _update_lore(self, package: Dict):
+        narrative = package.get('narrativa', '')
+    
+        if narrative:
+            self.lore_manager.append(narrative)
+    
+            if self.lore_manager.should_resume():
+                self._resume_lore()
+                
+    def _resume_lore(self):
+
+        logger.info("Lore muito longa, iniciando resumo...")
+        current_lore = self.lore_manager.read()
+        resume_prompt = self.prompt_builder.build_resume_prompt(
+            current_lore, {}, {})
+
+        resumed = self.openai_client.execute(
+            resume_prompt,
+            max_tokens=self.config.LORE_RESUME_TOKENS )
+
+        if resumed:
+            self.lore_manager.write(resumed)
+            logger.info("Lore resumido com sucesso")
+                
     def _save_enemy_to_json(self, enemy_data: Dict, enemy_dict: Dict, filepath: str = 'data/enemy.json'):
         try:
             enemy_name = enemy_data.get('name', 'Inimigo Desconhecido')
@@ -469,54 +660,28 @@ class GamePackageProcessor:
         except Exception as e:
             logger.error(f"Erro ao salvar Skill no banco de dados: {e}")
 
-    
+    def _save_item_to_json(self, Itens_data: Dict, Itens_dict: Dict, filepath: str = 'data/itens.json'):
+        try:
+            Itens_name = Itens_data.get('name', 'Item Desconhecido')
 
-    def _process_new_skill(self, package: Dict, skills: Dict):
-    
-        skill_name = package.get('newskill_name', 'Habilidade Desconhecida')
-        skill_desc = package.get('newskill_description', '')
-    
-        logger.info(f"Criando nova skill: {skill_name}")
-    
-        skill_prompt = self.prompt_builder.build_skill_prompt(
-            skills, skill_name, skill_desc)
-    
-        raw_skill = self.openai_client.execute(skill_prompt)
-        if not raw_skill:
-            logger.error("Falha ao gerar skill")
-            return
-    
-        skill_data = self.json_cleaner.clean_and_parse(raw_skill)
-        if skill_data:
-            self._save_skill_to_json(skill_data, skills)
-            logger.info(colored(f"Skill criada: {skill_name}", "cyan"))
-    
-    def _process_new_item(self, package: Dict, items_data: Dict ):
-    
-        item_name = package.get('newitem_name', 'Item Desconhecido')
-        logger.info(f"Criação de Item não implementada: {item_name}")
-    
-    def _update_lore(self, package: Dict):
-        narrative = package.get('narrativa', '')
-    
-        if narrative:
-            self.lore_manager.append(narrative)
-    
-            if self.lore_manager.should_resume():
-                self._resume_lore()
-                
-    def _resume_lore(self):
+            if Itens_name in Itens_dict:
+                logger.warning(f"Skill {Itens_name} já existe no banco de dados.")
+            
+            Itens_dict[Itens_name] = Itens_data
 
-        logger.info("Lore muito longa, iniciando resumo...")
-        current_lore = self.lore_manager.read()
-        resume_prompt = self.prompt_builder.build_resume_prompt(
-            current_lore, {}, {})
+            try:
+                with open(filepath, 'r', encoding='utf-8') as file:
+                    all_itens = json.load(file)
+            except FileNotFoundError:
+                all_itens = {}
+            
+            all_itens[Itens_name] = Itens_data
 
-        resumed = self.openai_client.execute(
-            resume_prompt,
-            max_tokens=self.config.LORE_RESUME_TOKENS )
+            with open(filepath, 'w', encoding='utf-8') as file:
+                json.dump(all_itens, file, indent=4, ensure_ascii=False)
+            
+            logger.info(colored(f"Skill {Itens_name} salvo no banco de dados.", "green"))
+            print(colored(f"Skill salvo: {Itens_name}", "green"))
 
-        if resumed:
-            self.lore_manager.write(resumed)
-            logger.info("Lore resumido com sucesso")
-                
+        except Exception as e:
+            logger.error(f"Erro ao salvar Skill no banco de dados: {e}")
