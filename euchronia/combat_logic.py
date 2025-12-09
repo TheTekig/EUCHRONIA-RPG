@@ -233,18 +233,24 @@ def combat_loop(Hero, Enemy, Skills, items_data):
             loop = False
         
     if Hero.is_alive():
+        
         Hero.gain_experience(Enemy)
+        Loot = Enemy._get_one_item_loot(items_data)
+        Hero._add_item_to_inventory(Loot)
+
         print(colored(f"{Enemy.name} foi derrotado!", "green"))
         sleep(0.5)
         print(colored(f"{Hero.name} recebeu {Enemy.experience} XP", "cyan"))
         sleep(0.5)
-        print(colored(f"{Hero.name} recebeu {Enemy.loot}", "yellow"))
+        print(colored(f"{Hero.name} recebeu {Loot}", "yellow"))
         sleep(0.5)
 
-    else:
-        print(colored(f"{Hero.name} foi derrotado", "red"))
+        input(colored("Press Enter to Continue", "green"))
+        return f"{Hero.name} derrotou o inimigo"
 
-    input(colored("Press Enter to Continue", "green"))
+    else:
+        input(colored("Press Enter to Continue", "green"))
+        return f"{Hero.name} foi derrotado"
 
 def _hero_turn(Hero, Enemy, Skills, items_data):
     
@@ -280,20 +286,20 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
             return skill_log , action
 
         case "I":
-            gl.list_player_inventory(Hero)
             gl.manage_inventory(Hero, items_data)
+            return "", ""
 
         case "ST":
             print("Status:")
             Hero._status()
+            return "", ""
 
         case "R":
             print("Run")
             return "You Runaway", "💨"
         case _:
             pass
-
-    
+ 
 def _enemy_turn(Enemy, Hero, Skills):
 
     size = len(Enemy.skills)
