@@ -1,11 +1,11 @@
 from termcolor import colored
+from random import choices
 from enum import Enum, auto 
 
 class HitResult(Enum):
     MISS = auto()
     SCRATCH = auto()
     HIT = auto()
-
 
 class AliveModel():
     def __init__(self, name, hp, maxhp, strength, defense, speed):
@@ -167,20 +167,16 @@ class PlayerModel(AliveModel):
                     total_bonus += item_info["bonus"].get(attribute_name,0)
         return base_value + total_bonus
     
-   
     def total_defense(self, all_items_data:dict):
         return self._get_total_attribute("defense", self.defense, all_items_data)
     
-
     def total_strength(self, all_items_data:dict):
         return self._get_total_attribute("strength", self.strength, all_items_data)
     
-
     def total_speed(self, all_items_data:dict):
         return self._get_total_attribute("speed", self.speed, all_items_data)
     
     #endregion
-
     #region Leveling UP
 
     def gain_experience(self, enemy):
@@ -201,6 +197,12 @@ class PlayerModel(AliveModel):
         
 
     #endregion
+    #region Add Item to Invetory
+
+    def _add_item_to_inventory(self, item):
+        self.inventory.append(item)
+        
+    #endregion
 
 class EnemyModel(AliveModel):
     def __init__(self, enemy_data):
@@ -218,3 +220,43 @@ class EnemyModel(AliveModel):
         self.loot = enemy_data.get('loot', 'Nothing Userfull')
         self.region = enemy_data.get('region', 'Unknown Region')
         self.skills = enemy_data.get('skills', ["Flechada"])
+
+
+    def _get_one_item_loot(self, items_data):
+        
+        rarity_map = {
+            "Comum" : 60,
+            "Rare" : 30,
+            "Epic" : 10,
+            "Legendary" : 5
+        }
+        
+        items = []
+        weights = []
+
+        for loot_id in self.loot:
+            item = items_data.get(loot_id)
+            
+            if not item:
+                continue
+            
+            rarity = item.get('rarity', 'Comum')
+            weight = rarity_map.get(rarity, 0)
+
+            if weight > 0:
+                items.append(loot_id)
+                weights.append(weight)
+        
+        if not items:
+            return None
+        
+        result = choices(items, weights=weights, k=1)
+
+        return result[0]
+
+        
+            
+
+        
+
+           
