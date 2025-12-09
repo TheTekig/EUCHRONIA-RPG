@@ -1,13 +1,13 @@
 {
     "name": "Tekig The Master",
-    "hp": 53,
-    "maxhp": 53,
-    "strength": 13,
-    "defense": 9,
-    "speed": 13,
-    "level": 2,
-    "experience": 2,
-    "position": "G",
+    "hp": 56,
+    "maxhp": 56,
+    "strength": 14,
+    "defense": 10,
+    "speed": 14,
+    "level": 3,
+    "experience": 133,
+    "position": "WO",
     "gold": 0,
     "class_name": "Hunter",
     "class_data": {
@@ -32,12 +32,23 @@
     "skills": [
         "Flechada",
         "Tiro Certeiro",
-        "Armadilha de Espinhos"
+        "Armadilha de Espinhos",
+        "Ataque Supremo"
     ],
-    "inventory": [],
+    "inventory": [
+        "Poção de Cura Fraca",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Fragmento de Osso"
+    ],
     "key_itens": [],
     "equipment": {
-        "weapon": [],
+        "weapon": [
+            "Adaga Enferrujada"
+        ],
         "armor": [],
         "accessory": []
     }

@@ -16,6 +16,11 @@
         ],
         "loot": {
             "Pele de Rato": 0.6
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Batedor": {
@@ -37,6 +42,11 @@
         "loot": {
             "Adaga Enferrujada": 0.2,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Lobo Jovem": {
@@ -56,6 +66,11 @@
         ],
         "loot": {
             "Pele de Lobo": 0.5
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Bandido da Estrada": {
@@ -75,6 +90,11 @@
         "loot": {
             "Poção de Cura Fraca": 0.15,
             "Adaga Enferrujada": 0.25
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Bando de Goblins": {
@@ -99,6 +119,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Guardião de Cristal": {
@@ -122,6 +147,11 @@
             "Túnica de Viajante": 0.2,
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblins Ágeis": {
@@ -145,6 +175,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblins Escondidos": {
@@ -169,6 +204,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Malicioso": {
@@ -193,6 +233,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Cunning": {
@@ -217,6 +262,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Sneak": {
@@ -241,6 +291,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblins Zurrus": {
@@ -265,6 +320,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblins Sorrateiros": {
@@ -289,6 +349,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblins Astutos": {
@@ -313,6 +378,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Sombra Esquiva": {
@@ -335,6 +405,11 @@
         "loot": {
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Bandido Esquelético": {
@@ -359,6 +434,11 @@
             "Adaga Enferrujada": 0.25,
             "Poção de Cura Fraca": 0.15,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Fantasma do Marinheiro": {
@@ -383,6 +463,11 @@
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15,
             "Túnica de Viajante": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Sombra Vigiadora": {
@@ -407,6 +492,11 @@
             "Adaga Enferrujada": 0.25,
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Esquecido": {
@@ -430,6 +520,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Caçador": {
@@ -454,6 +549,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Perdido": {
@@ -477,6 +577,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Garimpeiro": {
@@ -500,6 +605,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Espectro do Cemitério": {
@@ -524,6 +634,11 @@
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15,
             "Túnica de Viajante": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Escavador de Vidro": {
@@ -547,6 +662,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Bandido do Leste": {
@@ -570,6 +690,11 @@
             "Adaga Enferrujada": 0.25,
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Ladrão de Areia": {
@@ -593,6 +718,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Capitão Bandido": {
@@ -617,6 +747,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Ladrão dos Cânions": {
@@ -640,6 +775,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Sombra do Pirata": {
@@ -664,6 +804,11 @@
             "Fragmento de Osso": 0.4,
             "Adaga Enferrujada": 0.25,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Espectro do Marinheiro": {
@@ -687,6 +832,11 @@
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.2,
             "Túnica de Viajante": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Espírito Errante": {
@@ -711,6 +861,11 @@
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.2,
             "Túnica de Viajante": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Ladrão": {
@@ -735,6 +890,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Rápido": {
@@ -759,6 +919,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Espectro Errante": {
@@ -783,6 +948,11 @@
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.2,
             "Túnica de Viajante": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Armado": {
@@ -807,6 +977,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Pirata": {
@@ -831,6 +1006,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblins Assassinos": {
@@ -855,6 +1035,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Emboscador": {
@@ -879,6 +1064,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Goblin Insidioso": {
@@ -903,6 +1093,11 @@
             "Adaga Enferrujada": 0.25,
             "Clava de Madeira": 0.3,
             "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Cervo Errante": {
@@ -925,6 +1120,11 @@
             "Fragmento de Osso": 0.4,
             "Pele de Rato": 0.25,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Cervo da Floresta": {
@@ -947,6 +1147,11 @@
             "Pele de Rato": 0.25,
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Lobo de Gelo": {
@@ -970,6 +1175,11 @@
             "Pele de Lobo": 0.5,
             "Fragmento de Osso": 0.4,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Grifo Selvagem": {
@@ -994,6 +1204,11 @@
             "Fragmento de Osso": 0.4,
             "Pele de Rato": 0.25,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     },
     "Guardião do Gelo": {
@@ -1017,6 +1232,323 @@
             "Fragmento de Osso": 0.4,
             "Pele de Rato": 0.25,
             "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Guardiões Esqueletos": {
+        "name": "Guardiões Esqueletos",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 12,
+        "defense": 7,
+        "speed": 14,
+        "experience": 36,
+        "skills": [
+            "Golpe Comum",
+            "Golpe Baixo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Vigilante de Vidro": {
+        "name": "Vigilante de Vidro",
+        "type": "Humanoide",
+        "region": [
+            "Deserto Esquecido",
+            "Caverna Oculta"
+        ],
+        "hp": 42,
+        "maxhp": 42,
+        "strength": 11,
+        "defense": 6,
+        "speed": 16,
+        "experience": 36,
+        "skills": [
+            "Golpe Comum",
+            "Ataque Furtivo"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Clava de Madeira": 0.3,
+            "Fragmento de Osso": 0.4
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Grifo Espectral": {
+        "name": "Grifo Espectral",
+        "type": "Fera",
+        "region": [
+            "Colinas Altas",
+            "Bosque Antigo",
+            "Caverna Sombria"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 12,
+        "defense": 7,
+        "speed": 16,
+        "experience": 38,
+        "skills": [
+            "Golpe Comum",
+            "Mordida Feroz"
+        ],
+        "loot": {
+            "Pele de Rato": 0.25,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Espectro Gelado": {
+        "name": "Espectro Gelado",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Bosque Antigo",
+            "Ruínas Antigas"
+        ],
+        "hp": 43,
+        "maxhp": 43,
+        "strength": 11,
+        "defense": 6,
+        "speed": 14,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15,
+            "Túnica de Viajante": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Lobo de Gelo Perigoso": {
+        "name": "Lobo de Gelo Perigoso",
+        "type": "Fera",
+        "region": [
+            "Bosque Antigo",
+            "Caverna Sombria"
+        ],
+        "hp": 43,
+        "maxhp": 43,
+        "strength": 11,
+        "defense": 6,
+        "speed": 16,
+        "experience": 37,
+        "skills": [
+            "Mordida Feroz",
+            "Golpe Comum"
+        ],
+        "loot": {
+            "Pele de Lobo": 0.5,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Lobo de Gelo Voraz": {
+        "name": "Lobo de Gelo Voraz",
+        "type": "Fera",
+        "region": [
+            "Bosque Antigo",
+            "Caverna Sombria"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 12,
+        "defense": 7,
+        "speed": 15,
+        "experience": 38,
+        "skills": [
+            "Mordida Feroz",
+            "Corte Leve"
+        ],
+        "loot": {
+            "Pele de Lobo": 0.5,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Sombra Glacial": {
+        "name": "Sombra Glacial",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Bosque Antigo"
+        ],
+        "hp": 40,
+        "maxhp": 40,
+        "strength": 11,
+        "defense": 7,
+        "speed": 14,
+        "experience": 36,
+        "skills": [
+            "Golpe Comum",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Túnica de Viajante": 0.2,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Lobo de Gelo Espectral": {
+        "name": "Lobo de Gelo Espectral",
+        "type": "Fera",
+        "region": [
+            "Bosque Antigo",
+            "Caverna Sombria"
+        ],
+        "hp": 40,
+        "maxhp": 40,
+        "strength": 12,
+        "defense": 6,
+        "speed": 16,
+        "experience": 37,
+        "skills": [
+            "Mordida Feroz",
+            "Golpe Comum"
+        ],
+        "loot": {
+            "Pele de Lobo": 0.5,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Lobo de Gelo Desgarrado": {
+        "name": "Lobo de Gelo Desgarrado",
+        "type": "Fera",
+        "region": [
+            "Bosque Antigo",
+            "Caverna Sombria"
+        ],
+        "hp": 45,
+        "maxhp": 45,
+        "strength": 13,
+        "defense": 6,
+        "speed": 15,
+        "experience": 38,
+        "skills": [
+            "Mordida Feroz",
+            "Corte Leve"
+        ],
+        "loot": {
+            "Pele de Lobo": 0.5,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Lobo de Gelo Feroz": {
+        "name": "Lobo de Gelo Feroz",
+        "type": "Fera",
+        "region": [
+            "Bosque Antigo",
+            "Caverna Sombria"
+        ],
+        "hp": 42,
+        "maxhp": 42,
+        "strength": 12,
+        "defense": 7,
+        "speed": 16,
+        "experience": 37,
+        "skills": [
+            "Mordida Feroz",
+            "Corte Leve"
+        ],
+        "loot": {
+            "Pele de Lobo": 0.5,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Espectro Ecoante": {
+        "name": "Espectro Ecoante",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 43,
+        "maxhp": 43,
+        "strength": 10,
+        "defense": 6,
+        "speed": 15,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Adaga Enferrujada": 0.25,
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
         }
     }
 }

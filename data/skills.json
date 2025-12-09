@@ -200,5 +200,98 @@
             "speed_multiplier": 1.2,
             "strength_multiplier": 1.1
         }
+    },
+    "Rastreador das Sombras": {
+        "name": "Rastreador das Sombras",
+        "description": "Permite ao Hunter se mover furtivamente em terrenos cobertos de neve, aumentando a chance de evitar inimigos e encontrar presas.",
+        "type": "BUFF",
+        "maxuses": 10,
+        "uses": 10,
+        "precision": 0.9,
+        "duration": 4,
+        "effect": {
+            "speed_multiplier": 1.3,
+            "strength_multiplier": 1.1
+        }
+    },
+    "Disparo Veloz": {
+        "name": "Disparo Veloz",
+        "description": "Aumenta a precisão e velocidade de ataque com armas à distância, permitindo que Tekig dispare duas flechas em um único movimento.",
+        "type": "BUFF",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.85,
+        "duration": 3,
+        "effect": {
+            "speed_multiplier": 1.5,
+            "strength_multiplier": 1.2
+        }
+    },
+    "Conexão com a Natureza": {
+        "name": "Conexão com a Natureza",
+        "description": "Permite a Tekig se comunicar com a fauna local, pedindo ajuda ou informações sobre os perigos nas imediações.",
+        "type": "BUFF",
+        "maxuses": 7,
+        "uses": 7,
+        "precision": 0.9,
+        "duration": 4,
+        "effect": {
+            "speed_multiplier": 1.2,
+            "strength_multiplier": 1.1
+        }
+    },
+    "Ataque Supremo": {
+        "name": "Ataque Supremo",
+        "description": "Uma técnica de ataque aprimorada, que aumenta a precisão e poder do próximo ataque de Tekig. Ao ser ativada, garante um ataque quase certeiro com dano elevado.",
+        "type": "ATTACK",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.95,
+        "duration": 1,
+        "effect": {
+            "damage_multiplier": 2.0,
+            "defense_ignore": 0.2
+        }
+    },
+    "Flecha Invisível": {
+        "name": "Flecha Invisível",
+        "description": "Tiro uma flecha tão rápida que se torna invisível e indetectável, ignorando a defesa dos inimigos.",
+        "type": "ATTACK",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.85,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 1.8,
+            "defense_ignore": 0.4
+        }
+    },
+    "Tiro Assolador": {
+        "name": "Tiro Assolador",
+        "description": "Uma flechada tão poderosa que desarma qualquer inimigo com uma única punição, fazendo-os tremer de medo e desconcerto.",
+        "type": "ATTACK",
+        "maxuses": 4,
+        "uses": 4,
+        "precision": 0.9,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 1.6,
+            "defense_ignore": 0.3,
+            "critical_chance": 0.25
+        }
+    },
+    "Flecha Dimensional": {
+        "name": "Flecha Dimensional",
+        "description": "Uma habilidade poderosa que permite disparar uma flecha capaz de cortar a realidade, atravessando barreiras dimensionais e causando dano devastador a demônios.",
+        "type": "ATTACK",
+        "maxuses": 4,
+        "uses": 4,
+        "precision": 0.85,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 2.0,
+            "defense_ignore": 0.5,
+            "critical_chance": 0.3
+        }
     }
 }

@@ -19,7 +19,7 @@ def _inital_menu():
     print(colored("3. Settings", 'cyan', attrs=['bold']).center(95))
     print(colored("4. Exit", 'cyan', attrs=['bold']).center(95))
 
-def _combat_menu(hero, enemy, _log):
+def _combat_menu(hero, enemy, _log, all_items_data):
     _combat_logo = """
  ██████  ██████  ███    ███ ██████   █████  ████████ 
 ██      ██    ██ ████  ████ ██   ██ ██   ██    ██    
@@ -29,8 +29,8 @@ def _combat_menu(hero, enemy, _log):
 """
     print(colored(f"{_combat_logo}" , 'magenta'))
     print("\u2500" * 85)
-    print(colored(f"🧑 {hero.name}     ", "cyan", attrs=["bold"]), colored("❤ HP:", "red", attrs=["bold"]), colored(f"{hero.hp}", "red"),"/",colored(f"{hero.maxhp}     ", "red"), colored("⚔ STR:", "blue", attrs=["bold"]),colored(f"{hero.strength}      ", "blue"), colored("🛡 DEF:", "magenta", attrs=["bold"]), colored(f"{hero.defense}", "magenta"))
-    print(colored(f"👹 {enemy.name}    ", "cyan", attrs=["bold"]), colored("❤ HP:", "red", attrs=["bold"]), colored(f"{enemy.hp}", "red"),"/",colored(f"{enemy.maxhp}   ", "red"), colored("⚔ STR:", "blue", attrs=["bold"]),colored(f"{enemy.strength}     ", "blue"), colored("🛡 DEF:", "magenta", attrs=["bold"]), colored(f"{enemy.defense}", "magenta"))
+    print(colored(f"🧑 {hero.name}     ", "cyan", attrs=["bold"]), colored("❤ HP:", "red", attrs=["bold"]), colored(f"{hero.hp}", "red"),"/",colored(f"{hero.maxhp}     ", "red"), colored("⚔ STR:", "blue", attrs=["bold"]),colored(f"{hero.total_strength(all_items_data)}      ", "blue"), colored("🛡 DEF:", "magenta", attrs=["bold"]), colored(f"{hero.total_defense(all_items_data)}", "magenta"))
+    print(colored(f"👹 {enemy.name}    ", "cyan", attrs=["bold"]), colored("❤ HP:", "red", attrs=["bold"]), colored(f"{enemy.hp}", "red"),"/",colored(f"{enemy.maxhp}   ", "red"), colored("⚔ STR:", "blue", attrs=["bold"]),colored(f"{enemy.total_strength(all_items_data)}     ", "blue"), colored("🛡 DEF:", "magenta", attrs=["bold"]), colored(f"{enemy.total_defense(all_items_data)}", "magenta"))
     print("\u2500" * 85)
 
     for char in _log:

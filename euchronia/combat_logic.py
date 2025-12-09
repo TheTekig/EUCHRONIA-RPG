@@ -19,7 +19,7 @@ def _use_skill(attacker, defender, skill_data):
         skill_data["uses"] -= 1
         return "Attack"
         
-def _action_time(Hero, Enemy):
+def _action_time(Hero, Enemy, all_items_data):
     """ """
     combat = [Hero, Enemy]
     limit = 100
@@ -27,7 +27,9 @@ def _action_time(Hero, Enemy):
     while True:
         for fighter in combat:
             lucky = randint(-2, 10)
-            fighter.action_time += fighter.speed + lucky
+
+            fighter.action_time += fighter.total_speed(all_items_data) + lucky
+
             if fighter.action_time >= limit:
                 fighter.action_time -= limit
                 return fighter
@@ -44,10 +46,10 @@ def _calculate_precision(precision):
     weights = [miss_chance, scratch_chance, hit_chance]
     return choices(Results, weights=weights, k=1)[0]
 
-def _calculate_damage(defender, damage, skill_effect):
+def _calculate_damage(defender, damage, skill_effect, all_items_data):
     """ """
     
-    defense_reduction_percent = defender.defense * (1 - skill_effect.get("defense_ignore", 0))
+    defense_reduction_percent = defender.total_defense(all_items_data) * (1 - skill_effect.get("defense_ignore", 0))
     defense_reduction_percent = defense_reduction_percent / (defense_reduction_percent + 100)
     damage = damage * (1 - defense_reduction_percent)
 
@@ -57,10 +59,10 @@ def _calculate_damage(defender, damage, skill_effect):
 
 #region   Skills Functions
 
-def _attack_skill(attacker, defender, skill_data):
+def _attack_skill(attacker, defender, skill_data, all_items_data):
     """ """
     skill_effect = skill_data.get("effect", {})
-    damage = attacker.strength * skill_effect.get('damage_multiplier', 1.0)
+    damage = attacker.total_strength(all_items_data) * skill_effect.get('damage_multiplier', 1.0)
 
     if random() < skill_effect.get('critical_chance', 0):
         damage *= 2
@@ -73,12 +75,12 @@ def _attack_skill(attacker, defender, skill_data):
 
         case HitResult.SCRATCH:
             damage *= 0.5
-            damage = _calculate_damage(defender, damage, skill_effect)
+            damage = _calculate_damage(defender, damage, skill_effect, all_items_data)
             defender.take_damage(damage)
             return f"Half Damage - {damage} Damage"
 
         case HitResult.HIT:
-            damage = _calculate_damage(defender, damage, skill_effect)
+            damage = _calculate_damage(defender, damage, skill_effect, all_items_data)
             defender.take_damage(damage)
             return f"Full Damage - {damage} Damage"
         
@@ -148,7 +150,7 @@ def _control_skill(defender, skill_data):
     else:
         return f"{defender.name} resisted to freeze"
 
-def _skill_manager(attacker, defensor, skill_data):
+def _skill_manager(attacker, defensor, skill_data, all_items_data):
     """ """   
 
     skill_name = skill_data.get("name", "Unknow Attack")
@@ -161,7 +163,7 @@ def _skill_manager(attacker, defensor, skill_data):
 
     match skill_type:
         case "ATTACK":
-            return _attack_skill(attacker, defensor, skill_data)
+            return _attack_skill(attacker, defensor, skill_data, all_items_data)
         
         case "BUFF":
             return _buff_skill(attacker, skill_data)
@@ -203,7 +205,7 @@ def combat_loop(Hero, Enemy, Skills, items_data):
     while loop:
         # Processa efeitos ativos no início do turno
         os.system("cls")
-        _combat_menu(Hero, Enemy, log)
+        _combat_menu(Hero, Enemy, log, items_data)
         log = ""
 
         if Hero.is_alive() and Enemy.is_alive():
@@ -211,7 +213,7 @@ def combat_loop(Hero, Enemy, Skills, items_data):
             _process_active_effects(Enemy)
             
             # Determina quem age
-            active_fighter = _action_time(Hero, Enemy)
+            active_fighter = _action_time(Hero, Enemy, items_data)
             log += f"⚠ {active_fighter.name} Turn!\n"
             # Verifica se está congelado
             if active_fighter.has_effect("Freezed"):
@@ -224,7 +226,7 @@ def combat_loop(Hero, Enemy, Skills, items_data):
             if active_fighter == Hero:
                 skill_log, action = _hero_turn(Hero, Enemy, Skills, items_data)
             else:
-                skill_log, action = _enemy_turn(Enemy, Hero, Skills)
+                skill_log, action = _enemy_turn(Enemy, Hero, Skills, items_data)
 
             log += (skill_log + "\n")
             log += (action + "\n")
@@ -281,7 +283,7 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
                 return skill_log, f"{Hero.name} tentou usar {selected_skill_option}, mas não tinha usos restantes!"
                 
             else:
-                action = _skill_manager(Hero, Enemy, Skills[selected_skill_option])
+                action = _skill_manager(Hero, Enemy, Skills[selected_skill_option], items_data)
                 
             return skill_log , action
 
@@ -300,18 +302,18 @@ def _hero_turn(Hero, Enemy, Skills, items_data):
         case _:
             pass
  
-def _enemy_turn(Enemy, Hero, Skills):
+def _enemy_turn(Enemy, Hero, Skills, items_data):
 
     size = len(Enemy.skills)
     if size > 0:
         skill_option = randint(0, size - 1)
         skill_option = Enemy.skills[skill_option]
-        action = _skill_manager(Enemy, Hero, Skills[skill_option])
+        action = _skill_manager(Enemy, Hero, Skills[skill_option], items_data)
         skill_log = skill_option
         return skill_log, action
     else:
         skill_option = 0
-        action = _skill_manager(Enemy, Hero, Skills[skill_option])
+        action = _skill_manager(Enemy, Hero, Skills[skill_option], items_data)
         return action
                     
                 

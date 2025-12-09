@@ -203,6 +203,11 @@ class PlayerModel(AliveModel):
         self.inventory.append(item)
         
     #endregion
+    #region Add Skill to Skillset
+    def _learn_skill(self, skill_name):
+        if skill_name not in self.skills:
+            self.skills.append(skill_name)
+    #endregion
 
 class EnemyModel(AliveModel):
     def __init__(self, enemy_data):
@@ -220,7 +225,26 @@ class EnemyModel(AliveModel):
         self.loot = enemy_data.get('loot', 'Nothing Userfull')
         self.region = enemy_data.get('region', 'Unknown Region')
         self.skills = enemy_data.get('skills', ["Flechada"])
+        self.equipment = enemy_data.get('equipment', {'weapon': [], 'armor' : [], 'accessory': []})
 
+
+    def _get_total_attribute(self, attribute_name: str, base_value: int, all_items_data: dict):
+        total_bonus = 0
+        for equipment in self.equipment.values():
+            for item in equipment:
+                item_info = all_items_data.get(item,{})
+                if item_info and "bonus" in item_info:
+                    total_bonus += item_info["bonus"].get(attribute_name,0)
+        return base_value + total_bonus
+    
+    def total_defense(self, all_items_data:dict):
+        return self._get_total_attribute("defense", self.defense, all_items_data)
+    
+    def total_strength(self, all_items_data:dict):
+        return self._get_total_attribute("strength", self.strength, all_items_data)
+    
+    def total_speed(self, all_items_data:dict):
+        return self._get_total_attribute("speed", self.speed, all_items_data)
 
     def _get_one_item_loot(self, items_data):
         
