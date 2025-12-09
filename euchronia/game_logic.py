@@ -330,14 +330,15 @@ def list_player_inventory(hero):
     """
     Lista os itens no inventário do jogador de forma clara e numerada.
     """
-    print("\n--- Inventário ---")
+    print(colored("\n\u2500 Inventário \u2500", "magenta"))
     if not hero.inventory:
         print("Vazio.")
+        input(">>")
         return
 
     for i, item_name in enumerate(hero.inventory):
         print(f"[{i + 1}] {item_name}")
-    print("------------------")
+    print("\u2500" * 20)
 
 def manage_inventory(hero, all_items_data):
     """
@@ -370,7 +371,7 @@ def manage_inventory(hero, all_items_data):
         if item_type == "Potion":
             action = input("[U]sar item ou [V]oltar? ").upper()
             if action == 'U':
-                use_potion(hero, item_name, item_data)
+                use_potion(hero, item_data)
                 hero.inventory.pop(item_index)
                 print(f"{item_name} foi utilizado.")
 
@@ -381,25 +382,26 @@ def manage_inventory(hero, all_items_data):
 
         elif item_type == "Material":
             print("Este é um material de criação e não pode ser usado ou equipado diretamente.")
-            input("Pressione Enter para continuar...")
+
+        input("Pressione Enter para continuar...")
 
     except (ValueError, IndexError):
         print("Entrada inválida. Por favor, digite um número da lista.")
     except KeyError:
         print(f"Erro: O item '{item_name}' não foi encontrado na base de dados de itens.")
 
-def use_potion(hero, item_name, item_data):
+def use_potion(hero, item_data):
     """
     Aplica o efeito de uma poção no herói.
     """
-    effects = item_data.get("effects", {})
+    effects = item_data.get("effect", {})
     if "heal" in effects:
         heal_amount = effects["heal"]
         hero.heal(heal_amount)
-        print(f"Você recuperou {heal_amount} de HP. Vida atual: {hero.hp}/{hero.max_hp}")
+        print(f"Você recuperou {heal_amount} de HP. Vida atual: {hero.hp}/{hero.maxhp}")
     else:
         print("Esta poção não parece ter efeito algum.")
-
+    
 def equip_item(hero, item_name, item_data):
     """
     Equipa uma arma, armadura ou acessório, respeitando os limites de slots.
