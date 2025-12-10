@@ -1,22 +1,22 @@
 {
-    "name": "Tekig the Dark",
-    "hp": 50,
-    "maxhp": 50,
-    "strength": 12,
+    "name": "William The Stealth",
+    "hp": 51,
+    "maxhp": 51,
+    "strength": 14,
     "defense": 8,
-    "speed": 12,
-    "level": 1,
-    "experience": 0,
+    "speed": 18,
+    "level": 2,
+    "experience": 12,
     "position": "C",
     "gold": 0,
-    "class_name": "Hunter",
+    "class_name": "Rogue",
     "class_data": {
-        "name": "Hunter",
-        "description": "An expert marksman, proficient in ranged combat and tracking.",
-        "maxhp": 50,
-        "defense": 8,
-        "strength": 12,
-        "speed": 12,
+        "name": "Rogue",
+        "description": "A stealthy and agile character, skilled in evasion and critical strikes.",
+        "maxhp": 48,
+        "defense": 7,
+        "strength": 13,
+        "speed": 17,
         "upgrade": {
             "maxhp": 3,
             "defense": 1,
@@ -24,21 +24,35 @@
             "speed": 1
         },
         "initial_Skills": [
-            "Flechada",
-            "Tiro Certeiro",
-            "Armadilha de Espinhos"
+            "Corte Leve",
+            "Ataque Furtivo",
+            "Adagas Envenenadas"
         ]
     },
     "skills": [
-        "Flechada",
-        "Tiro Certeiro",
-        "Armadilha de Espinhos"
+        "Corte Leve",
+        "Ataque Furtivo",
+        "Adagas Envenenadas",
+        "Destruição Temporal",
+        "Golpe Avassalador"
     ],
-    "inventory": [],
+    "inventory": [
+        "Amuleto da Sorte do Rato",
+        "Poção de Cura Fraca",
+        "Pele de Rato",
+        "Adaga Leve",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Adaga Enferrujada"
+    ],
     "key_itens": [],
     "equipment": {
-        "weapon": [],
-        "armor": [],
+        "weapon": [
+            "Clava de Madeira"
+        ],
+        "armor": [
+            "Túnica de Viajante"
+        ],
         "accessory": []
     }
 }

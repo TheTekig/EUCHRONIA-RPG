@@ -28,7 +28,7 @@
     }
   },
   "Amuleto da Sorte do Rato": {
-    "type": "accessory",
+    "type": "Accessory",
     "gold": 15,
     "rarity": "Comum",
     "description": "Um pequeno amuleto de osso que, dizem, traz um pouco de sorte.",
@@ -56,6 +56,17 @@
     "gold": 2,
     "rarity": "Comum",
     "description": "Um fragmento de osso de alguma criatura desconhecida."
+  },
+
+  "Adaga Leve": {
+    "type": "Weapon",
+    "gold": 5,
+    "rarity": "Comum",
+    "description": "Uma adaga simples e leve.",
+    "bonus": {
+      "strength": 1,
+      "speed": 3
+    }
   }
 
 }

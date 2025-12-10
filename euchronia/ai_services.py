@@ -22,7 +22,7 @@ from euchronia import models # Importa os modelos de dados do jogo
 logging.basicConfig( 
     level = logging.INFO,
     format= '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-) # Configuração básica do logging
+) # Configuração básica do logging4
 logger = logging.getLogger(__name__)
 
 

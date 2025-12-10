@@ -64,3 +64,4 @@ def _sub_Hud():
     print("\u2500" * 85)
     print(colored("              🐎 [E]xplore     ", "cyan"), colored("🤼[F]ight   ", "cyan"), colored("🔭[O]bserve    ", "cyan"), colored("💨[R]eturn     ", "yellow"))
     print("\u2500" * 85)
+

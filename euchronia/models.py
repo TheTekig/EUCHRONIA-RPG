@@ -262,14 +262,6 @@ class EnemyModel(AliveModel): # Classe para inimigos | herda de AliveModel
                     total_bonus += item_info["bonus"].get(attribute_name,0) # Adiciona o bônus do atributo ao total
         return base_value + total_bonus # Retorna o valor base mais o total de bônus dos equipamentos
     
-        total_bonus = 0
-        for equipment in self.equipment.values():
-            for item in equipment:
-                item_info = all_items_data.get(item,{})
-                if item_info and "bonus" in item_info:
-                    total_bonus += item_info["bonus"].get(attribute_name,0)
-        return base_value + total_bonus
-    
     def total_defense(self, all_items_data:dict): # Calcula a defesa total do Inimigo considerando os equipamentos
         return self._get_total_attribute("defense", self.defense, all_items_data)
     

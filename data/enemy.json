@@ -1608,5 +1608,91 @@
             "armor": [],
             "accessory": []
         }
+    },
+    "Espectro Glacial": {
+        "name": "Espectro Glacial",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Bosque Antigo"
+        ],
+        "hp": 41,
+        "maxhp": 41,
+        "strength": 10,
+        "defense": 6,
+        "speed": 15,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15,
+            "Túnica de Viajante": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Sentinela do Vórtice": {
+        "name": "Sentinela do Vórtice",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 44,
+        "maxhp": 44,
+        "strength": 12,
+        "defense": 6,
+        "speed": 16,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15,
+            "Túnica de Viajante": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Guardião dos Ventos": {
+        "name": "Guardião dos Ventos",
+        "type": "Fera",
+        "region": [
+            "Caverna Sombria",
+            "Bosque Antigo"
+        ],
+        "hp": 44,
+        "maxhp": 44,
+        "strength": 12,
+        "defense": 6,
+        "speed": 15,
+        "experience": 38,
+        "skills": [
+            "Mordida Feroz",
+            "Prisão de Gelo"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15,
+            "Túnica de Viajante": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
     }
 }

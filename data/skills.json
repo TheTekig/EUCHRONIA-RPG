@@ -293,5 +293,32 @@
             "defense_ignore": 0.5,
             "critical_chance": 0.3
         }
+    },
+    "Destruição Temporal": {
+        "name": "Destruição Temporal",
+        "description": "Uma habilidade poderosa que permite ao usuário manipular o fluxo do tempo por um breve momento, podendo atrasar ou acelerar eventos próximos a ele.",
+        "type": "CONTROLE",
+        "maxuses": 3,
+        "uses": 3,
+        "precision": 0.75,
+        "duration": 2,
+        "effect": {
+            "speed_reduce": 0.5,
+            "freeze_chance": 0.3
+        }
+    },
+    "Golpe Avassalador": {
+        "name": "Golpe Avassalador",
+        "description": "Um ataque furtivo com a adaga que causa dano potencialmente mortal. Aumenta a força do golpe em 50% e pode causar sangramento ao inimigo.",
+        "type": "ATTACK",
+        "maxuses": 5,
+        "uses": 5,
+        "precision": 0.85,
+        "duration": 0,
+        "effect": {
+            "damage_multiplier": 1.5,
+            "critical_chance": 0.3,
+            "defense_ignore": 0.2
+        }
     }
 }

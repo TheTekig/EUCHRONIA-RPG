@@ -1,13 +1,13 @@
 {
     "name": "Tekig The Master",
-    "hp": 20,
+    "hp": 35,
     "maxhp": 56,
     "strength": 14,
     "defense": 10,
     "speed": 14,
     "level": 3,
-    "experience": 171,
-    "position": "WO",
+    "experience": 207,
+    "position": "RG",
     "gold": 0,
     "class_name": "Hunter",
     "class_data": {
@@ -37,14 +37,14 @@
         "Flecha Dimensional"
     ],
     "inventory": [
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
+        "Fragmento de Osso",
         "Poção de Cura Fraca",
-        "Fragmento de Osso",
-        "Fragmento de Osso",
-        "Fragmento de Osso",
-        "Fragmento de Osso",
-        "Fragmento de Osso",
-        "Fragmento de Osso",
-        "Poção de Cura Fraca"
+        "Fragmento de Osso"
     ],
     "key_itens": [],
     "equipment": {
