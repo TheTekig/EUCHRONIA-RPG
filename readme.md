@@ -171,14 +171,19 @@ O progresso do jogador é salvo em saves/, incluindo:
 
 ---
 
-<h2 align="center"> 🧩 Roadmap (v0.2 → v1.0) </h2>
+<h2 align="center"> 📅 Histórico de Versões & Roadmap </h2>
 
-    Versão	                Foco	                        Status
-    0.2	   Sistema de buffs/debuffs empilháveis	  🧩 Em andamento
-    0.3	   Sistema de saves e load dinâmico	      🔄 Planejado
-    0.4	   HUD visual com rich.Live()	            🔜
-    0.5	   IA narrativa com OpenAI API	          ⚙️ Em design
-    0.6+	 Interface visual e expansão de mundo	  🌌 Futuro
+Abaixo, a evolução do desenvolvimento do **Euchronia**, desde a concepção da engine até o lançamento planejado.
+
+| Versão | Status | 🚩 Título da Atualização | 🛠️ Principais Implementações |
+| :---: | :---: | :--- | :--- |
+| **v0.1.0** | ✅ | **The Genesis**<br>*(Out/2025)* | • Estrutura POO Core (`AliveModel`, `Player`)<br>• Arquitetura Data-Driven (JSON)<br>• Menu Principal via Terminal |
+| **v0.2.0** | ✅ | **Tactical Update**<br>*(Nov/2025)* | • Combate "Action Time" (Velocidade dinâmica)<br>• Skills com tipos (Buff/Debuff/Control)<br>• Sistema de Mapas em Grafo (`gps_map`) |
+| **v0.3.0** | ✅ | **AI Dungeon Master**<br>*(Dez/2025)* | • Integração OpenAI API (`ai_services`)<br>• Geração Procedural (Inimigos/Itens)<br>• Sistema de Resumo de Lore (Memória) |
+| **v0.4.0** | 🚀 **Atual** | **The Explorer's Journal**<br>*(Dez/2025)* | • Sistema de Save/Load robusto<br>• Mapas Visuais (PNG) e ASCII<br>• Inventário e Equipamentos funcionais |
+| **v0.5.0** | 🔄 | **Society & Economy**<br>*(Em Breve)* | • Sistema de Mercantes (`market.py`)<br>• NPCs Interativos e Diálogos<br>• Quest Log (`campaign.json`) |
+| **v0.6.0** | 🔜 | **The Strategist**<br>*(Planejado)* | • Menu de "Grimório" (Gerenciar Skills)<br>• Balanceamento de Combate<br>• Limite de slots de habilidades |
+| **v1.0.0** | 🏁 | **Euchronia Awakening**<br>*(Lançamento)* | • Tratamento de erros de API (Fallback)<br>• Documentação Final<br>• Release Oficial |
 
 ---
 
