@@ -1550,5 +1550,63 @@
             "armor": [],
             "accessory": []
         }
+    },
+    "Eco Spectral": {
+        "name": "Eco Spectral",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Ruínas Antigas",
+            "Floresta Obscura"
+        ],
+        "hp": 41,
+        "maxhp": 41,
+        "strength": 10,
+        "defense": 5,
+        "speed": 15,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15,
+            "Túnica de Viajante": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
+    },
+    "Lamento do Vento": {
+        "name": "Lamento do Vento",
+        "type": "Humanoide",
+        "region": [
+            "Caverna Sombria",
+            "Floresta Obscura",
+            "Ruínas Antigas"
+        ],
+        "hp": 41,
+        "maxhp": 41,
+        "strength": 10,
+        "defense": 5,
+        "speed": 16,
+        "experience": 36,
+        "skills": [
+            "Golpe Baixo",
+            "Adagas Envenenadas"
+        ],
+        "loot": {
+            "Fragmento de Osso": 0.4,
+            "Poção de Cura Fraca": 0.15,
+            "Túnica de Viajante": 0.2
+        },
+        "equipment": {
+            "weapon": [],
+            "armor": [],
+            "accessory": []
+        }
     }
 }
