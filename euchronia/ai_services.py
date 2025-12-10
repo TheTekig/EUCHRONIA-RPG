@@ -10,6 +10,7 @@ from openai import OpenAI # Cliente OpenAI
 from dotenv import load_dotenv # Carrega variáveis de ambiente
 from termcolor import colored # Cores no terminal
 from time import sleep # Delay de execução
+from string import Template
 
 #Importação do Projeto
 from euchronia import general_logic as gl # Importa a lógica geral do jogo
@@ -35,6 +36,7 @@ class GameConfig: # Configurações do jogo | constantes
     AI_MODEL : str = "gpt-4o-mini" # Modelo de IA padrão
 
 class JSONCleaner: # Limpa e parseia respostas JSON da IA
+    
     @staticmethod # Método estático
     def clean_and_parse(text: str) -> Optional[Dict]: # Limpa e parseia o texto JSON retornado pela IA
         try:
@@ -64,370 +66,229 @@ class PromptBuilder: # Constrói prompts para a IA
     def __init__(self): # Inicializa o construtor de prompts
         self.prompts = self._load_prompts() # Carrega os prompts de arquivos JSON
 
-    def _load_prompts(self) -> Dict[str, Dict[str, str]]: # Carrega os prompts de arquivos JSON
+    def _load_prompts(self) -> Dict: # Carrega os prompts de arquivos JSON
         try:
-            with open('data/prompts/build_enemy.json', 'r', encoding='utf-8') as f:
-                enemy_prompt = json.load(f)
+            with open('data/prompts/build_prompts.json', 'r', encoding='utf-8') as f:
+                return json.load(f)
         except FileNotFoundError:
-            print(colored("Arquivo build_enemy.json não encontrado.", "red"))
+            print(colored("Arquivo build_prompts.json não encontrado.", "red"))
+            return {}
+    
+    #region Creation Prompts
 
-    @staticmethod
-    def build_enemy_prompt(enemy_examples : Dict, hero : Any, items_data : Dict, skills : Dict, enemy_name : str, enemy_description : str ) -> List[str]: # Constrói o prompt para criação de inimigo
-                
-            system_prompt = f"""
-            Você é um especialista em design de inimigos para RPG. Sua tarefa é criar um inimigo balanceado 
-seguindo a estrutura JSON abaixo. RETORNE APENAS UM JSON válido!
+    def build_enemy_prompt(self, enemy_examples : Dict, hero : Any, items_data : Dict, skills : Dict, enemy_name : str, enemy_description : str ) -> List[str]: # Constrói o prompt para criação de inimigo
 
-### ESTRUTURA DO INIMIGO (JSON) ###
+            """ Funcionamento Similar em todos os outros **build** | Mudança somente no arquivo e os dados do data_for_template"""
 
-{{
-  "name": (string) - Nome do inimigo,
-  "type": (string) - Tipo: "humanoide" ou "fera",
-  "region": (list) - Lista de strings com locais onde pode ser encontrado,
-  "hp": (int) - Vida atual,
-  "maxhp": (int) - Vida máxima,
-  "strength": (int) - Poder de ataque,
-  "defense": (int) - Defesa,
-  "speed": (int) - Velocidade,
-  "experience": (int) - XP concedido ao ser derrotado,
-  "skills": (list) - Lista de nomes de skills (use apenas do skills.json),
-  "loot": (dict) - Dicionário com {{item: chance_drop}} (use apenas do items.json)
-  "equipment" : (dict) - {{'weapon': [], 'armor' : [], 'accessory': []}} - Equipamentos carregados (use apenas do items.json)
-}}
+            prompt_data = self.prompts.get("EnemyPrompt", {}) #Busca o prompt no arquivo build_prompts.json
 
-### DADOS PARA BALANCEAMENTO ###
+            #Prompt cru para tratamento | Formato de Lista
+            raw_system_prompt_list = prompt_data.get("system_prompt", ["Erro : Prompt de Sistema não encontrado"])
+            raw_user_prompt_list = prompt_data.get("user_prompt", ["Erro: Prompt de Usuário não encontrado"])
 
-Exemplos de inimigos: {json.dumps(enemy_examples, indent=2)}
+            #Transformando a Lista(prompt) em string
+            raw_system_str = "\n".join(raw_system_prompt_list)
+            raw_user_str = "\n".join(raw_user_prompt_list)
+            
+            #Dataset para substituir mocks para os dados reais
+            data_for_template = {
+                "prompt_enemy_examples" : json.dumps(enemy_examples, indent=2, ensure_ascii=False),
+                "prompt_hero_hp" : str(hero.hp),
+                "prompt_hero_strength" : str(hero.strength),
+                "prompt_hero_defense" : str(hero.defense),
+                "prompt_hero_speed" : str(hero.speed),
+                "prompt_skill_d" : json.dumps(skills, indent=4, ensure_ascii=False),
+                "prompt_item_d" : json.dumps(items_data, indent=2, ensure_ascii=False),
+                "prompt_enemy_name" : enemy_name,
+                "prompt_enemy_description" : enemy_description
+            }
 
-Herói atual:
-- HP: {hero.hp}
-- Força: {hero.strength}
-- Defesa: {hero.defense}
-- Velocidade: {hero.speed}
-
-###OBJETIVOS DE BALANCEAMENTO###
-1. O inimigo deve ser desafiador, mas derrotável.
-2. Use habilidades que complementem suas estatísticas.
-3. Itens de loot devem ter chances razoáveis de drop.
-4. Considere o nível e habilidades do herói ao definir estatísticas.
-5. Inimigos não devem ter mais de 20% de chance de derrotar o herói em um combate direto.
-6. Inimigos devem ter statos proximos ao herói, com pequenas variações para cima ou para baixo.
-
-Skills disponíveis: {json.dumps(skills, indent=2)}
-
-Itens disponíveis: {json.dumps(items_data, indent=2)}
-"""
-
-            user_prompt = f"""
-### CRIAR NOVO INIMIGO ###
-
-Nome: {enemy_name}
-Descrição: {enemy_description}
-
-Gere um inimigo balanceado em formato JSON puro (sem markdown).
-"""
-            return [system_prompt, user_prompt]
+            #Resultado Final do prompt
+            system_prompt = Template(raw_system_str).safe_substitute(data_for_template)    #Template|safe_substitute - Subistitui os mocks pelos dados no data_for_template
+            user_prompt = Template(raw_user_str).safe_substitute(data_for_template)
+            
+            return [system_prompt, user_prompt] #prompt tratados para execução
         
-    @staticmethod
-    def build_skill_prompt(skill_examples : Dict, skill_name : str, skill_description : str) -> List[str]: # Constrói o prompt para criação de skill
+    def build_skill_prompt(self, skill_examples : Dict, skill_name : str, skill_description : str) -> List[str]: # Constrói o prompt para criação de skill
 
-            system_prompt = f"""
-Você é um especialista em design de habilidades para RPG. Crie uma skill seguindo a estrutura JSON.
-RETORNE APENAS UM JSON válido!
+            prompt_data = self.prompts.get("SkillPrompt", {})
 
-### EFEITOS POSSÍVEIS ###
+            raw_system_prompt_list = prompt_data.get("system_prompt", ["Erro : Prompt de Sistema não encontrado"])
+            raw_user_prompt_list = prompt_data.get("user_prompt", ["Erro: Prompt de Usuário não encontrado"])
 
-Attack Skills:
-  - damage_multiplier: (float >= 1.0) - Multiplicador de dano
-  - defense_ignore: (float 0.0-1.0) - Ignora % da defesa
-  - critical_chance: (float 0.0-1.0) - Chance de crítico
+            raw_system_str = "\n".join(raw_system_prompt_list)
+            raw_user_str = "\n".join(raw_user_prompt_list)
+            
+            data_for_template = {
+                "prompt_skill_name" : skill_name,
+                "prompt_skill_description" : skill_description,
+                "prompt_skill_examples" : json.dumps(skill_examples, indent=2, ensure_ascii=False)
 
-Buff Skills:
-  - defense_multiplier: (float >= 1.0) - Aumenta defesa
-  - speed_multiplier: (float >= 1.0) - Aumenta velocidade
-  - strength_multiplier: (float >= 1.0) - Aumenta força
+            }
 
-Debuff Skills:
-  - damage_per_round: (int) - Dano por turno
-  - burn_chance: (float 0.0-1.0) - Chance de queimadura
-  - defense_multiplier: (float <= 1.0) - Reduz defesa
-
-Control Skills:
-  - speed_reduce: (float 0.0-1.0) - Reduz velocidade
-  - freeze_chance: (float 0.0-1.0) - Chance de congelar
-
-### ESTRUTURA DA SKILL (JSON) ###
-
-{{
-  "name": (string) - Nome da skill,
-  "description": (string) - Descrição detalhada,
-  "type": (string) - "Ataque", "Buff", "Debuff" ou "Controle",
-  "maxuses": (int) - Usos máximos antes do reset,
-  "uses": (int) - Usos atuais disponíveis,
-  "precision": (float 0.0-1.0) - Taxa de acerto,
-  "duration": (int) - Duração em turnos,
-  "effect": (dict) - Dicionário com os efeitos
-}}
-
-Exemplos de skills: {json.dumps(skill_examples, indent=2)}
-"""
-            user_prompt = f"""
-### CRIAR NOVA SKILL ###
-
-Nome: {skill_name}
-Descrição: {skill_description}
-
-Gere uma skill balanceada em formato JSON puro (sem markdown).
-"""
+            system_prompt = Template(raw_system_str).safe_substitute(data_for_template)   
+            user_prompt = Template(raw_user_str).safe_substitute(data_for_template)
+            
             return [system_prompt, user_prompt]
 
-    @staticmethod
-    def build_item_prompt(itens_examples : Dict, item_name : str, item_description : str) -> List[str]: # Constrói o prompt para criação de item
-        system_prompt = f"""
-Você é um especialista em design de itens para RPG. Crie um item seguindo a estrutura JSON.
-RETORNE APENAS UM JSON válido!
+    def build_item_prompt(self, itens_examples : Dict, item_name : str, item_description : str) -> List[str]: # Constrói o prompt para criação de item
+        
+        prompt_data = self.prompts.get("ItemPrompt", {})
 
-### REGRAS DE CATEGORIA ###
+        raw_system_prompt_list = prompt_data.get("system_prompt", ["Erro : Prompt de Sistema não encontrado"])
+        raw_user_prompt_list = prompt_data.get("user_prompt", ["Erro: Prompt de Usuário não encontrado"])
 
-1. Weapon / Armor / Accessory (Equipamentos):
-   - DEVEM ter o campo "bonus".
-   - NÃO DEVEM ter o campo "effect".
-   - Atributos comuns: strength, defense, speed.
+        raw_system_str = "\n".join(raw_system_prompt_list)
+        raw_user_str = "\n".join(raw_user_prompt_list)
+        
+        data_for_template = {
+            "prompt_itens_examples" : json.dumps(itens_examples, indent=2, ensure_ascii=False),
+            "prompt_item_name" : item_name,
+            "prompt_item_description" : item_description
+        }
 
-2. Potion / Consumable:
-   - DEVEM ter o campo "effect".
-   - NÃO DEVEM ter o campo "bonus".
-   - Efeitos comuns: heal (cura HP).
-
-3. Material:
-   - NÃO possui "bonus" nem "effect".
-   - Serve apenas para venda ou crafting.
-
-### LIMITES DE BALANCEAMENTO POR RARIDADE ###
-Use estes valores como base para os atributos (bonus/effect):
- - Comum: 1 a 5
- - Raro: 6 a 15
- - Épico: 16 a 30
- - Lendário: 31+
-
-### ESTRUTURA DO ITEM (JSON) ###
-
- {{
-  "Nome do Item": {{
-    "type": (string) - "Weapon", "Armor", "Accessory", "Potion" ou "Material",
-    "gold": (int) - Valor de venda,
-    "rarity": (string) - "A Raridade segundo o Balancemaneto",
-    "description": (string) - Lore curta e envolvente,
-    "bonus": (Dict) - (Opcional: Apenas para equipamentos),
-    "effect": (Dict) - (Opcional: Apenas para poções)
-  }}
-
-Exemplos de itens: {json.dumps(itens_examples, indent=2)}
-"""
-        user_prompt = f"""
-### CRIAR NOVO ITEM ###
-
-Nome: {item_name}
-Descrição: {item_description}
-
-Gere um item balanceada em formato JSON puro (sem markdown).
-"""
+        system_prompt = Template(raw_system_str).safe_substitute(data_for_template)   
+        user_prompt = Template(raw_user_str).safe_substitute(data_for_template)
+        
         return [system_prompt, user_prompt]
 
-    @staticmethod
-    def build_post_combat_prompt(winner: str, enemy_name: str, lore_resume: str, hero: Any, location: str) -> List[str]: # Constrói o prompt para pós-combate
+    #endregion
 
-        system_prompt = f"""
-Você é o Mestre de Jogo narrando o FIM de um combate. 
-Seu objetivo é descrever o desfecho e determinar recompensas especiais (Epifania de Batalha).
+    #region Packdge Actions
 
-RETORNE APENAS UM JSON válido seguindo a estrutura abaixo.
+    def build_post_combat_prompt(self, winner: str, enemy_name: str, lore_resume: str, hero: Any, location: str) -> List[str]: # Constrói o prompt para pós-combate
 
-### REGRAS DE GERAÇÃO ###
+        prompt_data = self.prompts.get("PostCombatPrompt", {})
 
-1. NARRATIVA:
-   - Se Vencedor = "{hero.name}": Descreva o golpe final ou a queda do inimigo (max 40 palavras).
-   - Se Vencedor = "{enemy_name}": Descreva o herói caindo derrotado ou fugindo (sem morte permanente).
+        raw_system_prompt_list = prompt_data.get("system_prompt", ["Erro : Prompt de Sistema não encontrado"])
+        raw_user_prompt_list = prompt_data.get("user_prompt", ["Erro: Prompt de Usuário não encontrado"])
 
-2. SAQUE (LOOT):
-   - 'loot_found': true se o inimigo deixou cair algo (se o herói venceu).
+        raw_system_str = "\n".join(raw_system_prompt_list)
+        raw_user_str = "\n".join(raw_user_prompt_list)
+        
+        data_for_template = {
+            "prompt_hero_name" : str(hero.name),
+            "prompt_enemy_name" : enemy_name,
+            "prompt_hero_class_name" : str(hero.class_name),
+            "prompt_winner" : winner,
+            "prompt_hero_hp" : str(hero.hp),
+            "prompt_location" : location,
+            "prompt_lore_resume" : lore_resume
+        }
 
-3. NOVA SKILL (EPIFANIA DE BATALHA):
-   - O Herói tem uma CHANCE BAIXA (aprox. 5% a 10%) de aprender uma skill nova após vencer.
-   - CRITÉRIO: Só gere 'newskill': true se o combate foi difícil ou se a IA "rolar" essa chance baixa.
-   - A skill deve ser temática com a Classe do Herói ({hero.class_name}) ou copiar um traço do Inimigo.
-
-### ESTRUTURA DO JSON ###
-
-{{
-  "narrativa": (string) - O desfecho da luta, caso o herói aprenda uma skill, mencione isso na narrativa,
-  
-  // Geração de Skill (Sistema de Epifania)
-  "newskill": (boolean) - true APENAS se ocorrer a chance baixa (5-10%),
-  "newskill_name": (string) - Nome criativo da nova skill,
-  "newskill_description": (string) - Descrição do que a skill faz
-}}
-"""
-        user_prompt = f"""
-### RELATÓRIO DE COMBATE ###
-
-Vencedor: {winner}
-Inimigo Enfrentado: {enemy_name}
-
-CONTEXTO DO HERÓI:
-Nome: {hero.name} | Classe: {hero.class_name} | HP Restante: {hero.hp}
-Local Atual: {location}
-
-CONTEXTO DA HISTÓRIA ANTERIOR:
-{lore_resume}
-
-Gere o JSON de pós-combate. Lembre-se: a chance de nova skill é BAIXA.
-"""
+        system_prompt = Template(raw_system_str).safe_substitute(data_for_template)   
+        user_prompt = Template(raw_user_str).safe_substitute(data_for_template)
+        
         return [system_prompt, user_prompt]
 
-    @staticmethod
-    def build_game_master_prompt(action : str, lore_resume : str, game_map : Dict, gps : Any, hero : Any, past_position : Any, mood: str = 'criativo' ) -> List[str]: # Constrói o prompt para o Mestre de Jogo
+    def build_game_master_prompt(self, action : str, lore_resume : str, game_map : Dict, gps : Any, hero : Any, past_position : Any, mood: str = 'criativo' ) -> List[str]: # Constrói o prompt para o Mestre de Jogo
 
-            system_prompt = f"""
-Você é o Mestre de Jogo para um RPG de terminal. Seu estilo é {mood}, descritivo e atmosférico.
+            prompt_data = self.prompts.get("GameMasterPrompt", {})
 
-Interprete a ação do jogador e retorne um "Pacote de Ações" em JSON. Seja criativo, adapte 
-eventos à história e localização. Se o jogador mudar de local, descreva a transição de cenário.
+            raw_system_prompt_list = prompt_data.get("system_prompt", ["Erro : Prompt de Sistema não encontrado"])
+            raw_user_prompt_list = prompt_data.get("user_prompt", ["Erro: Prompt de Usuário não encontrado"])
 
-IMPORTANTE: Evite criar muitos NPCs. Prefira criar inimigos e desafios!
+            raw_system_str = "\n".join(raw_system_prompt_list)
+            raw_user_str = "\n".join(raw_user_prompt_list)
+            
+            data_for_template = {
+                "prompt_mood" : mood,
+                "prompt_hero_name" : str(hero.name),
+                "prompt_hero_class_name" : str(hero.class_name),
+                "prompt_hero_hp" : str(hero.hp),
+                "prompt_hero_strength" : str(hero.strength),
+                "prompt_hero_defense" : str(hero.defense),
+                "prompt_hero_speed" : str(hero.speed),
+                "prompt_past_position" : past_position,
+                "prompt_hero_position" : str(hero.position),
+                "prompt_game_map" : json.dumps(game_map, indent=4, ensure_ascii=False),
+                "prompt_gps" : gps,
+                "prompt_lore_resume" : lore_resume,
+                "prompt_action" : action
 
-### ESTRUTURA DO PACOTE DE AÇÕES (JSON) ###
+            }
 
-{{
-  "narrativa": (string) - Descrição imersiva da cena (máximo 50 palavras),
-  "quest": (string ou null) - Nova quest (ou null se não houver),
-  "iniciar_combate": (boolean) - true para iniciar combate,
-  "encontrar_npc": (boolean) - true se encontrar NPC,
-  "encontrar_item": (boolean) - true se encontrar item,
-  
-  // Criação de novo inimigo
-  "new_enemy": (boolean) - true para criar novo inimigo,
-  "new_enemy_name": (string) - Nome do inimigo,
-  "new_enemy_description": (string) - Descrição do inimigo,
-  "use_enemy_in_combat": (boolean) - true para usar no combate imediato,
-  
-  // Criação de nova skill
-  "newskill": (boolean) - true para criar nova skill,
-  "newskill_name": (string) - Nome da skill,
-  "newskill_description": (string) - Descrição da skill,
-  
-  // Criação de novo item
-  "newitem": (boolean) - true para criar novo item,
-  "newitem_name": (string) - Nome do item,
-  "newitem_description": (string) - Descrição do item,
-  
-  // Criação de novo NPC
-  "newnpc": (boolean) - true para criar novo NPC,
-  "newnpc_name": (string) - Nome do NPC,
-  "newnpc_description": (string) - Descrição do NPC
-}}
-"""
-            user_prompt = f"""
-### CONTEXTO ATUAL ###
-
-Herói: {hero.name}
-Classe: {hero.class_name}
-Nível: {hero.level}
-Status: HP {hero.hp} | Força {hero.strength} | Defesa {hero.defense} | Velocidade {hero.speed}
-
-### LOCALIZAÇÃO ###
-Posição anterior: {past_position}
-Posição atual: {hero.position}
-Mapa: {json.dumps(game_map, indent=2)}
-GPS: {gps}
-
-### HISTÓRIA ###
-{lore_resume}
-
-### AÇÃO DO JOGADOR ###
-{action}
-
-Gere o Pacote de Ações em JSON puro (sem markdown).
-"""
+            system_prompt = Template(raw_system_str).safe_substitute(data_for_template)   
+            user_prompt = Template(raw_user_str).safe_substitute(data_for_template)
+            
             return [system_prompt, user_prompt]
+    
+    #endregion
 
-    @staticmethod
-    def build_resume_prompt(lore_text: str, npcs: Dict, quests : Dict ) -> List[str]:
+    def build_resume_prompt(self, lore_text: str, npcs: Dict, quests : Dict ) -> List[str]: # Constrói prompt responsavel por resumir o arquivo lore.txt
 
-            system_prompt = """
-    Você é um especialista em resumos e contextualização. Resuma o arquivo de lore de um RPG
-    de forma que sirva como contexto e memória para uma IA.
+            prompt_data = self.prompts.get("ResumePrompt", {})
 
-    Use NPCs e quests fornecidos para manter foco nos objetivos e personagens importantes.
-    Mantenha eventos-chave, decisões importantes e progressão da história.
-    """
-            user_prompt = f"""
-### RESUMIR HISTÓRIA ###
+            raw_system_prompt_list = prompt_data.get("system_prompt", ["Erro : Prompt de Sistema não encontrado"])
+            raw_user_prompt_list = prompt_data.get("user_prompt", ["Erro: Prompt de Usuário não encontrado"])
 
-História completa:
-{lore_text}
+            raw_system_str = "\n".join(raw_system_prompt_list)
+            raw_user_str = "\n".join(raw_user_prompt_list)
+            
+            data_for_template = {
+                "prompt_lore_text" : lore_text,
+                "prompt_npcs" : json.dumps(npcs, indent=2, ensure_ascii=False),
+                "prompt_quests" : json.dumps(quests, indent=2, ensure_ascii=False)
+            }
 
-NPCs importantes:
-{json.dumps(npcs, indent=2)}
-
-Quest atual:
-{json.dumps(quests, indent=2)}
-
-Crie um resumo conciso mantendo informações essenciais.
-"""
+            system_prompt = Template(raw_system_str).safe_substitute(data_for_template)   
+            user_prompt = Template(raw_user_str).safe_substitute(data_for_template)
+            
             return [system_prompt, user_prompt]
 
 class OpenAIClient: # Cliente para interagir com a API OpenAI
 
-    def __init__(self, config : GameConfig):
+    def __init__(self, config : GameConfig): #Chama as configuraçoes do sistema
         self.config = config
-        self.client = self._initialize_client()
+        self.client = self._initialize_client() #Inicializa o cliente OpenAI
 
-    def _initialize_client(self) -> Optional[OpenAI]:
-        load_dotenv("venv/.env")
-        api_key = os.getenv("OPENAI_API_KEY")
+    def _initialize_client(self) -> Optional[OpenAI]: # Inicializa o contato com o Servidor da OpenAI
+        load_dotenv("venv/.env") #Faz load do arquivo .env
+        api_key = os.getenv("OPENAI_API_KEY") #pega o dado armazenado na var "OPENAI_API_KEY"
 
         if not api_key:
             logger.error("OPENAI_API_KEY não encontrado no arquivo .env")
             return None
         
         try:
-            return OpenAI(api_key = api_key)
+            return OpenAI(api_key = api_key) #Passa a chave da API
         except Exception as e:
             logger.error(f"Erro ao inicializar cliente OpenAI: {e}")
             return None
 
-    def execute(self, prompt : List[str], max_tokens: Optional[int] = None ) -> Optional[str]:
+    def execute(self, prompt : List[str], max_tokens: Optional[int] = None ) -> Optional[str]:  # Executa os prompts | Envia o prompt para API
 
-            if not self.client:
+            if not self.client: # Verifica se o cliente foi inicializado/online
                 logger.error("Cliente OpenAI não inicializado")
                 return None
 
-            if len(prompt) != 2:
+            if len(prompt) != 2: #Verifica se o prompt contem o System e User
                 logger.error("Prompt deve conter exatamente 2 elementos")
                 return None
-            max_tokens = max_tokens or self.config.DEFAULT_MAX_TOKENS
+            max_tokens = max_tokens or self.config.DEFAULT_MAX_TOKENS #define uma quantidade maxima de tokens a serem utilizados | pode se passado por max tokens ou no config geral
 
-            try:
+            try: #Envio do prompt
                 response = self.client.chat.completions.create(
                     model=self.config.AI_MODEL,
                     messages=[
                         {"role": "system", "content" : prompt[0]},
                         {"role": "user", "content" : prompt[1]},
                     ],
-                    max_tokens = max_tokens)
-                return response.choices[0].message.content
+                    max_tokens = max_tokens) # Resposta da API
+                return response.choices[0].message.content # Resposta selecionada (API retorna lista - resposta localizada no inicio [0])
             except Exception as e:
                 logger.error(f"Erro ao executar chamada OpenAI: {e}")
                 return None
 
 class LoreManager: # Gerencia a lore do jogo
 
-    def __init__(self, config: GameConfig):
+    def __init__(self, config: GameConfig): # Configurações para lore
         self.config = config
-        self.lore_path = Path(config.SAVE_SLOT) / "lore.txt"
+        self.lore_path = Path(config.SAVE_SLOT) / "lore.txt" # Caminho da Lore e Slot
 
-    def read(self) -> str:
+    #region Lore Manipulation Functions
+
+    def read(self) -> str: #Realiza a leitura do lore.txt
 
         try:
             if not self.lore_path.exists():
@@ -439,158 +300,169 @@ class LoreManager: # Gerencia a lore do jogo
             logger.error(f"Erro ao ler lore: {e}")
             return ""
 
-    def write(self, content: str) -> bool:
+    def write(self, content: str) -> bool: #Realiza a escrita da Lore
 
         try:
-            self.lore_path.parent.mkdir(parents=True, exist_ok=True)
+            self.lore_path.parent.mkdir(parents=True, exist_ok=True) # Cria uma pasta e arquivo caso não exista 
             self.lore_path.write_text(content, encoding= 'utf-8')
             return True
         except Exception as e:
             logger.error(f"Erro ao escrever lore: {e}")
             return False
     
-    def append(self, new_content: str) -> bool:
+    def append(self, new_content: str) -> bool: # Realizada a adição da narrativa gerada pela IA
 
-        current = self.read()
-        updated = current + "\n" + new_content
-        return self.write(updated)
+        current = self.read() # Faz a leitura do conteudo atual
+        updated = current + "\n" + new_content # Adiciona o conteudo atual com o gerado da IA
+        return self.write(updated) # Reescreve o novo conteudo atualizado
 
-    def should_resume(self) -> bool:
+    def should_resume(self) -> bool: # Verifica o tamanho do lore.txt (Ajuda na economia de tokens)
 
         content = self.read()
-        return len(content) > self.config.LORE_MAX_LENGTH
+        return len(content) > self.config.LORE_MAX_LENGTH # Retorna verdadeiro(deve resumir) se o a quantidade de caracteres for maior que o maximo permitido
+
+    #endregion
 
 class GamePackageProcessor: # Processa pacotes de ações do jogo
 
-    def __init__(self, config: GameConfig, openai_client: OpenAIClient, lore_manager: LoreManager):
+    def __init__(self, config: GameConfig, openai_client: OpenAIClient, lore_manager: LoreManager): #Inicializa todas as configurações necessarias para processamento dos pacotes e tratamento |HUB GERAL DA IA
         self.config = config
         self.openai_client = openai_client
         self.lore_manager = lore_manager
-        self.json_cleaner = JSONCleaner()
-        self.prompt_builder = PromptBuilder()
+        self.json_cleaner = JSONCleaner() #Cria um objeto JSONCleaner
+        self.prompt_builder = PromptBuilder() #Cria um objeto PromptBuilder
 
-    def process_package(self, prompt: List[str], hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict) -> List[str]:
+    #region Processamento de Pacotes | Regular/Pós-Combate
 
-        raw_response = self.openai_client.execute(prompt)
-        if not raw_response:
+    def process_package(self, prompt: List[str], hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict) -> List[str]: # Processa pacotes de ações e redireciona para as próximas ações
+
+        raw_response = self.openai_client.execute(prompt) #Resposta Crua da IA
+        if not raw_response: 
             logger.error("Falha ao obter resposta da IA")
             return["Erro ao processar ação.", ""]
 
-        package = self.json_cleaner.clean_and_parse(raw_response)
+        package = self.json_cleaner.clean_and_parse(raw_response) #Realiza a limpeza da resposta da IA
         if not package:
             logger.error("Falha ao parsear pacote de ação")
             return ["Erro ao interpretar resposta da IA", ""]
         
         logger.info(colored(f"Pacote recebido: {package}", "green"))
 
-        if package.get('new_enemy', False):
-            narrative = self._process_new_enemy(package, hero, enemy_examples, items_data, skills)
+        if package.get('new_enemy', False): #Verifica se um novo inimigo deve ser criado
+            narrative = self._process_new_enemy(package, hero, enemy_examples, items_data, skills) #processa um novo inimigo | Retorna a post_combat_narrativa (narrativa após o termino de um combate)
             return[narrative, ""]
 
-        if package.get('newskill', False):
-            skill_name = self._process_new_skill(package, skills)
-            hero._learn_skill(skill_name)
+        if package.get('newskill', False): #Verifica se uma nova skill deve ser criada
+            skill_name = self._process_new_skill(package, skills) #Processa uma nova skill
+            hero._learn_skill(skill_name) #Permite que o jogador receba a nova skill criada
 
-        if package.get('newitem', False):
-            self._process_new_item(package, items_data)
+        if package.get('newitem', False): #Verifica se um novo item deve ser criado
+            self._process_new_item(package, items_data) #Processa o novo item
 
-        self._update_lore(package)
+        self._update_lore(package) #Processa e Atualiza a Lore criada pela IA
 
         narrative = package.get('narrativa', 'Nada acontece...')
         quest = package.get('quest', '')
 
-        return [narrative, quest]
+        return [narrative, quest] #Devolve a narrativa criada pela IA
 
-    def post_combat_process(self, prompt: List[str], hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict) -> List[str]:
+    def post_combat_process(self, prompt: List[str], hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict) -> List[str]: # Processa um mini pacote de ações após o jogador terminar uma batalha
 
-        raw_response = self.openai_client.execute(prompt)
+        raw_response = self.openai_client.execute(prompt) #Recebe a reposta crua da IA
         if not raw_response:
             logger.error("Falha ao obter resposta da IA")
             return["Erro ao processar ação.", ""]
 
-        package = self.json_cleaner.clean_and_parse(raw_response)
+        package = self.json_cleaner.clean_and_parse(raw_response) # Faz tratamento/limpeza da Resposta
         if not package:
             logger.error("Falha ao parsear pacote de ação")
             return ["Erro ao interpretar resposta da IA", ""]
         
         logger.info(colored(f"Pacote pós-combate recebido: {package}", "green"))
 
-        if package.get('newskill', False):
-            skill_name = self._process_new_skill(package, skills)
-            hero._learn_skill(skill_name)
+        if package.get('newskill', False): #Verifica se uma nova skill deve ser criada após finalizar o combate
+            skill_name = self._process_new_skill(package, skills) #Faz a criação e processamento da nova skill
+            hero._learn_skill(skill_name) #Adiciona a skill as skills do jogador
 
-        self._update_lore(package)
+        self._update_lore(package) #update na Narrativa após o termino do combate (post_combat_narrativa)
 
         narrative = package.get('narrativa', 'Nada acontece...')
         return [narrative, ""]
 
-    def _process_new_enemy(self, package: Dict, hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict):
+    #endregion
+
+    #region Processar Criações da IA | Enemy/Item/Skill
+
+    def _process_new_enemy(self, package: Dict, hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict): #Realiza Processamento/Criação de um inimigo e Inicialização do Combate
         # Import tardio para evitar circular import
         from euchronia import combat_logic as cl
         
-        enemy_name = package.get('new_enemy_name', 'Inimigo Desconhecido')
-        enemy_desc = package.get('new_enemy_description', '')
+        narrativa = package.get('narrativa', 'Um inimigo espreita pelas sombras') #pega a Narrativa Inicial do combate
 
-        if enemy_name in enemy_examples:
+        enemy_name = package.get('new_enemy_name', 'Inimigo Desconhecido') #pega nome do inimigo a ser criado
+        enemy_desc = package.get('new_enemy_description', '') #descrição do inimigo a ser criado
+
+        if enemy_name in enemy_examples: # Verifica se o inimigo ja existe no banco de dados pelo nome
             enemy_data = enemy_examples[enemy_name]
 
             try:
-                enemy = models.EnemyModel(enemy_data)
+                enemy = models.EnemyModel(enemy_data) #Cria o inimigo com as informações no banco de dados de inimigos
 
-                if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False):
+                if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False): #verifica se deve iniciar um combate se deve usar o mesmo inimigo no combate
 
-                    print(colored(f"{package.get('narrativa', '...')}", "yellow"))
+                    print(colored(f"{package.get('narrativa', '...')}", "yellow")) #Narrativa inicial para inicio de combate (aproximação do inimigo ou algo esta errado)
                     
                     input(">>")
 
-                    result = cl.combat_loop(hero, enemy, skills, items_data)
-                    prompt = PromptBuilder.build_post_combat_prompt(result, enemy_name, package.get('narrativa'), hero, hero.position)
-                    narrativa = self.post_combat_process(prompt, hero, enemy_examples, items_data, skills)
-                    narrativa = narrativa[0]
+                    result = cl.combat_loop(hero, enemy, skills, items_data) # Inicia o loop de combate no combat_logic.py | Retorna o resultado do combate/vencedor do combate
+                    prompt = self.prompt_builder.build_post_combat_prompt(result, enemy_name, package.get('narrativa'), hero, hero.position) #Inicializa o prompt de build_post_combat
+                    narrativa_combate = self.post_combat_process(prompt, hero, enemy_examples, items_data, skills) #retorna a narrativa do resultado do combate e realiza processamento do prompt
+                    narrativa = narrativa_combate[0]
 
             except Exception as e:
                 logger.error(f"Erro ao criar modelo de inimigo: {e}")
             
-            return narrativa
+            return narrativa #retorna a narrativa do post_combat
 
         logger.info(f"Criando novo inimigo: {enemy_name}")
 
         enemy_prompt = self.prompt_builder.build_enemy_prompt(
-            enemy_examples, hero, items_data, skills, enemy_name, enemy_desc)
+            enemy_examples, hero, items_data, skills, enemy_name, enemy_desc) #Inicializa o prompt de criação de inimigos (cria status de um inimigo com base na descrição e nome)
 
-        raw_enemy = self.openai_client.execute(enemy_prompt)
-        if not raw_enemy:
+        raw_enemy = self.openai_client.execute(enemy_prompt) #Obtem o json cru do inimigo
+        if not raw_enemy: #verifica se foi retornado o inimigo ou não
             logger.error("Falha ao gerar inimigo")
-            return
+            return narrativa #retorna narrativa padrão
 
-        enemy_data = self.json_cleaner.clean_and_parse(raw_enemy)
+        enemy_data = self.json_cleaner.clean_and_parse(raw_enemy) #Realiza tratamento e limpeza do json do inimigo
         if not enemy_data:
             logger.error("Falha ao parsear dados do inimigo")
-            return
+            return narrativa #retorna narrativa padrão
 
         logger.info(colored(f"Inimigo criado: {enemy_data}", "yellow"))
 
-        try:
+        try: #Inicializa o Combate com utilizando o inimigo criado pela IA
 
-            enemy = models.EnemyModel(enemy_data)
-            self._save_enemy_to_json(enemy_data, enemy_examples)
+            enemy = models.EnemyModel(enemy_data) # Cria Inimigo com informações passadas no Json da IA
+            self._save_enemy_to_json(enemy_data, enemy_examples) #Salva Inimigo novo gerado no banco de dados
             
-            if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False):
-                print(colored(f"{package.get('narrativa', '...')}", "yellow"))
+            if package.get('use_enemy_in_combat', False) or package.get('iniciar_combate', False): #Verifica se deve iniciar o combate
+                print(colored(f"{package.get('narrativa', '...')}", "yellow")) 
 
                 input(">>")
 
+                #Mesmo procedimento que o superior para inicio de combate e resultado
                 result = cl.combat_loop(hero, enemy, skills, items_data)
-                prompt = PromptBuilder.build_post_combat_prompt(result, enemy_name, package.get('narrativa'), hero, hero.position)
-                narrativa = self.post_combat_process(prompt, hero, enemy_examples, items_data, skills)
-                narrativa = narrativa[0]
+                prompt = self.prompt_builder.build_post_combat_prompt(result, enemy_name, package.get('narrativa'), hero, hero.position)
+                narrativa_combate = self.post_combat_process(prompt, hero, enemy_examples, items_data, skills)
+                narrativa = narrativa_combate[0] 
 
         except Exception as e:
             logger.error(f"Erro ao criar modelo de inimigo: {e}")
         
-        return narrativa
+        return narrativa #retorna narrativa do post_combat
 
-    def _process_new_skill(self, package: Dict, skills: Dict):
+    def _process_new_skill(self, package: Dict, skills: Dict): #Realiza o Processamento/Criação da nova skill com base no nome e descrição dada para skill
     
         skill_name = package.get('newskill_name', 'Habilidade Desconhecida')
         skill_desc = package.get('newskill_description', '')
@@ -598,20 +470,20 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
         logger.info(f"Criando nova skill: {skill_name}")
     
         skill_prompt = self.prompt_builder.build_skill_prompt(
-            skills, skill_name, skill_desc)
+            skills, skill_name, skill_desc) #prompt de criação de skill
     
-        raw_skill = self.openai_client.execute(skill_prompt)
+        raw_skill = self.openai_client.execute(skill_prompt) #executa o prompt e retorna a skill crua
         if not raw_skill:
             logger.error("Falha ao gerar skill")
             return
     
-        skill_data = self.json_cleaner.clean_and_parse(raw_skill)
-        if skill_data:
-            self._save_skill_to_json(skill_data, skills)
+        skill_data = self.json_cleaner.clean_and_parse(raw_skill) #Realiza a limpeza e tratamento da skill crua
+        if skill_data: #Se retornado corretamente
+            self._save_skill_to_json(skill_data, skills) #Salva a skill no banco de dados de skills
             logger.info(colored(f"Skill criada: {skill_name}", "cyan"))
-            return skill_name
+            return skill_name #Retorna o nome da skill criada 
     
-    def _process_new_item(self, package: Dict, items_data: Dict ):
+    def _process_new_item(self, package: Dict, items_data: Dict ): #Realiza o Processamento/Criação do novo Item com base no nome e descrição para item
     
         item_name = package.get('newitem_name', 'Habilidade Desconhecida')
         item_desc = package.get('newitem_description', '')
@@ -619,47 +491,55 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
         logger.info(f"Criando novo item: {item_name}")
     
         item_prompt = self.prompt_builder.build_item_prompt(
-            items_data, item_name, item_desc)
+            items_data, item_name, item_desc) #cria o prompt para o item
     
-        raw_item = self.openai_client.execute(item_prompt)
+        raw_item = self.openai_client.execute(item_prompt) #Executa o prompt do item / retorna o json cru do item
         if not raw_item:
             logger.error("Falha ao gerar item")
             return
     
-        item_data = self.json_cleaner.clean_and_parse(raw_item)
+        item_data = self.json_cleaner.clean_and_parse(raw_item) #Trata o json cru e retorna o data do item
         if item_data:
-            self._save_item_to_json(item_data, items_data)
+            self._save_item_to_json(item_data, items_data) #Salva Item no banco de dados de itens
             logger.info(colored(f"Item criado: {item_name}", "cyan"))
     
-    def _update_lore(self, package: Dict):
+    #endregion
+
+    #region IA Lore Functions  | Update/Resume
+
+    def _update_lore(self, package: Dict): #Realiza o update da lore utilizando o Lore_Manager
         narrative = package.get('narrativa', '')
     
         if narrative:
-            self.lore_manager.append(narrative)
+            self.lore_manager.append(narrative) #Adiciona a narrativa ao lore.txt
     
-            if self.lore_manager.should_resume():
-                self._resume_lore()
+            if self.lore_manager.should_resume():   #Verifica se deve resumir o lore.txt
+                self._resume_lore() #realiza o resumo
                 
-    def _resume_lore(self):
+    def _resume_lore(self): #Realiza o Resumo da lore.txt
 
         logger.info("Lore muito longa, iniciando resumo...")
-        current_lore = self.lore_manager.read()
+        current_lore = self.lore_manager.read() #faz a leitura da lore
         resume_prompt = self.prompt_builder.build_resume_prompt(
-            current_lore, {}, {})
+            current_lore, {}, {}) #cria o prompt para realizar o resumo
 
         resumed = self.openai_client.execute(
             resume_prompt,
-            max_tokens=self.config.LORE_RESUME_TOKENS )
+            max_tokens=self.config.LORE_RESUME_TOKENS ) #Executa o resumo e retorna um resumo do lore.txt
 
-        if resumed:
+        if resumed: #verifica se foi resumido
             print(colored("Lore resumido para manter contexto.", "yellow"))
             sleep(2)
-            self.lore_manager.write(resumed)
+            self.lore_manager.write(resumed) # Escreve a lore resumida no lore.txt
             logger.info("Lore resumido com sucesso")
-                
-    def _save_enemy_to_json(self, enemy_data: Dict, enemy_dict: Dict, filepath: str = 'data/enemy.json'):
+
+    #endregion
+
+    #region Save to Json
+
+    def _save_enemy_to_json(self, enemy_data: Dict, enemy_dict: Dict, filepath: str = 'data/enemy.json'): #Salva o Inimigo Criado pela IA no enemy.json 
         try:
-            enemy_name = enemy_data.get('name', 'Inimigo Desconhecido')
+            enemy_name = enemy_data.get('name', 'Inimigo Desconhecido') 
 
             if enemy_name in enemy_dict:
                 logger.warning(f"Inimigo {enemy_name} já existe no banco de dados.")
@@ -683,7 +563,7 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
         except Exception as e:
             logger.error(f"Erro ao salvar inimigo no banco de dados: {e}")
     
-    def _save_skill_to_json(self, skill_data: Dict, skill_dict: Dict, filepath: str = 'data/skills.json'):
+    def _save_skill_to_json(self, skill_data: Dict, skill_dict: Dict, filepath: str = 'data/skills.json'): #Salva a Skill criada pela IA no skills.json
         try:
             skill_name = skill_data.get('name', 'Inimigo Desconhecido')
 
@@ -709,7 +589,7 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
         except Exception as e:
             logger.error(f"Erro ao salvar Skill no banco de dados: {e}")
 
-    def _save_item_to_json(self, Itens_data: Dict, Itens_dict: Dict, filepath: str = 'data/itens.json'):
+    def _save_item_to_json(self, Itens_data: Dict, Itens_dict: Dict, filepath: str = 'data/itens.json'): #Salva o Item criado pela IA no itens.json
         try:
             Itens_name = Itens_data.get('name', 'Item Desconhecido')
 
@@ -734,3 +614,5 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
 
         except Exception as e:
             logger.error(f"Erro ao salvar Skill no banco de dados: {e}")
+
+    #endregion
