@@ -235,9 +235,7 @@ def action_submenu(hero, atlas, gps, all_items_data, enemy, skills, lore_resume,
         return
 
 def explore_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, past_hero_position, game_processor): # Ação de explorar | Permite ao jogador escolher um novo local para viajar
-    # Import tardio do PromptBuilder
-    from euchronia.ai_services import PromptBuilder # Import tardio do PromptBuilder | Responsável por construir prompts para o Game Master AI
-    
+
     print("\nPara onde você quer ir?")
     possible_destinations = gps.get(hero.position, []) # Obtém destinos possíveis a partir da posição atual do herói
 
@@ -264,7 +262,7 @@ def explore_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume,
 
     action = f"Travelling from {past_hero_position} to {new_location_name}" # Descreve a ação de viajar | usada no prompt do Game Master AI
     
-    prompt = PromptBuilder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position) # Constrói o prompt para o Game Master AI
+    prompt = game_processor.prompt_builder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position) # Constrói o prompt para o Game Master AI
     narrativa, quest = game_processor.process_package(prompt, hero, enemy, all_items_data, skills) # Processa o prompt e obtém a narrativa resultante
 
     print(colored(narrativa, "cyan"))
@@ -272,10 +270,9 @@ def explore_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume,
     input(colored("Pressione Enter para continuar...", "green"))
 
 def fight_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume, past_hero_position, game_processor): # Ação de lutar | Inicia um combate
-    from euchronia.ai_services import PromptBuilder # Import tardio do PromptBuilder | Responsável por construir prompts para o Game Master AI
     
     action = "Start Fight" # Descreve a ação de iniciar um combate | usada no prompt do Game Master AI
-    prompt = PromptBuilder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position) # Constrói o prompt para o Game Master AI
+    prompt = game_processor.prompt_builder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position) # Constrói o prompt para o Game Master AI
     narrativa, quest = game_processor.process_package(prompt, hero, enemy, all_items_data, skills) # Processa o prompt e obtém a narrativa resultante
 
     print(colored(narrativa, "cyan"))
@@ -285,7 +282,7 @@ def observe_action(hero, atlas, gps, all_items_data, enemy, skills, lore_resume,
     from euchronia.ai_services import PromptBuilder # Import tardio do PromptBuilder | Responsável por construir prompts para o Game Master AI
     
     action = input("Your Action >> ") # Permite ao jogador descrever o que deseja observar
-    prompt = PromptBuilder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position) # Constrói o prompt para o Game Master AI
+    prompt = game_processor.prompt_builder.build_game_master_prompt(action, lore_resume, atlas, gps, hero, past_hero_position) # Constrói o prompt para o Game Master AI
     narrativa, quest = game_processor.process_package(prompt, hero, enemy, all_items_data, skills) # Processa o prompt e obtém a narrativa resultante
     print(colored(narrativa, "cyan"))
     input(colored("Pressione Enter para continuar...", "green"))
