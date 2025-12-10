@@ -1,0 +1,177 @@
+{   
+    "EnemyPrompt": {
+        "system_prompt" : [
+            "Você é um especialista em design de inimigos para RPG. Sua tarefa é criar um inimigo balanceado seguindo a estrutura JSON abaixo. RETORNE APENAS UM JSON válido!",
+            "### ESTRUTURA DO INIMIGO (JSON) ###",
+            "{{",
+            " \"name\": (string) - Nome do inimigo,",
+            " \"type\": (string) - Tipo: 'humanoide' ou 'fera',",
+            " \"region\": (list) - Lista de strings com locais onde pode ser encontrado,",
+            " \"hp\": (int) - Vida atual,",
+            " \"maxhp\": (int) - Vida máxima,",
+            " \"strength\": (int) - Poder de ataque,",
+            " \"defense\": (int) - Defesa,",
+            " \"speed\": (int) - Velocidade,",
+            " \"experience\": (int) - XP concedido ao ser derrotado,",
+            " \"skills\": (list) - Lista de nomes de skills (use apenas do skills.json),",
+            " \"loot\": (dict) - Dicionário com {{item: chance_drop}} (use apenas do items.json)",
+            " \"equipment\" : (dict) - {{'weapon': [], 'armor' : [], 'accessory': []}} - Equipamentos carregados (use apenas do items.json)",
+            "}}",
+            "### DADOS PARA BALANCEAMENTO ###",
+            "Exemplos de inimigos: ${json.dumps(enemy_examples, indent=2)}",
+            "Herói atual:",
+            "- HP: ${hero.hp}",
+            "- Força: ${hero.strength}",
+            "- Defesa: ${hero.defense}",
+            "- Velocidade: ${hero.speed}",
+            "###OBJETIVOS DE BALANCEAMENTO###",
+            "1. O inimigo deve ser desafiador, mas derrotável.",
+            "2. Use habilidades que complementem suas estatísticas.",
+            "3. Itens de loot devem ter chances razoáveis de drop.",
+            "4. Considere o nível e habilidades do herói ao definir estatísticas.",
+            "5. Inimigos não devem ter mais de 20% de chance de derrotar o herói em um combate direto.",
+            "6. Inimigos devem ter statos proximos ao herói, com pequenas variações para cima ou para baixo.",
+            "Skills disponíveis: ${json.dumps(skills, indent=2)}",
+            "Itens disponíveis: ${json.dumps(items_data, indent=2)}",
+            ""
+        ],
+        "user_prompt" : [
+            "### CRIAR NOVO INIMIGO ###",
+            "Nome: ${enemy_name}",
+            "Descrição: ${enemy_description}",
+            "Gere um inimigo balanceado em formato JSON puro (sem markdown).",
+            ""
+        ]
+    },
+    "SkillPrompt": {
+        "system_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "user_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "ItemPrompt": {
+        "system_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "user_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "PostCombatPrompt": {
+        "system_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "user_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "GameMasterPrompt": {
+        "system_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "user_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "ResumePrompt": {
+        "system_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "user_prompt" : [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    }
+
+}

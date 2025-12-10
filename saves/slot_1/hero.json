@@ -1,12 +1,12 @@
 {
     "name": "Tekig The Master",
-    "hp": 56,
+    "hp": 20,
     "maxhp": 56,
     "strength": 14,
     "defense": 10,
     "speed": 14,
     "level": 3,
-    "experience": 133,
+    "experience": 171,
     "position": "WO",
     "gold": 0,
     "class_name": "Hunter",
@@ -33,7 +33,8 @@
         "Flechada",
         "Tiro Certeiro",
         "Armadilha de Espinhos",
-        "Ataque Supremo"
+        "Ataque Supremo",
+        "Flecha Dimensional"
     ],
     "inventory": [
         "Poção de Cura Fraca",
@@ -42,7 +43,8 @@
         "Fragmento de Osso",
         "Fragmento de Osso",
         "Fragmento de Osso",
-        "Fragmento de Osso"
+        "Fragmento de Osso",
+        "Poção de Cura Fraca"
     ],
     "key_itens": [],
     "equipment": {

@@ -1,44 +1,47 @@
+#region IMPORTS
+
 import json
-import logging
+import logging # Logging
 import os
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Any
-from dataclasses import dataclass
-from openai import OpenAI
-from dotenv import load_dotenv
-from termcolor import colored
-from time import sleep
+from pathlib import Path # Manipulação de caminhos de arquivos
+from typing import Dict, List, Optional, Tuple, Any # Tipagem estática
+from dataclasses import dataclass # Criação de classes de dados
+from openai import OpenAI # Cliente OpenAI
+from dotenv import load_dotenv # Carrega variáveis de ambiente
+from termcolor import colored # Cores no terminal
+from time import sleep # Delay de execução
 
 #Importação do Projeto
-from euchronia import general_logic as gl
-from euchronia import combat_logic as cl
-from euchronia import models
+from euchronia import general_logic as gl # Importa a lógica geral do jogo
+from euchronia import combat_logic as cl # Importa a lógica de combate do jogo
+from euchronia import models # Importa os modelos de dados do jogo
 
+#endregion
 
-logging.basicConfig(
+logging.basicConfig( 
     level = logging.INFO,
     format= '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+) # Configuração básica do logging
 logger = logging.getLogger(__name__)
 
 
-@dataclass
-class GameConfig:
+@dataclass # Define uma classe de configuração do jogo
+class GameConfig: # Configurações do jogo | constantes
 
-    LORE_MAX_LENGTH : int = 5000
-    LORE_RESUME_TOKENS : int = 2000
-    DEFAULT_MAX_TOKENS : int = 1000
-    SAVE_SLOT : str = f"saves/slot_1"
-    AI_MODEL : str = "gpt-4o-mini"
+    LORE_MAX_LENGTH : int = 5000 # Tamanho máximo da lore antes de resumir
+    LORE_RESUME_TOKENS : int = 2000 # Tokens máximos para resumo da lore
+    DEFAULT_MAX_TOKENS : int = 1000 # Tokens máximos padrão para respostas da IA
+    SAVE_SLOT : str = f"saves/slot_1" # Slot de salvamento padrão
+    AI_MODEL : str = "gpt-4o-mini" # Modelo de IA padrão
 
-class JSONCleaner:
-    @staticmethod
-    def clean_and_parse(text: str) -> Optional[Dict]:
+class JSONCleaner: # Limpa e parseia respostas JSON da IA
+    @staticmethod # Método estático
+    def clean_and_parse(text: str) -> Optional[Dict]: # Limpa e parseia o texto JSON retornado pela IA
         try:
-            cleaned = text.strip()
+            cleaned = text.strip() # Remove espaços em branco no início e fim
 
             #Limpeza do Json
-            if cleaned.startswith("```json"):
+            if cleaned.startswith("```json"): # Remove blocos de código markdown
                 cleaned = cleaned[7:]
             if cleaned.startswith("```"):
                 cleaned = cleaned[3:]
@@ -48,7 +51,7 @@ class JSONCleaner:
             cleaned = cleaned.strip()
             return json.loads(cleaned)
 
-        except json.JSONDecodeError as e:
+        except json.JSONDecodeError as e:   
             logger.error(f"Error ao parsear JSON: {e}")
             logger.debug(f"Texto que causou erro: {text[:200]}...")
             return None
@@ -56,10 +59,20 @@ class JSONCleaner:
             logger.error(f"Erro inesperado ao processar JSON: {e}")
             return None
 
-class PromptBuilder:
+class PromptBuilder: # Constrói prompts para a IA
+
+    def __init__(self): # Inicializa o construtor de prompts
+        self.prompts = self._load_prompts() # Carrega os prompts de arquivos JSON
+
+    def _load_prompts(self) -> Dict[str, Dict[str, str]]: # Carrega os prompts de arquivos JSON
+        try:
+            with open('data/prompts/build_enemy.json', 'r', encoding='utf-8') as f:
+                enemy_prompt = json.load(f)
+        except FileNotFoundError:
+            print(colored("Arquivo build_enemy.json não encontrado.", "red"))
 
     @staticmethod
-    def build_enemy_prompt(enemy_examples : Dict, hero : Any, items_data : Dict, skills : Dict, enemy_name : str, enemy_description : str ) -> List[str]:
+    def build_enemy_prompt(enemy_examples : Dict, hero : Any, items_data : Dict, skills : Dict, enemy_name : str, enemy_description : str ) -> List[str]: # Constrói o prompt para criação de inimigo
                 
             system_prompt = f"""
             Você é um especialista em design de inimigos para RPG. Sua tarefa é criar um inimigo balanceado 
@@ -116,7 +129,7 @@ Gere um inimigo balanceado em formato JSON puro (sem markdown).
             return [system_prompt, user_prompt]
         
     @staticmethod
-    def build_skill_prompt(skill_examples : Dict, skill_name : str, skill_description : str) -> List[str]:
+    def build_skill_prompt(skill_examples : Dict, skill_name : str, skill_description : str) -> List[str]: # Constrói o prompt para criação de skill
 
             system_prompt = f"""
 Você é um especialista em design de habilidades para RPG. Crie uma skill seguindo a estrutura JSON.
@@ -169,7 +182,7 @@ Gere uma skill balanceada em formato JSON puro (sem markdown).
             return [system_prompt, user_prompt]
 
     @staticmethod
-    def build_item_prompt(itens_examples : Dict, item_name : str, item_description : str) -> List[str]:
+    def build_item_prompt(itens_examples : Dict, item_name : str, item_description : str) -> List[str]: # Constrói o prompt para criação de item
         system_prompt = f"""
 Você é um especialista em design de itens para RPG. Crie um item seguindo a estrutura JSON.
 RETORNE APENAS UM JSON válido!
@@ -222,7 +235,7 @@ Gere um item balanceada em formato JSON puro (sem markdown).
         return [system_prompt, user_prompt]
 
     @staticmethod
-    def build_post_combat_prompt(winner: str, enemy_name: str, lore_resume: str, hero: Any, location: str) -> List[str]:
+    def build_post_combat_prompt(winner: str, enemy_name: str, lore_resume: str, hero: Any, location: str) -> List[str]: # Constrói o prompt para pós-combate
 
         system_prompt = f"""
 Você é o Mestre de Jogo narrando o FIM de um combate. 
@@ -273,7 +286,7 @@ Gere o JSON de pós-combate. Lembre-se: a chance de nova skill é BAIXA.
         return [system_prompt, user_prompt]
 
     @staticmethod
-    def build_game_master_prompt(action : str, lore_resume : str, game_map : Dict, gps : Any, hero : Any, past_position : Any, mood: str = 'criativo' ) -> List[str]:
+    def build_game_master_prompt(action : str, lore_resume : str, game_map : Dict, gps : Any, hero : Any, past_position : Any, mood: str = 'criativo' ) -> List[str]: # Constrói o prompt para o Mestre de Jogo
 
             system_prompt = f"""
 Você é o Mestre de Jogo para um RPG de terminal. Seu estilo é {mood}, descritivo e atmosférico.
@@ -364,7 +377,7 @@ Crie um resumo conciso mantendo informações essenciais.
 """
             return [system_prompt, user_prompt]
 
-class OpenAIClient:
+class OpenAIClient: # Cliente para interagir com a API OpenAI
 
     def __init__(self, config : GameConfig):
         self.config = config
@@ -408,7 +421,7 @@ class OpenAIClient:
                 logger.error(f"Erro ao executar chamada OpenAI: {e}")
                 return None
 
-class LoreManager:
+class LoreManager: # Gerencia a lore do jogo
 
     def __init__(self, config: GameConfig):
         self.config = config
@@ -447,7 +460,7 @@ class LoreManager:
         content = self.read()
         return len(content) > self.config.LORE_MAX_LENGTH
 
-class GamePackageProcessor:
+class GamePackageProcessor: # Processa pacotes de ações do jogo
 
     def __init__(self, config: GameConfig, openai_client: OpenAIClient, lore_manager: LoreManager):
         self.config = config

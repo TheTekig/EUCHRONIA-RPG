@@ -1,7 +1,9 @@
 import json
 from termcolor import colored
 
-def append_json(filepath, info):
+#region JSON HANDLERS
+
+def append_json(filepath, info): # Adiciona informações a um arquivo JSON existente.
     try:
         with open(filepath, 'r', encoding='utf-8') as file:
             data = json.load(file)
@@ -16,14 +18,13 @@ def append_json(filepath, info):
     except Exception as e:
         print(colored(f"Erro ao salvar {info} no banco de dados: {e}", "red"))
 
-
-def load_json(filepath):
+def load_json(filepath): # Carrega e retorna os dados de um arquivo JSON.
     with open(filepath, 'r', encoding='utf-8') as file:
 
         open_file = json.load(file)
 
     return open_file
 
-
+#endregion
 
 
