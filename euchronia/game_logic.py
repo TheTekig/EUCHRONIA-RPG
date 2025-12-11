@@ -96,7 +96,7 @@ def choose_save_slot(): # Permite ao jogador escolher um slot de save
 
 #region Game Initialization
 
-def initialize_game_services(slot="slot_1"): # nicializa os serviços de IA do jogo
+def initialize_game_services(slot="slot_1"): # Inicializa os serviços de IA do jogo
     """(import tardio)"""
     # Import aqui dentro para evitar circular import
     from euchronia.ai_services import GameConfig, OpenAIClient, LoreManager, GamePackageProcessor
