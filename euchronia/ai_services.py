@@ -152,6 +152,29 @@ class PromptBuilder: # Constrói prompts para a IA
         
         return [system_prompt, user_prompt]
 
+    def build_npc_prompt(self, npc_examples : Dict, npc_name : str, npc_description : str, lore_resume: str, location_name: str) -> List[str]: # Constrói o prompt para criação de npc
+        
+        prompt_data = self.prompts.get("NpcPrompt", {})
+
+        raw_system_prompt_list = prompt_data.get("system_prompt", ["Erro : Prompt de Sistema não encontrado"])
+        raw_user_prompt_list = prompt_data.get("user_prompt", ["Erro: Prompt de Usuário não encontrado"])
+
+        raw_system_str = "\n".join(raw_system_prompt_list)
+        raw_user_str = "\n".join(raw_user_prompt_list)
+
+        data_mapping = {
+            "prompt_location": location_name,
+            "prompt_lore_resume": lore_resume,
+            "prompt_npc_hint": npc_examples,
+            "prompt_nome_npc" : npc_name,
+            "prompt_desc_npc" : npc_description
+        }
+
+        system_prompt = Template(raw_system_str).safe_substitute(data_mapping)
+        user_prompt = Template(raw_user_str).safe_substitute(data_mapping)
+
+        return [system_prompt, user_prompt]
+
     #endregion
 
     #region Packdge Actions
@@ -214,6 +237,26 @@ class PromptBuilder: # Constrói prompts para a IA
             return [system_prompt, user_prompt]
     
     #endregion
+
+    def build_npc_response_prompt(self, npc_name: str, npc_data : Dict, player_input: str, lore_resume: str, hero_name: str, location_name: str) -> List[str]:
+        # Tenta pegar traços de personalidade, se não tiver, usa padrão
+        personality = npc_data.get("personality", "Neutro e observador")
+        description = npc_data.get("description", "Um habitante local")
+        
+        data_mapping = {
+            "prompt_npc_name": npc_name,
+            "prompt_npc_description": description,
+            "prompt_npc_personality": personality,
+            "prompt_location_name": location_name,
+            "prompt_lore_resume": lore_resume,
+            "prompt_hero_name": hero_name,
+            "prompt_player_input": player_input
+        }
+
+        system = self._get_template("NpcChatPrompt", "system_prompt").safe_substitute(data_mapping)
+        user = self._get_template("NpcChatPrompt", "user_prompt").safe_substitute(data_mapping)
+
+        return [system, user]
 
     def build_resume_prompt(self, lore_text: str, npcs: Dict, quests : Dict ) -> List[str]: # Constrói prompt responsavel por resumir o arquivo lore.txt
 
@@ -334,7 +377,7 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
 
     #region Processamento de Pacotes | Regular/Pós-Combate
 
-    def process_package(self, prompt: List[str], hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict) -> List[str]: # Processa pacotes de ações e redireciona para as próximas ações
+    def process_package(self, prompt: List[str], hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict, npcs_data: Dict) -> List[str]: # Processa pacotes de ações e redireciona para as próximas ações
 
         raw_response = self.openai_client.execute(prompt) #Resposta Crua da IA
         if not raw_response: 
@@ -358,6 +401,9 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
 
         if package.get('newitem', False): #Verifica se um novo item deve ser criado
             self._process_new_item(package, items_data) #Processa o novo item
+
+        if package.get('newnpc', False):
+            self._process_new_npc(package, npcs_data)
 
         self._update_lore(package) #Processa e Atualiza a Lore criada pela IA
 
@@ -389,9 +435,11 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
         narrative = package.get('narrativa', 'Nada acontece...')
         return [narrative, ""]
 
+    def process_npc_response_package(self):
+        pass
     #endregion
 
-    #region Processar Criações da IA | Enemy/Item/Skill
+    #region Processar Criações da IA | Enemy/Item/Skill/Npc
 
     def _process_new_enemy(self, package: Dict, hero: Any, enemy_examples: Dict, items_data: Dict, skills: Dict): #Realiza Processamento/Criação de um inimigo e Inicialização do Combate
         # Import tardio para evitar circular import
@@ -503,6 +551,26 @@ class GamePackageProcessor: # Processa pacotes de ações do jogo
             self._save_item_to_json(item_data, items_data) #Salva Item no banco de dados de itens
             logger.info(colored(f"Item criado: {item_name}", "cyan"))
     
+    def _process_new_npc(self, package: Dict, npcs_data: Dict, lore_resume: str , hero: Any ): # Realiza processamento/criação de um novo Npc
+
+        npc_name = package.get('newnpc_name', 'Desconhecido')
+        npc_desc = package.get('newnpc_description', '')
+
+        logger.info(f"Criando novo NPC: {npc_name}")
+
+        npc_prompt = self.prompt_builder.build_npc_prompt(npcs_data, npc_name, npc_desc, lore_resume, hero.location)
+        
+        raw_npc = self.openai_client.execute(npc_prompt)
+
+        if not raw_npc:
+            logger.error("Falha ao gerar NPC")
+            return
+        npc_data = self.json_cleaner.clean_and_parse(raw_npc)
+
+        if npc_data:
+            logger.info(colored(f"Npc Criado: {npc_name}", "cyan"))
+            return npc_name
+
     #endregion
 
     #region IA Lore Functions  | Update/Resume

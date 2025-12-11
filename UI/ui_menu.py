@@ -27,6 +27,13 @@ def _combat_menu(hero, enemy, _log, all_items_data):
 ██      ██    ██ ██  ██  ██ ██   ██ ██   ██    ██    
  ██████  ██████  ██      ██ ██████  ██   ██    ██                                                                                                                         
 """
+    _combat_logo_2 = """
+                        ▄▄·       • ▌ ▄ ·. ▄▄▄▄·  ▄▄▄· ▄▄▄▄▄
+                        ▐█ ▌▪▪     ·██ ▐███▪▐█ ▀█▪▐█ ▀█ •██  
+                        ██ ▄▄ ▄█▀▄ ▐█ ▌▐▌▐█·▐█▀▀█▄▄█▀▀█  ▐█.▪
+                        ▐███▌▐█▌.▐▌██ ██▌▐█▌██▄▪▐█▐█ ▪▐▌ ▐█▌·
+                        ·▀▀▀  ▀█▄▀▪▀▀  █▪▀▀▀·▀▀▀▀  ▀  ▀  ▀▀▀ 
+"""
     print(colored(f"{_combat_logo}" , 'magenta'))
     print("\u2500" * 85)
     print(colored(f"🧑 {hero.name}     ", "cyan", attrs=["bold"]), colored("❤ HP:", "red", attrs=["bold"]), colored(f"{hero.hp}", "red"),"/",colored(f"{hero.maxhp}     ", "red"), colored("⚔ STR:", "blue", attrs=["bold"]),colored(f"{hero.total_strength(all_items_data)}      ", "blue"), colored("🛡 DEF:", "magenta", attrs=["bold"]), colored(f"{hero.total_defense(all_items_data)}", "magenta"))
@@ -49,7 +56,12 @@ def _Hud(location_name):
                                       ┣━┫┃ ┃ ┃┃
                                       ╹ ╹┗━┛╺┻┛
 """
-    print(colored(f"{hub}", "magenta"))
+    hub_2 = """
+                                    █ █ █ █ █▀▄
+                                    █▀█ █ █ █ █
+                                    ▀ ▀ ▀▀▀ ▀▀
+"""
+    print(colored(f"{hub_2}", "magenta"))
     print("\u2500" * 30, colored("Você está em:","magenta", attrs=["bold"]),colored(f"{location_name}", "green", attrs=["bold"]),"\u2500" * 30)
     print(colored("     ✨[A]ctions  ", "cyan"), colored("🎒[I]nventory  ", "cyan"), colored("📖[S]tatus ", "cyan"), colored("🗺 [M]apa   ", "cyan"), colored("💤[R]est   ", "cyan"), colored("💨[Q]uit", "yellow"))
     print("\u2500" * 85)
@@ -60,8 +72,34 @@ def _sub_Hud():
                                 ┣━┫┃   ┃ ┃┃ ┃┃┗┫┗━┓
                                 ╹ ╹┗━╸ ╹ ╹┗━┛╹ ╹┗━┛
 """    
-    print(colored(f"{_sub_hub}", "magenta"))
+    _sub_hub_2 = """
+                            █▀█ █▀▀ ▀█▀ ▀█▀ █▀█ █▀█ █▀▀
+                            █▀█ █    █   █  █ █ █ █ ▀▀█
+                            ▀ ▀ ▀▀▀  ▀  ▀▀▀ ▀▀▀ ▀ ▀ ▀▀▀
+"""
+    print(colored(f"{_sub_hub_2}", "magenta"))
     print("\u2500" * 85)
     print(colored("              🐎 [E]xplore     ", "cyan"), colored("🤼[F]ight   ", "cyan"), colored("🔭[O]bserve    ", "cyan"), colored("💨[R]eturn     ", "yellow"))
     print("\u2500" * 85)
 
+def npc_hud(npc):
+    npc_logo = """
+                                    █▀█ █▀█ █▀▀
+                                    █ █ █▀▀ █
+                                    ▀ ▀ ▀   ▀▀▀               
+"""
+    print(colored(f"{npc_logo}", "magenta"))
+    print("\u2500" * 30, colored(f"{npc}", "green", attrs=["bold"]),"\u2500" * 30)
+    print(colored("              🧤 [T]alk     ", "cyan"), colored("🧧 [G]ive   ", "cyan"), colored("💨[R]eturn     ", "yellow"))
+    print("\u2500" * 85)
+
+def mechant_hud(merchant):
+    merchant_logo = """
+                            █▄█ █▀▀ █▀█ █▀▀ █ █ █▀█ █▀█ ▀█▀
+                            █ █ █▀▀ █▀▄ █   █▀█ █▀█ █ █  █
+                            ▀ ▀ ▀▀▀ ▀ ▀ ▀▀▀ ▀ ▀ ▀ ▀ ▀ ▀  ▀
+"""
+
+    print(colored(f"{merchant_logo}", "magenta"))
+    print("\u2500" * 30, colored(f"{merchant}", "green", attrs=["bold"]),"\u2500" * 30)
+    print(colored("              🛒 [B]uy     ", "cyan"), colored("💵 [S]ell   ", "cyan"), colored("🧤 [T]alk   ", "cyan"), colored("💨[R]eturn     ", "yellow"))
